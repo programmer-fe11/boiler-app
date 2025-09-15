@@ -28,6 +28,12 @@ const bulkAction: MenuItem[] = [
   },
 ];
 
+/*
+ * TODO: shallowRef harus ada tipenya
+ * Referensi: Coding Style Guide 6.3.3
+ * TODO: shallowRef harus dikelompokin sama shallowRef lain
+ * Referensi: Coding Style Guide 5.1.2
+ */
 const showRegisterDialog = shallowRef(false);
 </script>
 

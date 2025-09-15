@@ -3,6 +3,7 @@
 import { Option } from '@fewangsit/wangsvue/dropdown';
 import { FilterField } from '@fewangsit/wangsvue/filtercontainer';
 
+// TODO: Ini enggak dipake, dihapus aja
 export const quickFilterFields: FilterField[] = [];
 
 export const filterFields: FilterField[] = [

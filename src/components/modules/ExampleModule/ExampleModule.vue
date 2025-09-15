@@ -1,3 +1,8 @@
+<!--
+  TODO: Jangan pernah disable rule eslint, ini dihapus ya.
+  Kalau console.log cuma boleh dipake kalau debugging,
+  selain itu jangan.
+-->
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
@@ -85,9 +90,8 @@ const getTableData = async (
 ): Promise<FetchResponse<Member> | undefined> => {
   try {
     /*
-     * TODO: APInya kan dipake disini. Tapi ini masih pake API dari
-     * example.service.ts. Harusnya ini diganti sama yang Dayen
-     * baru buat di api.service.ts.
+     * TODO: Kalau ada console.log yang enggak dipake, jangan lupa dihapus.
+     * Jangan dijadiin komentar, nanti lupa dihapus.
      */
     const { data } = await UserServices.getUsers(params);
     // Console.log(data);
