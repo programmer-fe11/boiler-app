@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/html-self-closing -->
-<!-- eslint-disable vue/html-self-closing -->
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
@@ -16,7 +14,7 @@ import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
 
 const dataSelected = shallowRef<Member[]>([]);
 const showDeleteUserDialog = shallowRef<boolean>(false);
-
+const showRegisterDialog = shallowRef<boolean>(false);
 const bulkAction: MenuItem[] = [
   {
     label: 'Delete User',
@@ -30,11 +28,10 @@ const bulkAction: MenuItem[] = [
 
 /*
  * TODO: shallowRef harus ada tipenya
- * Referensi: Coding Style Guide 6.3.3
+ * Referensi: Coding Style Guide 6.3.3 (done)
  * TODO: shallowRef harus dikelompokin sama shallowRef lain
- * Referensi: Coding Style Guide 5.1.2
+ * Referensi: Coding Style Guide 5.1.2 (done)
  */
-const showRegisterDialog = shallowRef(false);
 </script>
 
 <template>
@@ -49,7 +46,7 @@ const showRegisterDialog = shallowRef(false);
     <ButtonFilter table-name="user-list" />
     <Button
       @click="showRegisterDialog = !showRegisterDialog"
-      class="bg-[#262627]"
+      class="bg-grayscale-900"
       label="+ Register"
       severity="secondary"
     />
@@ -65,5 +62,10 @@ const showRegisterDialog = shallowRef(false);
     :buttons-template="['cancel', 'clear', 'submit']"
     header="Register new user"
     width="medium"
-  />
+  >
+    <div class="p-6 flex flex-col gap-3">
+      <h3>Register Asset</h3>
+      <form action="" />
+    </div>
+  </DialogForm>
 </template>

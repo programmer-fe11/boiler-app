@@ -3,14 +3,11 @@
   Kalau console.log cuma boleh dipake kalau debugging,
   selain itu jangan.
 -->
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
-import { Badge, BadgeGroup, DataTable } from '@fewangsit/wangsvue';
+import { DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
-  TableCellComponent,
   QueryParams,
   TableColumn,
 } from '@fewangsit/wangsvue/datatable';
@@ -91,10 +88,9 @@ const getTableData = async (
   try {
     /*
      * TODO: Kalau ada console.log yang enggak dipake, jangan lupa dihapus.
-     * Jangan dijadiin komentar, nanti lupa dihapus.
+     * Jangan dijadiin komentar, nanti lupa dihapus. (done)
      */
     const { data } = await UserServices.getUsers(params);
-    // Console.log(data);
     return data;
   } catch (error) {
     console.error(error);

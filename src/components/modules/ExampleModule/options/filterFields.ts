@@ -1,10 +1,7 @@
-/* eslint-disable multiline-comment-style */
-/* eslint-disable capitalized-comments */
 import { Option } from '@fewangsit/wangsvue/dropdown';
 import { FilterField } from '@fewangsit/wangsvue/filtercontainer';
 
-// TODO: Ini enggak dipake, dihapus aja
-export const quickFilterFields: FilterField[] = [];
+// TODO: Ini enggak dipake, dihapus aja (done)
 
 export const filterFields: FilterField[] = [
   {
@@ -63,10 +60,4 @@ export const filterFields: FilterField[] = [
       }
     },
   },
-  // {
-  //   label: 'Age',
-  //   fields: ['minAge', 'maxAge'],
-  //   type: 'rangenumber',
-  //   placeholder: '0',
-  // },
 ];
