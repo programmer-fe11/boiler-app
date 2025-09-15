@@ -7,7 +7,10 @@ import {
   ButtonDownload,
   ButtonFilter,
   ButtonSearch,
+  Checkbox,
   DialogForm,
+  ImageCompressor,
+  InputText,
 } from '@fewangsit/wangsvue';
 import { Member } from '@/types/member.type';
 import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
@@ -60,12 +63,101 @@ const bulkAction: MenuItem[] = [
   <DialogForm
     v-model:visible="showRegisterDialog"
     :buttons-template="['cancel', 'clear', 'submit']"
-    header="Register new user"
+    header="Register Asset"
     width="medium"
   >
-    <div class="p-6 flex flex-col gap-3">
-      <h3>Register Asset</h3>
-      <form action="" />
-    </div>
+    <template #fields>
+      <div class="flex flex-col gap-3">
+        <div class="flex gap-3">
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Should not empty',
+              }"
+              label="Group"
+              mandatory
+              placeholder="Select group"
+              use-validator
+            />
+          </div>
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Should not empty',
+              }"
+              label="Category"
+              mandatory
+              placeholder="Select Category"
+              use-validator
+            />
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Should not empty',
+              }"
+              label="Name"
+              mandatory
+              placeholder="Select asset name"
+              use-validator
+            />
+          </div>
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Should not empty',
+              }"
+              label="Alias Name"
+              mandatory
+              placeholder="Enter alias name"
+              use-validator
+            />
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Should not empty',
+              }"
+              label="Brand"
+              mandatory
+              placeholder="Select brand"
+              use-validator
+            />
+          </div>
+          <div class="w-full">
+            <InputText
+              :validator-message="{
+                exceed: 'Max char 30',
+                empty: 'Model/Type',
+              }"
+              label="Group"
+              mandatory
+              placeholder="Select model/type"
+              use-validator
+            />
+          </div>
+        </div>
+        <div class="">
+          <ImageCompressor
+            :custom-requirements="['Max. 1MB', 'Must be image format']"
+            field-name="image"
+            multiple
+            use-validator
+          />
+        </div>
+        <div class="flex justify-end">
+          <Checkbox label="Stay on this form after submitting" within-table />
+        </div>
+      </div>
+    </template>
   </DialogForm>
 </template>
