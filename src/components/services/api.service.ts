@@ -12,8 +12,7 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const BASE_URL = getBaseURL();
 
   const instance = axios.create({
-    // TODO: URLnya masih belum sesuai sama endpoint, coba cek lagi API spec
-    baseURL: `${BASE_URL}/user`,
+    baseURL: `${BASE_URL}/v2/assets`,
     headers: {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${user.token}`,

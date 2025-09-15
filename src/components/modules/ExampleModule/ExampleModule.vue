@@ -1,3 +1,5 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
 import { Badge, BadgeGroup, DataTable } from '@fewangsit/wangsvue';
@@ -14,7 +16,7 @@ import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
 import ExampleModuleTableFilter from './ExampleModuleTableFilter.vue';
 import ExampleModuleHeader from './ExampleModuleHeader.vue';
 import ExampleModuleQuickFilter from './ExampleModuleQuickFilter.vue';
-import UserServices from '@/components/services/example.service';
+import UserServices from '@/components/services/api.service';
 
 const selectedUser = shallowRef<Member>();
 const showDeleteUserDialog = shallowRef<boolean>(false);
@@ -40,36 +42,40 @@ const singleAction: MenuItem[] = [
 const tableColumns = computed<TableColumn[]>(() => {
   return [
     {
-      field: 'nickName',
-      header: 'Name',
-      sortable: true,
-      reorderable: false,
-      fixed: true,
-      bodyComponent: (data: Member): TableCellComponent => ({
-        component: Badge,
-        props: {
-          label: data.nickName,
-        },
-      }),
-    },
-    {
-      field: 'email',
-      header: 'Email',
+      field: 'name',
+      header: 'Asset',
       sortable: true,
       fixed: true,
     },
     {
-      field: 'teams',
-      header: 'Teams',
-      sortable: false,
-      bodyComponent: (data: Member): TableCellComponent => ({
-        component: BadgeGroup,
-        props: {
-          labels: data.teams,
-          limit: 2,
-          headerLabel: 'Teams',
-        },
-      }),
+      field: 'group',
+      header: 'Group',
+      sortable: true,
+      fixed: true,
+    },
+    {
+      field: 'category',
+      header: 'Category',
+      sortable: true,
+      fixed: true,
+    },
+    {
+      field: 'brand',
+      header: 'Brand',
+      sortable: true,
+      fixed: true,
+    },
+    {
+      field: 'model',
+      header: 'Model/Type',
+      sortable: true,
+      fixed: true,
+    },
+    {
+      field: 'AliasName',
+      header: 'Alias Name',
+      sortable: true,
+      fixed: true,
     },
   ];
 });
@@ -84,7 +90,7 @@ const getTableData = async (
      * baru buat di api.service.ts.
      */
     const { data } = await UserServices.getUsers(params);
-
+    // Console.log(data);
     return data;
   } catch (error) {
     console.error(error);

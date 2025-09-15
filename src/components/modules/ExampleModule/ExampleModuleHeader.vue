@@ -1,11 +1,15 @@
+<!-- eslint-disable vue/html-self-closing -->
+<!-- eslint-disable vue/html-self-closing -->
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import {
+  Button,
   ButtonBulkAction,
   ButtonDownload,
   ButtonFilter,
   ButtonSearch,
+  DialogForm,
 } from '@fewangsit/wangsvue';
 import { Member } from '@/types/member.type';
 import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
@@ -23,6 +27,8 @@ const bulkAction: MenuItem[] = [
     },
   },
 ];
+
+const showRegisterDialog = shallowRef(false);
 </script>
 
 <template>
@@ -35,11 +41,23 @@ const bulkAction: MenuItem[] = [
     <ButtonSearch class="ml-auto" table-name="user-list" />
     <ButtonDownload file-name="Download" table-name="user-list" />
     <ButtonFilter table-name="user-list" />
+    <Button
+      @click="showRegisterDialog = !showRegisterDialog"
+      class="bg-[#262627]"
+      label="+ Register"
+      severity="secondary"
+    />
   </div>
 
   <DialogDeleteUser
     v-model:visible="showDeleteUserDialog"
     :list="dataSelected"
     list-label="name"
+  />
+  <DialogForm
+    v-model:visible="showRegisterDialog"
+    :buttons-template="['cancel', 'clear', 'submit']"
+    header="Register new user"
+    width="medium"
   />
 </template>
