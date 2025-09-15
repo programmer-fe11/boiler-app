@@ -1,0 +1,23 @@
+{
+  "data": {
+    "totalRecords": 69,
+    "data": [
+      {
+        "_id": "678e2278e1bcee39dbad397e",
+        "category": "test",
+        "brand": "Tesla",
+        "model": "C",
+        "group": "Room 5",
+        "name": "XIX Brum",
+        "aliasName": "",
+        "assetImage": "",
+        "assetNumber": 3,
+        "userFirstName": "",
+        "createdAt": "2025-01-20T10:16:24.761Z",
+        "updatedAt": "2025-01-22T03:02:35.35Z"
+      }
+    ]
+  },
+  "message": "Successful retrieve all asset data",
+  "status": 200
+}
