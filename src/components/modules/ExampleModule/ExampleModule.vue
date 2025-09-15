@@ -78,6 +78,11 @@ const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<Member> | undefined> => {
   try {
+    /*
+     * TODO: APInya kan dipake disini. Tapi ini masih pake API dari
+     * example.service.ts. Harusnya ini diganti sama yang Dayen
+     * baru buat di api.service.ts.
+     */
     const { data } = await UserServices.getUsers(params);
 
     return data;
