@@ -1,0 +1,34 @@
+node_modules
+dist
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.yarn
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+.nyc_output
+out.json
+/cypress/downloads
+/cypress/screenshots
+/cypress/snapshots/actual
+/cypress/snapshots/diff
+cypress/support/tailwind.css
+
+coverage

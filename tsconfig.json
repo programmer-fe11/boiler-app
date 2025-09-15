@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "resolveJsonModule": true,
+    "types": [
+      "cypress",
+      "mocha",
+      "@microtsm/cli/client",
+      "@fewangsit/workspace-api-services",
+      "@fewangsit/wangsvue"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@fewangsit/workspace-api-services/*": [
+        "node_modules/@fewangsit/workspace-api-services/*"
+      ],
+      "@fewangsit/wangsvue/*": ["node_modules/@fewangsit/wangsvue/*"]
+    }
+  },
+  "include": [
+    "**/*.d.ts",
+    "**/*.ts",
+    "microtsm.config.*",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": ["node_modules"]
+}
