@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { useBreadcrumbStore } from '@/store';
 import { BreadcrumbMenu } from '@fewangsit/wangsvue/breadcrumb';
-import AssetModule from '@/components/modules/ExampleModule/AssetModule.vue';
+import AssetModule from '@/components/modules/AssetModule/AssetModule.vue';
 
 const { setBreadcrumbs } = useBreadcrumbStore();
 
