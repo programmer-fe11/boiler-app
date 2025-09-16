@@ -9,13 +9,18 @@ const routes: Readonly<RouteRecordRaw[]> = [
     children: [
       {
         path: 'home',
-        name: 'ExampleView',
-        component: (): Promise<Component> => import('@/views/ExampleView.vue'),
+        name: 'HomeView',
+        component: (): Promise<Component> => import('@/views/HomeView.vue'),
       },
       {
         path: 'another-page',
-        name: 'AnotherExampleView',
-        component: (): Promise<Component> => import('@/views/ExampleView2.vue'),
+        name: 'AnotherView',
+        component: (): Promise<Component> => import('@/views/AnotherView.vue'),
+      },
+      {
+        path: 'detail',
+        name: 'detailView',
+        component: (): Promise<Component> => import('@/views/DetailView.vue'),
       },
     ],
   },

@@ -9,8 +9,8 @@ import {
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { Member } from '@/types/member.type';
 import router from '@/router';
-import ExampleModuleTableFilter from './ExampleModuleTableFilter.vue';
-import ExampleModuleHeader from './ExampleModuleHeader.vue';
+import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
+import AssetModuleHeader from './AssetModuleHeader.vue';
 import UserServices from '@/components/services/api.service';
 
 const selectedUser = shallowRef<Member>();
@@ -88,9 +88,9 @@ const getTableData = async (
 </script>
 
 <template>
-  <ExampleModuleHeader />
-  <ExampleModuleTableFilter />
-  <ExampleModuleQuickFilter />
+  <AssetModuleHeader />
+  <AssetModuleTableFilter />
+  <AssetModuleQuickFilter />
   <DataTable
     :columns="tableColumns"
     :fetch-function="getTableData"

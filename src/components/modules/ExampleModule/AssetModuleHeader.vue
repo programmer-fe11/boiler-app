@@ -1,7 +1,3 @@
-<!--
-  TODO: Semua file yang ada 'Example' rename jadi 'Asset'
-  Misalnya file ini jadi 'AssetModuleHeader', 'api.service.ts' jadi 'asset.service.ts', dst
--->
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
@@ -11,7 +7,6 @@ import {
   ButtonDownload,
   ButtonFilter,
   ButtonSearch,
-  DialogForm,
 } from '@fewangsit/wangsvue';
 import { Member } from '@/types/member.type';
 import DialogRegister from './DialogRegister.vue';
@@ -49,23 +44,5 @@ const bulkAction: MenuItem[] = [
     />
   </div>
 
-  <!-- TODO: Ini dihapus -->
-  <DialogDeleteUser
-    v-model:visible="showDeleteUserDialog"
-    :list="dataSelected"
-    list-label="name"
-  />
-  <!-- TODO: DialogForm-nya juga dipindahin ke DialogRegister -->
-  <DialogForm
-    v-model:visible="showRegisterDialog"
-    :buttons-template="['cancel', 'clear', 'submit']"
-    header="Register Asset"
-    show-stay-checkbox
-    stay-checkbox-label="Stay on this form after submitting"
-    width="medium"
-  >
-    <template #fields>
-      <DialogRegister />
-    </template>
-  </DialogForm>
+  <DialogRegister v-model:visible="showRegisterDialog" />
 </template>
