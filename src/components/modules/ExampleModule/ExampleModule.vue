@@ -1,8 +1,3 @@
-<!--
-  TODO: Jangan pernah disable rule eslint, ini dihapus ya.
-  Kalau console.log cuma boleh dipake kalau debugging,
-  selain itu jangan.
--->
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
 import { DataTable } from '@fewangsit/wangsvue';
@@ -14,10 +9,8 @@ import {
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { Member } from '@/types/member.type';
 import router from '@/router';
-import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
 import ExampleModuleTableFilter from './ExampleModuleTableFilter.vue';
 import ExampleModuleHeader from './ExampleModuleHeader.vue';
-import ExampleModuleQuickFilter from './ExampleModuleQuickFilter.vue';
 import UserServices from '@/components/services/api.service';
 
 const selectedUser = shallowRef<Member>();
@@ -86,10 +79,6 @@ const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<Member> | undefined> => {
   try {
-    /*
-     * TODO: Kalau ada console.log yang enggak dipake, jangan lupa dihapus.
-     * Jangan dijadiin komentar, nanti lupa dihapus. (done)
-     */
     const { data } = await UserServices.getUsers(params);
     return data;
   } catch (error) {
@@ -112,10 +101,5 @@ const getTableData = async (
     table-name="user-list"
     use-option
     use-paginator
-  />
-  <DialogDeleteUser
-    v-model:visible="showDeleteUserDialog"
-    :list="selectedUser ? [selectedUser] : []"
-    list-label="name"
   />
 </template>

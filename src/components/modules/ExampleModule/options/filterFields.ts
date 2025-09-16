@@ -1,8 +1,6 @@
 import { Option } from '@fewangsit/wangsvue/dropdown';
 import { FilterField } from '@fewangsit/wangsvue/filtercontainer';
 
-// TODO: Ini enggak dipake, dihapus aja (done)
-
 export const filterFields: FilterField[] = [
   {
     label: 'Asset',
