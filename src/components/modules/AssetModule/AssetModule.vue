@@ -10,7 +10,7 @@ import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { Member } from '@/types/member.type';
 import router from '@/router';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
-import UserServices from '@/components/services/api.service';
+import AssetServices from '@/components/services/api.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 
 const selectedUser = shallowRef<Member>();
@@ -21,7 +21,7 @@ const singleAction: MenuItem[] = [
     label: 'Detail',
     icon: 'checkbox-blank-circle',
     command: (): void => {
-      router.push('/detail');
+      router.push(`/detail/${selectedUser.value?._id}`);
     },
   },
   {
@@ -79,7 +79,7 @@ const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<Member> | undefined> => {
   try {
-    const { data } = await UserServices.getUsers(params);
+    const { data } = await AssetServices.getAsset(params);
     return data;
   } catch (error) {
     console.error(error);

@@ -14,7 +14,8 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const instance = axios.create({
     baseURL: `${BASE_URL}/v2/assets`,
     headers: {
-      'Content-type': 'application/json',
+      'Content-type': 'multipart/form-data',
+      'Accept': 'application/json',
       'Authorization': `Bearer ${user.token}`,
       ...headers,
     },
@@ -24,8 +25,8 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   return instance;
 };
 
-const UserServices = {
-  getUsers: (
+const AssetServices = {
+  getAsset: (
     params: GetUsersParams,
   ): Promise<AxiosResponse<FetchResponse<Member>>> => {
     return API({ params }).get('');
@@ -39,4 +40,4 @@ const UserServices = {
 };
 // http://localhost:8040/v2/assets/
 
-export default UserServices;
+export default AssetServices;

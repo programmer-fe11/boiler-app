@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DetailModule from '@/components/modules/AssetModule/DetailModule.vue';
+</script>
 
 <template>
-  <h1>Hello from Detail page</h1>
+  <DetailModule />
 </template>

@@ -1,9 +1,16 @@
 import { QueryParams } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
 
 export interface GetUsersParams extends QueryParams {
-  country?: string;
-  minAge?: number;
-  maxAge?: number;
+  search?: string;
+  brand?: string[];
+  group?: string[];
+  name?: string[];
+  model?: string[];
+  page?: number;
+  limit?: number;
+  sortOrder?: number | 1 | -1;
+  sortBy?: string;
+  _id?: string;
 }
 
 export interface GetOptionsParams {
