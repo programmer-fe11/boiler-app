@@ -45,11 +45,13 @@ const bulkAction: MenuItem[] = [
     />
   </div>
 
+  <!-- TODO: Ini dihapus -->
   <DialogDeleteUser
     v-model:visible="showDeleteUserDialog"
     :list="dataSelected"
     list-label="name"
   />
+  <!-- TODO: DialogForm-nya juga dipindahin ke DialogRegister -->
   <DialogForm
     v-model:visible="showRegisterDialog"
     :buttons-template="['cancel', 'clear', 'submit']"
