@@ -1,3 +1,4 @@
+<!-- TODO: File ini enggak dipake, hapus aja -->
 <script setup lang="ts">
 import { DialogConfirm, eventBus } from '@fewangsit/wangsvue';
 import { DialogConfirmProps } from '@fewangsit/wangsvue/dialogconfirm';

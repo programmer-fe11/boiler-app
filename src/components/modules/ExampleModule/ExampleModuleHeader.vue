@@ -60,6 +60,11 @@ const bulkAction: MenuItem[] = [
     :list="dataSelected"
     list-label="name"
   />
+  <!--
+    TODO: Coba pake grid dari tailwind, biar enggak pake banyak div.
+    https://v3.tailwindcss.com/docs/grid-template-columns
+    <div class="w-full"> yang ngebungkus input juga dihapus aja.
+  -->
   <DialogForm
     v-model:visible="showRegisterDialog"
     :buttons-template="['cancel', 'clear', 'submit']"
@@ -154,6 +159,7 @@ const bulkAction: MenuItem[] = [
             use-validator
           />
         </div>
+        <!-- TODO: Checkbox ini udah ada di props DialogForm, coba cari disitu -->
         <div class="flex justify-end">
           <Checkbox label="Stay on this form after submitting" within-table />
         </div>
