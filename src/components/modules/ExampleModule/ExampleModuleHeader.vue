@@ -1,3 +1,7 @@
+<!--
+  TODO: Semua file yang ada 'Example' rename jadi 'Asset'
+  Misalnya file ini jadi 'AssetModuleHeader', 'api.service.ts' jadi 'asset.service.ts', dst
+-->
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
