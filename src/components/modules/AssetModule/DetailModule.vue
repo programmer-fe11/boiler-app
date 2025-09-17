@@ -7,9 +7,24 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DetailProp from './DetailProp.vue';
 
+/*
+ * TODO: Tiap section kode dikasih baris kosong
+ * Referensi: Coding Style Guide 5.1
+ */
+
 const route = useRoute();
+// TODO: Pake route.params.id, jangan destructure id-nya
 const { id } = route.params;
+// TODO: allData udah enggak dipake, dihapus aja
 const allData = ref<Member[]>([]);
+/*
+ * TODO: Ini harusnya pakai shallowRef, bukan ref
+ * Referensi: Coding Style Guide 6.3.3, bagian `When to use ref Variables?`
+ * sama `When to use shallowRef Variables?`
+ *
+ * TODO: Di frontend sebisa mungkin jangan pakai null, pakai undefined aja.
+ * Jadi ini diubah ke: shallowRef<Member>();
+ */
 const dataById = ref<Member | null>(null);
 const getAllData = async (
   params: QueryParams,
@@ -38,6 +53,18 @@ const getDataById = async (
   }
 };
 
+/*
+ * TODO: computed harusnya ditaruh di atas function
+ * Referensi: Coding Style Guide 5.1
+ *
+ * TODO: Tiap computed harus ada typenya
+ * Referensi: Coding Style Guide 6.3.4
+ *
+ * Typenya bisa ditambahin di file ini, di atas ref/shallowRef.
+ * Tipe cuma boleh dideklarasi dalam file vue kalau typenya enggak
+ * dipake di file lain. Kalau dipake di file lain, ditambahin di file
+ * *.type.ts, di folder src/types.
+ */
 const detailList = computed(() => {
   if (!dataById.value) return [];
   return [
@@ -48,6 +75,10 @@ const detailList = computed(() => {
   ];
 });
 
+/*
+ * TODO: onMounted harusnya cuma ada satu, dan itu ditaruh di atas
+ * Referensi: Coding Style Guide 5.1
+ */
 onMounted(async () => {
   await getAllData({});
 });

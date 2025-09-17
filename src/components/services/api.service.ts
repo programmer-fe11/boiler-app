@@ -32,7 +32,12 @@ const AssetServices = {
     return API({ params }).get('');
   },
 
+  // TODO: Tambahin `/detail` ke URLnya, sebelum ID asset
   getAssetById: (
+    /*
+     * TODO: get by ID cuma bisa get untuk satu asset, di responnya
+     * kan cuma ada satu asset
+     */
     id: string | string[],
     params: GetAssetParams,
   ): Promise<AxiosResponse<{ data: Member }>> => {
