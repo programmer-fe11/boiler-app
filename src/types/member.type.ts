@@ -1,3 +1,8 @@
+/*
+ * TODO: Tolong jangan disable rule eslint, bukannya Senin kemarin udah aku kasitau?
+ * Yang di bawah ini dihapus ya
+ */
+
 /* eslint-disable capitalized-comments */
 /* eslint-disable multiline-comment-style */
 // export interface Member {

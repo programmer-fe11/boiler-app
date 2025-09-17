@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { DialogForm, ImageCompressor, InputText } from '@fewangsit/wangsvue';
+/*
+ * TODO: Tolong jangan disable rule eslint, bukannya Senin kemarin udah aku kasitau?
+ * Yang di bawah ini dihapus ya
+ */
 
 // eslint-disable-next-line vue/define-props-declaration
 const model = defineModel<boolean>('visible', { required: true });

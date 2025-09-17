@@ -90,6 +90,7 @@ const getTableData = async (
 <template>
   <AssetModuleHeader />
   <AssetModuleTableFilter />
+  <!-- TODO: Quick filter dihapus -->
   <AssetModuleQuickFilter />
   <DataTable
     :columns="tableColumns"

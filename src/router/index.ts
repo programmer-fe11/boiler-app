@@ -19,6 +19,7 @@ const routes: Readonly<RouteRecordRaw[]> = [
       },
     ],
   },
+  // TODO: Ini udah bener kok ada di children di atas, jangan dipindahin kesini
   {
     path: '/detail/:id',
     name: 'detailView',

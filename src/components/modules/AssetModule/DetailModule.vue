@@ -6,6 +6,12 @@ import { FetchResponse, QueryParams } from '@fewangsit/wangsvue/datatable';
 import { onMounted, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 
+/*
+ * TODO: Cara pake id dari useRoute() itu kayak gini:
+ * const route = useRoute()
+ * ...(kode yang lain)
+ * getDataById(route.params.id as string)
+ */
 const { id } = useRoute().params;
 const allData = ref<Member[]>([]);
 const filteredData = ref<Member[]>([]);
@@ -35,6 +41,8 @@ watchEffect(() => {
   }
 });
 
+// TODO: Kode jangan dikomentarin, nanti kebiasaan dan resiko lupa dihapus. Dipindahin aja misalnya ke notepad
+
 /*
  * WatchEffect(() => {
  *   If (filteredData.value[0]) {
@@ -57,6 +65,11 @@ watchEffect(() => {
       </div>
       <div class="flex gap-6">
         <Image :src="filteredData[0]?.assetImage" />
+        <!--
+          TODO: Ini banyak div yang sama dipake berkali-kali, pake v-for
+          biar cuma perlu buat satu aja. Pake computed juga untuk nyimpan
+          detail yang perlu ditampilin, cara nulisnya ada di Coding Style Guide 6.3.4
+        -->
         <div class="flex flex-col gap-2">
           <h3>General Information</h3>
           <div class="grid grid-cols-2 gap-7">
