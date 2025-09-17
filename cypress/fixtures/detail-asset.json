@@ -1,0 +1,18 @@
+{
+  "data": {
+    "_id": "678e2278e1bcee39dbad397e",
+    "category": "test",
+    "brand": "Tesla",
+    "model": "C",
+    "group": "Room 5",
+    "name": "XIX Brum",
+    "aliasName": "",
+    "assetImage": "https://images.unsplash.com/photo-1734532463032-111d471daed2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "assetNumber": 3,
+    "userFirstName": "",
+    "createdAt": "2025-01-20T10:16:24.761Z",
+    "updatedAt": "2025-01-22T03:02:35.35Z"
+  },
+  "message": "Successfully get asset detail",
+  "status": 200
+}

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { GetOptionsParams, GetUsersParams } from '../dto/user.dto';
+import { GetOptionsParams, GetAssetParams } from '../dto/asset.dto';
 import { Member } from '@/types/member.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 
@@ -26,7 +26,7 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 
 const UserServices = {
   getUsers: (
-    params: GetUsersParams,
+    params: GetAssetParams,
   ): Promise<AxiosResponse<FetchResponse<Member>>> => {
     return API({ params }).get('');
   },

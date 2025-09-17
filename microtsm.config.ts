@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { defineConfig, installPlugins } from '@microtsm/cli';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';

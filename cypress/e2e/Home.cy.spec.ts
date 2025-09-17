@@ -2,6 +2,7 @@ describe('/home', () => {
   beforeEach(() => {
     cy.visit('/home');
     cy.intercept('GET', '**/v2/asset*', { fixture: 'data-asset' });
+    cy.intercept('GET', '**/v2/assets/*', { fixture: 'detail-asset' });
   });
 
   it('should have correct breadcrumb', () => {

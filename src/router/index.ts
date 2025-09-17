@@ -17,13 +17,12 @@ const routes: Readonly<RouteRecordRaw[]> = [
         name: 'AnotherView',
         component: (): Promise<Component> => import('@/views/AnotherView.vue'),
       },
+      {
+        path: '/detail/:id',
+        name: 'detailView',
+        component: (): Promise<Component> => import('@/views/DetailView.vue'),
+      },
     ],
-  },
-  // TODO: Ini udah bener kok ada di children di atas, jangan dipindahin kesini
-  {
-    path: '/detail/:id',
-    name: 'detailView',
-    component: (): Promise<Component> => import('@/views/DetailView.vue'),
   },
 ];
 
