@@ -12,36 +12,28 @@ import {
 import { QueryParams } from '@fewangsit/wangsvue/datatable';
 import { shallowRef, watch } from 'vue';
 
+const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
-const idEdit = defineModel<string | undefined>('idEdit');
-const group = defineModel<string>('group');
-const category = defineModel<string>('category');
-const name = defineModel<string>('name');
-const aliasName = defineModel<string>('aliasName');
-const brand = defineModel<string>('brand');
-const model = defineModel<string>('model');
 
 const toast = useToast();
 
+const group = shallowRef<string>();
+const category = shallowRef<string>();
+const name = shallowRef<string>();
+const aliasName = shallowRef<string>();
+const brand = shallowRef<string>();
+const model = shallowRef<string>();
 const dataById = shallowRef<Member | undefined>(undefined);
-
-watch(idEdit, async (newId) => {
-  if (newId) {
-    await getDataById({});
-  } else {
-    dataById.value = undefined;
-  }
-});
 
 const getDataById = async (
   params: QueryParams,
 ): Promise<Member | undefined> => {
   try {
-    if (!idEdit.value) {
+    if (!props.idEdit) {
       return;
     }
     const { data }: { data: { data: Member } } =
-      await AssetServices.getAssetById(idEdit.value, params);
+      await AssetServices.getAssetById(props.idEdit, params);
     dataById.value = data.data;
 
     group.value = dataById.value.group ?? '';
@@ -59,27 +51,38 @@ const submitBtn = async (body: RegisterAssetBody): Promise<void> => {
   try {
     await AssetServices.postAsset(body);
     toast.add({
-      message: idEdit.value
+      message: props.idEdit
         ? 'Successfully edit asset'
         : 'Successfully register asset',
       error: false,
     });
   } catch (error) {
     toast.add({
-      message: idEdit.value ? 'Failed edit asset' : 'Failed register asset',
+      message: props.idEdit ? 'Failed edit asset' : 'Failed register asset',
       error: false,
     });
     console.error(error);
   }
 };
+
+watch(
+  () => props.idEdit,
+  async (newId) => {
+    if (newId) {
+      await getDataById({});
+    } else {
+      dataById.value = undefined;
+    }
+  },
+);
 </script>
 
 <template>
   <DialogForm
-    v-model:id-edit="idEdit"
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
-    :header="idEdit ? `Edit Asset : ${idEdit}` : 'Register Asset'"
+    :header="props.idEdit ? `Edit Asset : ${props.idEdit}` : 'Register Asset'"
+    :id-edit="props.idEdit"
     @submit="submitBtn"
     show-stay-checkbox
     stay-checkbox-label="Stay on this form after submitting"

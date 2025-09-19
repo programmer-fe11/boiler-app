@@ -6,12 +6,16 @@ import { QueryParams } from '@fewangsit/wangsvue/datatable';
 import { computed, onMounted, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 
+onMounted(async () => {
+  await getDataById({});
+});
+
+const route = useRoute();
+
 interface DetailList {
   title: string;
   desc?: string;
 }
-
-const route = useRoute();
 
 const detailList = computed<DetailList[]>(() => {
   return [
@@ -22,11 +26,7 @@ const detailList = computed<DetailList[]>(() => {
   ];
 });
 
-const dataById = shallowRef<Member | undefined>(undefined);
-
-onMounted(async () => {
-  await getDataById({});
-});
+const dataById = shallowRef<Member>();
 
 const getDataById = async (
   params: QueryParams,

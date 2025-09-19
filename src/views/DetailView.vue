@@ -4,6 +4,10 @@ import { useBreadcrumbStore } from '@/store';
 import { BreadcrumbMenu } from '@fewangsit/wangsvue/breadcrumb';
 import { onMounted } from 'vue';
 
+onMounted(() => {
+  setBreadcrumbs(menus);
+});
+
 const { setBreadcrumbs } = useBreadcrumbStore();
 
 const menus: BreadcrumbMenu[] = [
@@ -11,10 +15,6 @@ const menus: BreadcrumbMenu[] = [
     name: 'Asset Detail',
   },
 ];
-
-onMounted(() => {
-  setBreadcrumbs(menus);
-});
 </script>
 
 <template>

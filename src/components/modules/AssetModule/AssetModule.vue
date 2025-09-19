@@ -14,9 +14,6 @@ import AssetServices from '@/components/services/api.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
 
-const selectedAsset = shallowRef<Member>();
-const showEditUserDialog = shallowRef<boolean>(false);
-
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
@@ -33,6 +30,9 @@ const singleAction: MenuItem[] = [
     },
   },
 ];
+
+const selectedAsset = shallowRef<Member>();
+const showEditUserDialog = shallowRef<boolean>(false);
 
 const tableColumns = computed<TableColumn[]>(() => {
   return [
@@ -106,7 +106,7 @@ const getTableData = async (
   />
 
   <DialogRegisterEditLayout
-    v-model:id-edit="selectedAssetId"
     v-model:visible="showEditUserDialog"
+    :id-edit="selectedAssetId"
   />
 </template>

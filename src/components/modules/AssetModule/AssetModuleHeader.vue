@@ -11,9 +11,6 @@ import {
 import { Member } from '@/types/member.type';
 import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
 
-const dataSelected = shallowRef<Member[]>([]);
-const showDeleteUserDialog = shallowRef<boolean>(false);
-const showRegisterDialog = shallowRef<boolean>(false);
 const bulkAction: MenuItem[] = [
   {
     label: 'Delete User',
@@ -24,6 +21,10 @@ const bulkAction: MenuItem[] = [
     },
   },
 ];
+
+const dataSelected = shallowRef<Member[]>([]);
+const showDeleteUserDialog = shallowRef<boolean>(false);
+const showRegisterDialog = shallowRef<boolean>(false);
 </script>
 
 <template>
