@@ -1,3 +1,4 @@
+// TODO: Rename file ini jadi asset.service.ts
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
@@ -36,6 +37,11 @@ const AssetServices = {
     return API({ params }).get('');
   },
 
+  /*
+   * TODO: Kalau Dayen liat di API spec, get asset by ID enggak pake param
+   * TODO: Ubah tipe responnya dari { data: Member } jadi FetchDetailResponse<Member>,
+   * diimport tipenya
+   */
   getAssetById: (
     id: string,
     params: GetAssetParams,
@@ -52,7 +58,7 @@ const AssetServices = {
   postAsset: (body: RegisterAssetBody): Promise<AxiosResponse> => {
     return API().post('', body);
   },
-};
+}; // TODO: Komen di bawah dihapus, jangan kebiasaan ngekomentarin kode ya
 // http://localhost:8040/v2/assets/
 
 export default AssetServices;

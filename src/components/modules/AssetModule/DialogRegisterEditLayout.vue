@@ -1,3 +1,4 @@
+<!-- TODO: Ini kan dialog untuk register/edit asset, ubah nama file ini biar sesuai -->
 <script setup lang="ts">
 import { RegisterAssetBody } from '@/components/dto/asset.dto';
 import AssetServices from '@/components/services/api.service';
@@ -17,6 +18,10 @@ const visible = defineModel<boolean>('visible', { required: true });
 
 const toast = useToast();
 
+/*
+ * TODO: Liat TODO dibawah tentang kebanyakan input enggak perlu v-model.
+ * Karena itu, beberapa shallowRef ini bisa dihapus.
+ */
 const group = shallowRef<string>();
 const category = shallowRef<string>();
 const name = shallowRef<string>();
@@ -36,6 +41,7 @@ const getDataById = async (
       await AssetServices.getAssetById(props.idEdit, params);
     dataById.value = data.data;
 
+    // TODO: Semua nullish coalescing ini bisa dihapus
     group.value = dataById.value.group ?? '';
     category.value = dataById.value.category ?? '';
     name.value = dataById.value.name ?? '';
@@ -47,9 +53,16 @@ const getDataById = async (
   }
 };
 
+/*
+ * TODO: Nama function ini kurang sesuai, karena ini function untuk submit form
+ * TODO: Tipe argumen untuk function ini harusnya sesuai sama emit submit DialogForm,
+ * coba diliat disitu tipe emitnya apa
+ */
 const submitBtn = async (body: RegisterAssetBody): Promise<void> => {
   try {
+    // TODO: Kalau ini untuk edit asset, harusnya manggil API edit asset
     await AssetServices.postAsset(body);
+    // TODO: Kalau mau nambahin toast sukses, tambahin severity: 'success', error dihapus
     toast.add({
       message: props.idEdit
         ? 'Successfully edit asset'
@@ -57,6 +70,10 @@ const submitBtn = async (body: RegisterAssetBody): Promise<void> => {
       error: false,
     });
   } catch (error) {
+    /*
+     * TODO: Kalau mau nambahin toast error, ubah `error: false`
+     * jadi `error: error` (bisa disingkat jadi `error`)
+     */
     toast.add({
       message: props.idEdit ? 'Failed edit asset' : 'Failed register asset',
       error: false,
@@ -65,6 +82,7 @@ const submitBtn = async (body: RegisterAssetBody): Promise<void> => {
   }
 };
 
+// TODO: get data harusnya pas dialongnya dibuka, bukan pas props idEdit diubah
 watch(
   () => props.idEdit,
   async (newId) => {
@@ -78,6 +96,13 @@ watch(
 </script>
 
 <template>
+  <!-- TODO: DialogForm enggak bakal pake idEdit, hapus v-modelnya -->
+  <!--
+    TODO: Disini Dayen ada nambahin idEdit di header, padahal enggak ada di Figma.
+    Jangan nambahin hal2 yang enggak ada di Figma ya. Kalau nanti pas masuk proyek
+    Dayen memang ada hal yang mau ditambahin, minta ijin dulu sama yang buat desainnya
+    siapa, dari tim UI/UX.
+  -->
   <DialogForm
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
@@ -89,6 +114,23 @@ watch(
     width="medium"
   >
     <template #fields>
+      <!-- TODO: Options harusnya didapetin dari API, bukan hardcode -->
+      <!--
+        TODO: use-validator cuma boleh antara ditambahin atau enggak,
+        jangan pake kondisi
+      -->
+      <!--
+        TODO: Kebanyakan input ini enggak perlu v-model. v-model cuma dipake kalau
+        inputnya bakal ngeubah kondisi untuk input lain. Misalnya, kan dropdown
+        brand belum aktif kalau grup belum dipilih. Berarti dropdown group
+        perlu pake v-model. Atau kalau misalnya dropdown group bakal munculin suatu
+        teks, baru pake v-model.
+        
+        Kalau enggak kayak gitu, jangan pake v-model. Misalnya brand jangan
+        pake v-model.
+
+        Kalau mau set initial value, bisa pake prop initialValue dari Dropdown.
+      -->
       <div class="grid grid-cols-2 gap-3">
         <Dropdown
           v-model="group"
@@ -180,6 +222,7 @@ watch(
         />
       </div>
 
+      <!-- TODO: Harusnya ada inital value untuk ImageCompressor -->
       <ImageCompressor
         :custom-requirements="['Max. 1MB', 'Must be image format']"
         label="Photo"

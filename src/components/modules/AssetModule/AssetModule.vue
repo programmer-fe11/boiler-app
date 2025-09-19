@@ -19,6 +19,7 @@ const singleAction: MenuItem[] = [
     label: 'Detail',
     icon: 'checkbox-blank-circle',
     command: (): void => {
+      // TODO: Pake useRouter, jangan langsung pake router
       router.push(`/detail/${selectedAsset.value?._id}`);
     },
   },
@@ -74,6 +75,8 @@ const tableColumns = computed<TableColumn[]>(() => {
     },
   ];
 });
+
+// TODO: Computed ini enggak berguna, langsung aja pake selectedAsset.value?._id
 const selectedAssetId = computed<string | undefined>(() => {
   return selectedAsset.value?._id;
 });
