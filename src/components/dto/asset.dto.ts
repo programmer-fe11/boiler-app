@@ -16,3 +16,12 @@ export interface GetAssetParams extends QueryParams {
 export interface GetOptionsParams {
   country?: boolean;
 }
+
+export interface RegisterAssetBody {
+  category?: string;
+  brand?: string;
+  model?: string;
+  aliasName?: string;
+  name?: string;
+  assetImage?: string;
+}

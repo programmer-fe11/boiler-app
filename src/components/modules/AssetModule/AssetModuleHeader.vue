@@ -9,7 +9,7 @@ import {
   ButtonSearch,
 } from '@fewangsit/wangsvue';
 import { Member } from '@/types/member.type';
-import DialogRegister from './DialogRegister.vue';
+import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
 
 const dataSelected = shallowRef<Member[]>([]);
 const showDeleteUserDialog = shallowRef<boolean>(false);
@@ -44,5 +44,5 @@ const bulkAction: MenuItem[] = [
     />
   </div>
 
-  <DialogRegister v-model:visible="showRegisterDialog" />
+  <DialogRegisterEditLayout v-model:visible="showRegisterDialog" />
 </template>

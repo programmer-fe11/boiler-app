@@ -4,7 +4,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
-    component: (): Promise<Component> => import('@/layout/ExampleLayout.vue'),
+    component: (): Promise<Component> => import('@/layout/AssetLayout.vue'),
     redirect: '/home',
     children: [
       {
@@ -12,11 +12,7 @@ const routes: Readonly<RouteRecordRaw[]> = [
         name: 'HomeView',
         component: (): Promise<Component> => import('@/views/HomeView.vue'),
       },
-      {
-        path: 'another-page',
-        name: 'AnotherView',
-        component: (): Promise<Component> => import('@/views/AnotherView.vue'),
-      },
+
       {
         path: '/detail/:id',
         name: 'detailView',

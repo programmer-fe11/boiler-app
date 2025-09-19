@@ -12,24 +12,24 @@ import router from '@/router';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
 import AssetServices from '@/components/services/api.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
+import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
 
-const selectedUser = shallowRef<Member>();
-const showDeleteUserDialog = shallowRef<boolean>(false);
+const selectedAsset = shallowRef<Member>();
+const showEditUserDialog = shallowRef<boolean>(false);
 
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
     icon: 'checkbox-blank-circle',
     command: (): void => {
-      router.push(`/detail/${selectedUser.value?._id}`);
+      router.push(`/detail/${selectedAsset.value?._id}`);
     },
   },
   {
-    label: 'Delete User',
+    label: 'Edit',
     icon: 'checkbox-blank-circle',
-    danger: true,
     command: (): void => {
-      showDeleteUserDialog.value = true;
+      showEditUserDialog.value = true;
     },
   },
 ];
@@ -74,6 +74,9 @@ const tableColumns = computed<TableColumn[]>(() => {
     },
   ];
 });
+const selectedAssetId = computed<string | undefined>(() => {
+  return selectedAsset.value?._id;
+});
 
 const getTableData = async (
   params: QueryParams,
@@ -94,11 +97,16 @@ const getTableData = async (
     :columns="tableColumns"
     :fetch-function="getTableData"
     :options="singleAction"
-    @toggle-option="selectedUser = $event"
+    @toggle-option="selectedAsset = $event"
     data-key="_id"
     lazy
     table-name="user-list"
     use-option
     use-paginator
+  />
+
+  <DialogRegisterEditLayout
+    v-model:id-edit="selectedAssetId"
+    v-model:visible="showEditUserDialog"
   />
 </template>

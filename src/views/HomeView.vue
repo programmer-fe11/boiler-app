@@ -8,9 +8,6 @@ const { setBreadcrumbs } = useBreadcrumbStore();
 
 const menus: BreadcrumbMenu[] = [
   {
-    name: 'Wangs',
-  },
-  {
     name: 'Home',
   },
 ];

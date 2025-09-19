@@ -2,49 +2,38 @@
 import AssetServices from '@/components/services/api.service';
 import { Member } from '@/types/member.type';
 import { Image } from '@fewangsit/wangsvue';
-import { FetchResponse, QueryParams } from '@fewangsit/wangsvue/datatable';
-import { computed, onMounted, ref } from 'vue';
+import { QueryParams } from '@fewangsit/wangsvue/datatable';
+import { computed, onMounted, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
-import DetailProp from './DetailProp.vue';
 
-/*
- * TODO: Tiap section kode dikasih baris kosong
- * Referensi: Coding Style Guide 5.1
- */
+interface DetailList {
+  title: string;
+  desc?: string;
+}
 
 const route = useRoute();
-// TODO: Pake route.params.id, jangan destructure id-nya
-const { id } = route.params;
-// TODO: allData udah enggak dipake, dihapus aja
-const allData = ref<Member[]>([]);
-/*
- * TODO: Ini harusnya pakai shallowRef, bukan ref
- * Referensi: Coding Style Guide 6.3.3, bagian `When to use ref Variables?`
- * sama `When to use shallowRef Variables?`
- *
- * TODO: Di frontend sebisa mungkin jangan pakai null, pakai undefined aja.
- * Jadi ini diubah ke: shallowRef<Member>();
- */
-const dataById = ref<Member | null>(null);
-const getAllData = async (
-  params: QueryParams,
-): Promise<FetchResponse<Member> | undefined> => {
-  try {
-    const { data }: { data: FetchResponse<Member> } =
-      await AssetServices.getAsset(params);
-    allData.value = data.data.data;
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+
+const detailList = computed<DetailList[]>(() => {
+  return [
+    { title: 'Brand', desc: dataById.value?.brand },
+    { title: 'Model/Type', desc: dataById.value?.model },
+    { title: 'Category', desc: dataById.value?.category },
+    { title: 'Group', desc: dataById.value?.group },
+  ];
+});
+
+const dataById = shallowRef<Member | undefined>(undefined);
+
+onMounted(async () => {
+  await getDataById({});
+});
 
 const getDataById = async (
   params: QueryParams,
 ): Promise<Member | undefined> => {
   try {
     const { data }: { data: { data: Member } } =
-      await AssetServices.getAssetById(id, params);
+      await AssetServices.getAssetById(route.params.id as string, params);
 
     dataById.value = data.data;
     return data.data;
@@ -52,45 +41,11 @@ const getDataById = async (
     console.error(error);
   }
 };
-
-/*
- * TODO: computed harusnya ditaruh di atas function
- * Referensi: Coding Style Guide 5.1
- *
- * TODO: Tiap computed harus ada typenya
- * Referensi: Coding Style Guide 6.3.4
- *
- * Typenya bisa ditambahin di file ini, di atas ref/shallowRef.
- * Tipe cuma boleh dideklarasi dalam file vue kalau typenya enggak
- * dipake di file lain. Kalau dipake di file lain, ditambahin di file
- * *.type.ts, di folder src/types.
- */
-const detailList = computed(() => {
-  if (!dataById.value) return [];
-  return [
-    { title: 'Brand', desc: dataById.value.brand },
-    { title: 'Model/Type', desc: dataById.value.model },
-    { title: 'Category', desc: dataById.value.category },
-    { title: 'Group', desc: dataById.value.group },
-  ];
-});
-
-/*
- * TODO: onMounted harusnya cuma ada satu, dan itu ditaruh di atas
- * Referensi: Coding Style Guide 5.1
- */
-onMounted(async () => {
-  await getAllData({});
-});
-onMounted(async () => {
-  await getDataById({});
-});
 </script>
 
 <template>
   <div class="px-6">
-    <p class="pt-3 pb-[10.5px]">Asset Detail</p>
-    <div class="rounded-[7px] bg-white p-6 flex flex-col gap-[10px]">
+    <div class="rounded-[7px] bg-white flex flex-col gap-[10px]">
       <div class="flex justify-between">
         <h2>{{ dataById?.name }}</h2>
         <div class="text-[10px]">
@@ -101,14 +56,20 @@ onMounted(async () => {
       <div class="flex gap-6">
         <Image :src="dataById?.assetImage" />
         <div class="flex flex-col gap-2">
-          <h3>General Information</h3>
-          <div class="grid grid-cols-2 gap-7">
-            <DetailProp
+          <h3 class="font-semibold text-sm">General Information</h3>
+          <div class="grid grid-cols-2 gap-1">
+            <div
               :key="index"
               v-for="(detail, index) in detailList"
-              :desc="detail.desc"
-              :title="detail.title"
-            />
+              class="min-w-80 flex flex-col gap-1"
+            >
+              <p class="text-[10px] leading-4 text-general-500">
+                {{ detail.title }}
+              </p>
+              <p class="text-xs leading-4 text-grayscale-900 font-medium">
+                {{ detail.desc }}
+              </p>
+            </div>
           </div>
         </div>
       </div>

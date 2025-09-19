@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { GetOptionsParams, GetAssetParams } from '../dto/asset.dto';
+import {
+  GetOptionsParams,
+  GetAssetParams,
+  RegisterAssetBody,
+} from '../dto/asset.dto';
 import { Member } from '@/types/member.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 
@@ -32,22 +36,21 @@ const AssetServices = {
     return API({ params }).get('');
   },
 
-  // TODO: Tambahin `/detail` ke URLnya, sebelum ID asset
   getAssetById: (
-    /*
-     * TODO: get by ID cuma bisa get untuk satu asset, di responnya
-     * kan cuma ada satu asset
-     */
-    id: string | string[],
+    id: string,
     params: GetAssetParams,
   ): Promise<AxiosResponse<{ data: Member }>> => {
-    return API({ params }).get(`/${id}`);
+    return API({ params }).get(`/detail/${id}`);
   },
 
   getOptions: (
     params: GetOptionsParams,
   ): Promise<AxiosResponse<GetOptionsResponse>> => {
     return API({ params }).get('/options');
+  },
+
+  postAsset: (body: RegisterAssetBody): Promise<AxiosResponse> => {
+    return API().post('', body);
   },
 };
 // http://localhost:8040/v2/assets/
