@@ -1,0 +1,80 @@
+{
+  "data": {
+    "nameOptions": [
+      {
+        "label": "Laptop Lenovo ThinkPad X1",
+        "value": "thinkpad_x1"
+      },
+      {
+        "label": "Monitor Dell UltraSharp 27",
+        "value": "dell_ultrasharp_27"
+      },
+      {
+        "label": "Printer HP LaserJet Pro",
+        "value": "hp_laserjet_pro"
+      }
+    ],
+    "groupOptions": [
+      {
+        "label": "Warehouse A",
+        "value": "warehouse_a"
+      },
+      {
+        "label": "Head Office",
+        "value": "head_office"
+      },
+      {
+        "label": "Branch Jakarta",
+        "value": "branch_jakarta"
+      }
+    ],
+    "brandOptions": [
+      {
+        "label": "Lenovo",
+        "value": "lenovo"
+      },
+      {
+        "label": "Dell",
+        "value": "dell"
+      },
+      {
+        "label": "HP",
+        "value": "hp"
+      }
+    ],
+    "modelOptions": [
+      {
+        "label": "ThinkPad X1 Carbon Gen 9",
+        "value": "x1_carbon_gen9"
+      },
+      {
+        "label": "UltraSharp U2720Q",
+        "value": "u2720q"
+      },
+      {
+        "label": "LaserJet Pro M404dn",
+        "value": "m404dn"
+      }
+    ],
+    "categoryOptions": [
+      {
+        "label": "Laptop",
+        "value": "laptop"
+      },
+      {
+        "label": "Monitor",
+        "value": "monitor"
+      },
+      {
+        "label": "Printer",
+        "value": "printer"
+      },
+      {
+        "label": "Networking Device",
+        "value": "networking"
+      }
+    ]
+  },
+  "message": "Successfully get asset options",
+  "status": 200
+}

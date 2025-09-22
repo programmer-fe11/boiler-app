@@ -1,4 +1,3 @@
-// TODO: Rename file ini jadi asset.type.ts, interfacenya jadi Asset
 export interface Member {
   _id: string;
   category: string;

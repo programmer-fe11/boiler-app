@@ -1,13 +1,15 @@
-// TODO: Rename file ini jadi asset.service.ts
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
-import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+import {
+  FetchDetailResponse,
+  FetchOptionResponse,
+} from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
 import {
   GetOptionsParams,
   GetAssetParams,
-  RegisterAssetBody,
+  RegisterEditAssetBody,
 } from '../dto/asset.dto';
-import { Member } from '@/types/member.type';
+import { Member } from '@/types/asset.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 
 type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
@@ -31,22 +33,16 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 };
 
 const AssetServices = {
-  getAsset: (
+  getAllAsset: (
     params: GetAssetParams,
   ): Promise<AxiosResponse<FetchResponse<Member>>> => {
     return API({ params }).get('');
   },
 
-  /*
-   * TODO: Kalau Dayen liat di API spec, get asset by ID enggak pake param
-   * TODO: Ubah tipe responnya dari { data: Member } jadi FetchDetailResponse<Member>,
-   * diimport tipenya
-   */
   getAssetById: (
     id: string,
-    params: GetAssetParams,
-  ): Promise<AxiosResponse<{ data: Member }>> => {
-    return API({ params }).get(`/detail/${id}`);
+  ): Promise<AxiosResponse<FetchDetailResponse<Member>>> => {
+    return API().get(`/detail/${id}`);
   },
 
   getOptions: (
@@ -55,10 +51,16 @@ const AssetServices = {
     return API({ params }).get('/options');
   },
 
-  postAsset: (body: RegisterAssetBody): Promise<AxiosResponse> => {
+  postAsset: (body: RegisterEditAssetBody): Promise<AxiosResponse> => {
     return API().post('', body);
   },
-}; // TODO: Komen di bawah dihapus, jangan kebiasaan ngekomentarin kode ya
-// http://localhost:8040/v2/assets/
+
+  editAsset: (
+    id: string,
+    body: RegisterEditAssetBody,
+  ): Promise<AxiosResponse> => {
+    return API().put(`/${id}`, body);
+  },
+};
 
 export default AssetServices;

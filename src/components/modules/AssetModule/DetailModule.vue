@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import AssetServices from '@/components/services/api.service';
-import { Member } from '@/types/member.type';
+import AssetServices from '@/components/services/asset.service';
+import { Member } from '@/types/asset.type';
 import { Image } from '@fewangsit/wangsvue';
-import { QueryParams } from '@fewangsit/wangsvue/datatable';
+import {} from '@fewangsit/wangsvue/datatable';
 import { computed, onMounted, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 
 onMounted(async () => {
-  await getDataById({});
+  await getDataById();
 });
 
 const route = useRoute();
@@ -28,12 +28,10 @@ const detailList = computed<DetailList[]>(() => {
 
 const dataById = shallowRef<Member>();
 
-const getDataById = async (
-  params: QueryParams,
-): Promise<Member | undefined> => {
+const getDataById = async (): Promise<Member | undefined> => {
   try {
     const { data }: { data: { data: Member } } =
-      await AssetServices.getAssetById(route.params.id as string, params);
+      await AssetServices.getAssetById(route.params.id as string);
 
     dataById.value = data.data;
     return data.data;

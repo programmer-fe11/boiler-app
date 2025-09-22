@@ -14,10 +14,23 @@ export interface GetAssetParams extends QueryParams {
 }
 
 export interface GetOptionsParams {
-  country?: boolean;
+  brandOptions?: boolean;
+  nameOptions?: boolean;
+  categoryOptions?: boolean;
+  modelOptions?: boolean;
+  groupOptions?: boolean;
 }
 
-export interface RegisterAssetBody {
+export interface RegisterEditAssetBody {
+  category?: string;
+  brand?: string;
+  model?: string;
+  group?: string;
+  aliasName?: string;
+  name?: string;
+  assetImage?: string;
+}
+export interface EditAssetBody {
   category?: string;
   brand?: string;
   model?: string;

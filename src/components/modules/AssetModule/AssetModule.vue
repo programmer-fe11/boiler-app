@@ -7,19 +7,19 @@ import {
   TableColumn,
 } from '@fewangsit/wangsvue/datatable';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
-import { Member } from '@/types/member.type';
-import router from '@/router';
+import { Member } from '@/types/asset.type';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
-import AssetServices from '@/components/services/api.service';
+import AssetServices from '@/components/services/asset.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
     icon: 'checkbox-blank-circle',
     command: (): void => {
-      // TODO: Pake useRouter, jangan langsung pake router
       router.push(`/detail/${selectedAsset.value?._id}`);
     },
   },
@@ -76,16 +76,13 @@ const tableColumns = computed<TableColumn[]>(() => {
   ];
 });
 
-// TODO: Computed ini enggak berguna, langsung aja pake selectedAsset.value?._id
-const selectedAssetId = computed<string | undefined>(() => {
-  return selectedAsset.value?._id;
-});
+const selectedAssetId = computed(() => selectedAsset.value?._id);
 
 const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<Member> | undefined> => {
   try {
-    const { data } = await AssetServices.getAsset(params);
+    const { data } = await AssetServices.getAllAsset(params);
     return data;
   } catch (error) {
     console.error(error);
@@ -110,6 +107,6 @@ const getTableData = async (
 
   <DialogRegisterEditLayout
     v-model:visible="showEditUserDialog"
-    :id-edit="selectedAssetId"
+    :id-edit="selectedAssetId ?? undefined"
   />
 </template>

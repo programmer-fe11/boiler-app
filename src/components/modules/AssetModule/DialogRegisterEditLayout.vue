@@ -1,8 +1,11 @@
 <!-- TODO: Ini kan dialog untuk register/edit asset, ubah nama file ini biar sesuai -->
 <script setup lang="ts">
-import { RegisterAssetBody } from '@/components/dto/asset.dto';
-import AssetServices from '@/components/services/api.service';
-import { Member } from '@/types/member.type';
+import {
+  GetOptionsParams,
+  RegisterEditAssetBody,
+} from '@/components/dto/asset.dto';
+import AssetServices from '@/components/services/asset.service';
+import { Member } from '@/types/asset.type';
 import {
   DialogForm,
   Dropdown,
@@ -10,44 +13,53 @@ import {
   InputText,
   useToast,
 } from '@fewangsit/wangsvue';
-import { QueryParams } from '@fewangsit/wangsvue/datatable';
-import { shallowRef, watch } from 'vue';
+import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+import { computed, onMounted, shallowRef, watch } from 'vue';
 
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
+const group = defineModel<string | undefined>('group');
+const category = defineModel<string | undefined>('category');
+const name = defineModel<string | undefined>('name');
 
 const toast = useToast();
 
-/*
- * TODO: Liat TODO dibawah tentang kebanyakan input enggak perlu v-model.
- * Karena itu, beberapa shallowRef ini bisa dihapus.
- */
-const group = shallowRef<string>();
-const category = shallowRef<string>();
-const name = shallowRef<string>();
-const aliasName = shallowRef<string>();
-const brand = shallowRef<string>();
-const model = shallowRef<string>();
 const dataById = shallowRef<Member | undefined>(undefined);
+type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
 
-const getDataById = async (
-  params: QueryParams,
-): Promise<Member | undefined> => {
+const dataOptions = shallowRef<GetOptionsResponse['data'] | undefined>(
+  undefined,
+);
+
+onMounted(async () => {
+  getAllOptions({});
+});
+
+const isBrandModelEnabled = computed(() => {
+  return (
+    (group.value || dataById.value?.group) &&
+    (category.value || dataById.value?.category) &&
+    (name.value || dataById.value?.name)
+  );
+});
+
+const getDataById = async (): Promise<Member | undefined> => {
   try {
     if (!props.idEdit) {
       return;
     }
     const { data }: { data: { data: Member } } =
-      await AssetServices.getAssetById(props.idEdit, params);
+      await AssetServices.getAssetById(props.idEdit);
     dataById.value = data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-    // TODO: Semua nullish coalescing ini bisa dihapus
-    group.value = dataById.value.group ?? '';
-    category.value = dataById.value.category ?? '';
-    name.value = dataById.value.name ?? '';
-    aliasName.value = dataById.value.aliasName ?? '';
-    brand.value = dataById.value.brand ?? '';
-    model.value = dataById.value.model ?? '';
+const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
+  try {
+    const response = await AssetServices.getOptions(params);
+    dataOptions.value = response.data.data;
   } catch (error) {
     console.error(error);
   }
@@ -58,167 +70,114 @@ const getDataById = async (
  * TODO: Tipe argumen untuk function ini harusnya sesuai sama emit submit DialogForm,
  * coba diliat disitu tipe emitnya apa
  */
-const submitBtn = async (body: RegisterAssetBody): Promise<void> => {
+const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
   try {
     // TODO: Kalau ini untuk edit asset, harusnya manggil API edit asset
-    await AssetServices.postAsset(body);
-    // TODO: Kalau mau nambahin toast sukses, tambahin severity: 'success', error dihapus
-    toast.add({
-      message: props.idEdit
-        ? 'Successfully edit asset'
-        : 'Successfully register asset',
-      error: false,
-    });
+    if (!props.idEdit) {
+      await AssetServices.postAsset(body);
+      toast.add({
+        message: 'Successfully register asset',
+        severity: 'success',
+      });
+    } else {
+      await AssetServices.editAsset(props.idEdit, body);
+      toast.add({
+        message: 'Successfully edit asset',
+        severity: 'success',
+      });
+    }
   } catch (error) {
-    /*
-     * TODO: Kalau mau nambahin toast error, ubah `error: false`
-     * jadi `error: error` (bisa disingkat jadi `error`)
-     */
     toast.add({
       message: props.idEdit ? 'Failed edit asset' : 'Failed register asset',
-      error: false,
+      severity: 'error',
+      error,
     });
     console.error(error);
   }
 };
-
-// TODO: get data harusnya pas dialongnya dibuka, bukan pas props idEdit diubah
-watch(
-  () => props.idEdit,
-  async (newId) => {
-    if (newId) {
-      await getDataById({});
-    } else {
-      dataById.value = undefined;
-    }
-  },
-);
 </script>
 
 <template>
-  <!-- TODO: DialogForm enggak bakal pake idEdit, hapus v-modelnya -->
-  <!--
-    TODO: Disini Dayen ada nambahin idEdit di header, padahal enggak ada di Figma.
-    Jangan nambahin hal2 yang enggak ada di Figma ya. Kalau nanti pas masuk proyek
-    Dayen memang ada hal yang mau ditambahin, minta ijin dulu sama yang buat desainnya
-    siapa, dari tim UI/UX.
-  -->
   <DialogForm
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
-    :header="props.idEdit ? `Edit Asset : ${props.idEdit}` : 'Register Asset'"
+    :header="props.idEdit ? `Edit Asset` : 'Register Asset'"
     :id-edit="props.idEdit"
-    @submit="submitBtn"
+    @show="getDataById"
+    @submit="submitForm"
     show-stay-checkbox
     stay-checkbox-label="Stay on this form after submitting"
     width="medium"
   >
     <template #fields>
       <!-- TODO: Options harusnya didapetin dari API, bukan hardcode -->
-      <!--
-        TODO: use-validator cuma boleh antara ditambahin atau enggak,
-        jangan pake kondisi
-      -->
-      <!--
-        TODO: Kebanyakan input ini enggak perlu v-model. v-model cuma dipake kalau
-        inputnya bakal ngeubah kondisi untuk input lain. Misalnya, kan dropdown
-        brand belum aktif kalau grup belum dipilih. Berarti dropdown group
-        perlu pake v-model. Atau kalau misalnya dropdown group bakal munculin suatu
-        teks, baru pake v-model.
-        
-        Kalau enggak kayak gitu, jangan pake v-model. Misalnya brand jangan
-        pake v-model.
-
-        Kalau mau set initial value, bisa pake prop initialValue dari Dropdown.
-      -->
       <div class="grid grid-cols-2 gap-3">
         <Dropdown
           v-model="group"
-          :options="[
-            { label: 'Room 402', value: 'Room 402' },
-            { label: 'Wirehouse', value: 'Wirehouse' },
-            { label: 'Garage', value: 'Garage' },
-          ]"
-          :use-validator="group ? false : true"
+          :initial-value="dataById?.group"
+          :options="dataOptions?.groupOptions || []"
           field-name="Group"
           label="Group"
           mandatory
           option-label="label"
           option-value="value"
           placeholder="Select group"
+          use-validator
         />
         <Dropdown
           v-model="category"
-          :options="[
-            { label: 'Elektronik', value: 'Elektronik' },
-            { label: 'Transportasi', value: 'Transportasi' },
-            { label: 'Sanitasi', value: 'Sanitasi' },
-          ]"
-          :use-validator="category ? false : true"
+          :initial-value="dataById?.category"
+          :options="dataOptions?.categoryOptions || []"
           field-name="category"
           label="Category"
           mandatory
           option-label="label"
           option-value="value"
           placeholder="Select category"
+          use-validator
         />
         <Dropdown
           v-model="name"
-          :options="[
-            { label: 'name-1', value: 'name-1' },
-            { label: 'name-2', value: 'name-2' },
-            { label: 'name-3', value: 'name-3' },
-          ]"
-          :use-validator="name ? false : true"
+          :initial-value="dataById?.name"
+          :options="dataOptions?.nameOptions || []"
           field-name="name"
           label="Name"
           mandatory
           option-label="label"
           option-value="value"
           placeholder="Select asset name"
+          use-validator
         />
         <InputText
-          v-model="aliasName"
-          :validator-message="{
-            exceed: 'Max char 30',
-            empty: 'Category',
-          }"
+          :model-value="dataById?.aliasName"
           field-name="aliasName"
           label="Alias Name"
           placeholder="Select alias name"
         />
         <Dropdown
-          v-model="brand"
-          :disabled="!group || !category || !name"
-          :options="[
-            { label: 'Samsung', value: 'Samsung' },
-            { label: 'Hyundai', value: 'Hyundai' },
-            { label: 'Apple', value: 'Apple' },
-          ]"
-          :use-validator="brand ? false : true"
+          :disabled="isBrandModelEnabled ? false : true"
+          :initial-value="dataById?.brand"
+          :options="dataOptions?.brandOptions || []"
           field-name="brand"
           label="Brand"
           mandatory
           option-label="label"
           option-value="value"
           placeholder="Select brand"
+          use-validator
         />
 
         <Dropdown
-          v-model="model"
-          :disabled="!group || !category || !name"
-          :options="[
-            { label: 'MacBook Pro', value: 'MacBook Pro' },
-            { label: 'Asus', value: 'Asus' },
-            { label: 'Ultra 24', value: 'Ultra 24' },
-          ]"
-          :use-validator="model ? false : true"
+          :disabled="isBrandModelEnabled ? false : true"
+          :initial-value="dataById?.model"
+          :options="dataOptions?.modelOptions || []"
           field-name="model"
           label="Model / Type"
           mandatory
           option-label="label"
           option-value="value"
           placeholder="Select model/type"
+          use-validator
         />
       </div>
 

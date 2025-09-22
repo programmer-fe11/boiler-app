@@ -8,7 +8,7 @@ import {
   ButtonFilter,
   ButtonSearch,
 } from '@fewangsit/wangsvue';
-import { Member } from '@/types/member.type';
+import { Member } from '@/types/asset.type';
 import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
 
 const bulkAction: MenuItem[] = [
