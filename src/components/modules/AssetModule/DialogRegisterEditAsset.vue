@@ -11,9 +11,7 @@ import {
 } from '@fewangsit/wangsvue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
 import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { computed, onMounted, shallowRef } from 'vue';
-
-type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
+import { computed, shallowRef } from 'vue';
 
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
@@ -22,20 +20,25 @@ const group = shallowRef<string>();
 const category = shallowRef<string>();
 const name = shallowRef<string>();
 
-onMounted(async () => {
-  getAllOptions({});
-});
-
 const toast = useToast();
 
 const dataById = shallowRef<Asset | undefined>(undefined);
-const dataOptions = shallowRef<GetOptionsResponse['data'] | undefined>(
-  undefined,
-);
+const dataOptions = shallowRef<
+  FetchOptionResponse<GetOptionsParams>['data'] | undefined
+>(undefined);
 
 const isBrandModelDisabled = computed<boolean>(() => {
   return !group.value || !category.value || !name.value;
 });
+
+const showForm = (): void => {
+  if (!dataById.value) {
+    group.value = undefined;
+    category.value = undefined;
+    name.value = undefined;
+  }
+  getDataById();
+};
 
 const getDataById = async (): Promise<void> => {
   try {
@@ -62,15 +65,6 @@ const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
   }
 };
 
-const showForm = (): void => {
-  if (!dataById.value) {
-    group.value = undefined;
-    category.value = undefined;
-    name.value = undefined;
-  }
-  getDataById();
-};
-
 const submitForm = async (body: DialogFormPayload): Promise<void> => {
   try {
     if (!props.idEdit) {
@@ -86,6 +80,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
         severity: 'success',
       });
     }
+
     if (!body.stayAfterSubmit) {
       visible.value = false;
     }
@@ -105,7 +100,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
     :close-on-submit="false"
-    :header="props.idEdit ? `Edit Asset` : `Register Asset: ${group}`"
+    :header="props.idEdit ? `Edit Asset` : `Register Asset`"
     :id-edit="props.idEdit"
     @show="showForm"
     @submit="submitForm"
@@ -119,6 +114,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           v-model="group"
           :initial-value="dataById?.group"
           :options="dataOptions?.groupOptions"
+          @show="getAllOptions({})"
           field-name="Group"
           label="Group"
           mandatory
@@ -155,7 +151,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           :value="dataById?.aliasName"
           field-name="aliasName"
           label="Alias Name"
-          placeholder="Select alias name"
+          placeholder="Enter alias name"
         />
         <Dropdown
           :disabled="isBrandModelDisabled"
@@ -169,7 +165,6 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           placeholder="Select brand"
           use-validator
         />
-
         <Dropdown
           :disabled="isBrandModelDisabled"
           :initial-value="dataById?.model"
@@ -187,6 +182,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
       <ImageCompressor
         :custom-requirements="['Max. 1MB', 'Must be image format']"
         :image-preview-url="dataById?.assetImage"
+        field-name="photo"
         label="Photo"
         mandatory
         multiple
