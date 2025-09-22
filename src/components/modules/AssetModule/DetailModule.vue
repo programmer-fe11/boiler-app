@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import AssetServices from '@/components/services/asset.service';
-import { Member } from '@/types/asset.type';
+import { Asset } from '@/types/asset.type';
 import { Image } from '@fewangsit/wangsvue';
-// TODO: Disini enggak ada yang diimport, hapus ini
-import {} from '@fewangsit/wangsvue/datatable';
 import { computed, onMounted, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -27,11 +25,11 @@ const detailList = computed<DetailList[]>(() => {
   ];
 });
 
-const dataById = shallowRef<Member>();
+const dataById = shallowRef<Asset>();
 
-const getDataById = async (): Promise<Member | undefined> => {
+const getDataById = async (): Promise<Asset | undefined> => {
   try {
-    const { data }: { data: { data: Member } } =
+    const { data }: { data: { data: Asset } } =
       await AssetServices.getAssetById(route.params.id as string);
 
     dataById.value = data.data;

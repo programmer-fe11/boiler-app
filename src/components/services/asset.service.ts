@@ -9,7 +9,7 @@ import {
   GetAssetParams,
   RegisterEditAssetBody,
 } from '../dto/asset.dto';
-import { Member } from '@/types/asset.type';
+import { Asset } from '@/types/asset.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 
 type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
@@ -35,13 +35,13 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 const AssetServices = {
   getAllAsset: (
     params: GetAssetParams,
-  ): Promise<AxiosResponse<FetchResponse<Member>>> => {
+  ): Promise<AxiosResponse<FetchResponse<Asset>>> => {
     return API({ params }).get('');
   },
 
   getAssetById: (
     id: string,
-  ): Promise<AxiosResponse<FetchDetailResponse<Member>>> => {
+  ): Promise<AxiosResponse<FetchDetailResponse<Asset>>> => {
     return API().get(`/detail/${id}`);
   },
 

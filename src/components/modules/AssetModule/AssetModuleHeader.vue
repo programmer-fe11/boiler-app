@@ -8,7 +8,7 @@ import {
   ButtonFilter,
   ButtonSearch,
 } from '@fewangsit/wangsvue';
-import { Member } from '@/types/asset.type';
+import { Asset } from '@/types/asset.type';
 import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 
 const bulkAction: MenuItem[] = [
@@ -22,7 +22,7 @@ const bulkAction: MenuItem[] = [
   },
 ];
 
-const dataSelected = shallowRef<Member[]>([]);
+const dataSelected = shallowRef<Asset[]>([]);
 const showDeleteUserDialog = shallowRef<boolean>(false);
 const showRegisterDialog = shallowRef<boolean>(false);
 </script>
