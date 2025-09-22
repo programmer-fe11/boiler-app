@@ -19,6 +19,7 @@ type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
 
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
+// TODO: Udah bener yang di bawah ini pake shallowRef, jangan pake defineModel
 const group = defineModel<string | undefined>('group');
 const category = defineModel<string | undefined>('category');
 const name = defineModel<string | undefined>('name');
@@ -34,6 +35,20 @@ const dataOptions = shallowRef<GetOptionsResponse['data'] | undefined>(
   undefined,
 );
 
+/*
+ * TODO: Semua computed harus ada typenya
+ * Referensi: Coding Style Guide 6.3.4
+ *
+ * Dayen, kemarin hari Rabu padahal udah aku kasitau kalau semua computed harus ada type,
+ * tapi disini malah enggak ada. Tolong lebih hati2 ya, dan jangan lupain komentar2ku
+ * yang udah Dayen fix, biar bisa belajar dari komentarku.
+ *
+ * Ini balik lagi ke eval yang aku kasih lewat WA, aku rasa Dayen terlalu buru2, jadi enggak hati2.
+ * Kayak yang aku bilang, pelan2 aja ya, cek lagi kode yang udah ditulis itu bener atau enggak.
+ * Mungkin selain itu, Dayen kalau ada komentar TODO langsung diselesaiin tanpa Dayen caritau kenapa
+ * perlu ada komentar itu. Jadi Dayen enggak ada pengalaman belajar, padahal tujuan Dayen ngerjain
+ * ini kan untuk belajar, bukan karena kode Dayen ini bakal dipake.
+ */
 const isBrandModelEnabled = computed(() => {
   return (
     (group.value || dataById.value?.group) &&
@@ -44,6 +59,10 @@ const isBrandModelEnabled = computed(() => {
 
 const getDataById = async (): Promise<Member | undefined> => {
   try {
+    /*
+     * TODO: Daripada kayak gini, mending `if (props.isEdit) { ... }`,
+     * biar enggak perlu return
+     */
     if (!props.idEdit) {
       return;
     }
@@ -64,6 +83,12 @@ const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
   }
 };
 
+/*
+ * TODO: Tipe argumen untuk function ini harusnya sesuai sama emit submit DialogForm,
+ * coba diliat disitu tipe emitnya apa
+ *
+ * Dayen, kalau bingung gimana cara ngerjain TODOnya, tanya aku aja, jangan malah dihapus.
+ */
 const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
   try {
     if (!props.idEdit) {
@@ -104,6 +129,15 @@ const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
   >
     <template #fields>
       <div class="grid grid-cols-2 gap-3">
+        <!--
+          TODO: Untuk `options`, kalau mau return value yang di kanan kalau value yang di kiri undefined,
+          harus pake nullish coalescing operator `??`, jangan pake OR operator `||`
+          https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
+
+          Dan malah, options enggak perlu operator sama sekali, langsung aja "dataOptions?.groupOptions".
+          Soalnya kalau `dataOptions?.groupOptions === undefined` kan dropdownnya jadi enggak ada option,
+          sama aja kayak array kosong.
+        -->
         <Dropdown
           v-model="group"
           :initial-value="dataById?.group"
@@ -140,12 +174,17 @@ const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
           placeholder="Select asset name"
           use-validator
         />
+        <!--
+          TODO: Ini pake props yang salah untuk initial value,
+          coba diliat lagi InputText ada props apa aja
+        -->
         <InputText
           :model-value="dataById?.aliasName"
           field-name="aliasName"
           label="Alias Name"
           placeholder="Select alias name"
         />
+        <!--TODO: Kan value isBrandModelEnabled itu udah boolean, disini enggak perlu ternary operator -->
         <Dropdown
           :disabled="isBrandModelEnabled ? false : true"
           :initial-value="dataById?.brand"

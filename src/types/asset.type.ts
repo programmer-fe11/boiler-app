@@ -1,3 +1,4 @@
+// TODO: Rename interface ini jadi Asset, jangan lupa renamenya pake F2
 export interface Member {
   _id: string;
   category: string;
