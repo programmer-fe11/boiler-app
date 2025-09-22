@@ -9,7 +9,7 @@ import {
   ButtonSearch,
 } from '@fewangsit/wangsvue';
 import { Member } from '@/types/asset.type';
-import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
+import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 
 const bulkAction: MenuItem[] = [
   {
@@ -45,5 +45,5 @@ const showRegisterDialog = shallowRef<boolean>(false);
     />
   </div>
 
-  <DialogRegisterEditLayout v-model:visible="showRegisterDialog" />
+  <DialogRegisterEditAsset v-model:visible="showRegisterDialog" />
 </template>

@@ -11,7 +11,7 @@ import { Member } from '@/types/asset.type';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
 import AssetServices from '@/components/services/asset.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
-import DialogRegisterEditLayout from './DialogRegisterEditLayout.vue';
+import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -105,7 +105,7 @@ const getTableData = async (
     use-paginator
   />
 
-  <DialogRegisterEditLayout
+  <DialogRegisterEditAsset
     v-model:visible="showEditUserDialog"
     :id-edit="selectedAssetId ?? undefined"
   />
