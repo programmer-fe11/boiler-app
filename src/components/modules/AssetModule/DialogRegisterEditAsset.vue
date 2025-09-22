@@ -1,4 +1,3 @@
-<!-- TODO: Ini kan dialog untuk register/edit asset, ubah nama file ini biar sesuai -->
 <script setup lang="ts">
 import {
   GetOptionsParams,
@@ -14,7 +13,9 @@ import {
   useToast,
 } from '@fewangsit/wangsvue';
 import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { computed, onMounted, shallowRef, watch } from 'vue';
+import { computed, onMounted, shallowRef } from 'vue';
+
+type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
 
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
@@ -22,18 +23,16 @@ const group = defineModel<string | undefined>('group');
 const category = defineModel<string | undefined>('category');
 const name = defineModel<string | undefined>('name');
 
-const toast = useToast();
-
-const dataById = shallowRef<Member | undefined>(undefined);
-type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
-
-const dataOptions = shallowRef<GetOptionsResponse['data'] | undefined>(
-  undefined,
-);
-
 onMounted(async () => {
   getAllOptions({});
 });
+
+const toast = useToast();
+
+const dataById = shallowRef<Member | undefined>(undefined);
+const dataOptions = shallowRef<GetOptionsResponse['data'] | undefined>(
+  undefined,
+);
 
 const isBrandModelEnabled = computed(() => {
   return (
@@ -65,14 +64,8 @@ const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
   }
 };
 
-/*
- * TODO: Nama function ini kurang sesuai, karena ini function untuk submit form
- * TODO: Tipe argumen untuk function ini harusnya sesuai sama emit submit DialogForm,
- * coba diliat disitu tipe emitnya apa
- */
 const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
   try {
-    // TODO: Kalau ini untuk edit asset, harusnya manggil API edit asset
     if (!props.idEdit) {
       await AssetServices.postAsset(body);
       toast.add({
@@ -110,7 +103,6 @@ const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
     width="medium"
   >
     <template #fields>
-      <!-- TODO: Options harusnya didapetin dari API, bukan hardcode -->
       <div class="grid grid-cols-2 gap-3">
         <Dropdown
           v-model="group"
@@ -181,9 +173,9 @@ const submitForm = async (body: RegisterEditAssetBody): Promise<void> => {
         />
       </div>
 
-      <!-- TODO: Harusnya ada inital value untuk ImageCompressor -->
       <ImageCompressor
         :custom-requirements="['Max. 1MB', 'Must be image format']"
+        :image-preview-url="dataById?.assetImage"
         label="Photo"
         mandatory
         multiple
