@@ -29,6 +29,7 @@ const showRegisterDialog = shallowRef<boolean>(false);
 
 <template>
   <div class="flex justify-end gap-4" data-wv-section="tabletoolbars">
+    <!-- TODO: Disini harusnya enggak ada bulk action, atur button juga biar sesuai kayak di Figma -->
     <ButtonBulkAction
       v-model:selected-data="dataSelected"
       :options="bulkAction"

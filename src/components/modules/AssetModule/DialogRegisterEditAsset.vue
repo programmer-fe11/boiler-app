@@ -23,6 +23,7 @@ const name = shallowRef<string>();
 const toast = useToast();
 
 const dataById = shallowRef<Asset | undefined>(undefined);
+// TODO: Kayak yang aku ajarin kemarin, disini undefined bisa dihapus
 const dataOptions = shallowRef<
   FetchOptionResponse<GetOptionsParams>['data'] | undefined
 >(undefined);
@@ -81,6 +82,11 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
       });
     }
 
+    /*
+     * TODO: Kalau stay after submit, harusnya dropdown brand sama model
+     * disabled lagi, dan kayak yang dikasitau di Figma bagian kiri atas,
+     * `semua input akan reset kecuali group`
+     */
     if (!body.stayAfterSubmit) {
       visible.value = false;
     }
@@ -110,6 +116,11 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
   >
     <template #fields>
       <div class="grid grid-cols-2 gap-3">
+        <!--
+          TODO: Harusnya untuk tiap dropdown pas show ada getOptions,
+          dan get optionsnya juga spesifik untuk tiap dropdown, jadi perlu
+          dikasih param
+        -->
         <Dropdown
           v-model="group"
           :initial-value="dataById?.group"
@@ -147,6 +158,10 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           placeholder="Select asset name"
           use-validator
         />
+        <!--
+          TODO: Kalau Dayen liat di Figma, ada icon info sama ada tooltip
+          Alias name info, itu pake prop `fieldInfo` dari InputText
+        -->
         <InputText
           :value="dataById?.aliasName"
           field-name="aliasName"

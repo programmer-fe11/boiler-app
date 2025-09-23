@@ -15,6 +15,7 @@ import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+// TODO: Label sama icon untuk single action sesuaiin sama di Figma
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
@@ -67,6 +68,7 @@ const tableColumns = computed<TableColumn[]>(() => {
       sortable: true,
       fixed: true,
     },
+    // TODO: Alias name masih belum keliatan di tabel
     {
       field: 'AliasName',
       header: 'Alias Name',
@@ -91,6 +93,7 @@ const getTableData = async (
 <template>
   <AssetModuleHeader />
   <AssetModuleTableFilter />
+  <!-- TODO: Atur prop `selectionType` untuk datatable biar sesuai sama di figma -->
   <DataTable
     :columns="tableColumns"
     :fetch-function="getTableData"

@@ -41,12 +41,18 @@ const getDataById = async (): Promise<Asset | undefined> => {
 </script>
 
 <template>
+  <!--
+    TODO: Disini banyak yang belum sesuai Figma, coba diliat lagi apa aja yang salah
+    TODO: Sebisa mungkin class tailwind jangan pake aribtrary value (yang dalam kurung kotak itu
+    arbitrary value), jadi misalnya gap-[10px] diganti jadi gap-2.5
+  -->
   <div class="px-6">
     <div class="rounded-[7px] bg-white flex flex-col gap-[10px]">
       <div class="flex justify-between">
         <h2>{{ dataById?.name }}</h2>
         <div class="text-[10px]">
           <p class="text-general-400 leading-4">Last modified</p>
+          <!-- TODO: Ini harusnya pake function `formatDate`, import dari wangsvue -->
           <p class="leading-[14px]">{{ dataById?.createdAt }}</p>
         </div>
       </div>
