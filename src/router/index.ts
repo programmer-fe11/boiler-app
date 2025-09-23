@@ -9,8 +9,8 @@ const routes: Readonly<RouteRecordRaw[]> = [
     children: [
       {
         path: 'home',
-        name: 'HomeView',
-        component: (): Promise<Component> => import('@/views/HomeView.vue'),
+        name: 'AssetView',
+        component: (): Promise<Component> => import('@/views/AssetView.vue'),
       },
 
       {

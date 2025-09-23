@@ -3,75 +3,75 @@
     "nameOptions": [
       {
         "label": "Laptop Lenovo ThinkPad X1",
-        "value": "thinkpad_x1"
+        "value": "Laptop Lenovo ThinkPad X1"
       },
       {
         "label": "Monitor Dell UltraSharp 27",
-        "value": "dell_ultrasharp_27"
+        "value": "Monitor Dell UltraSharp 27"
       },
       {
         "label": "Printer HP LaserJet Pro",
-        "value": "hp_laserjet_pro"
+        "value": "Printer HP LaserJet Pro"
       }
     ],
     "groupOptions": [
       {
         "label": "Warehouse A",
-        "value": "warehouse_a"
+        "value": "Warehouse A"
       },
       {
         "label": "Head Office",
-        "value": "head_office"
+        "value": "Head Office"
       },
       {
         "label": "Branch Jakarta",
-        "value": "branch_jakarta"
+        "value": "Branch Jakarta"
       }
     ],
     "brandOptions": [
       {
         "label": "Lenovo",
-        "value": "lenovo"
+        "value": "Lenovo"
       },
       {
         "label": "Dell",
-        "value": "dell"
+        "value": "Dell"
       },
       {
         "label": "HP",
-        "value": "hp"
+        "value": "HP"
       }
     ],
     "modelOptions": [
       {
         "label": "ThinkPad X1 Carbon Gen 9",
-        "value": "x1_carbon_gen9"
+        "value": "ThinkPad X1 Carbon Gen 9"
       },
       {
         "label": "UltraSharp U2720Q",
-        "value": "u2720q"
+        "value": "UltraSharp U2720Q"
       },
       {
         "label": "LaserJet Pro M404dn",
-        "value": "m404dn"
+        "value": "LaserJet Pro M404dn"
       }
     ],
     "categoryOptions": [
       {
         "label": "Laptop",
-        "value": "laptop"
+        "value": "Laptop"
       },
       {
         "label": "Monitor",
-        "value": "monitor"
+        "value": "Monitor"
       },
       {
         "label": "Printer",
-        "value": "printer"
+        "value": "Printer"
       },
       {
         "label": "Networking Device",
-        "value": "networking"
+        "value": "Networking Device"
       }
     ]
   },

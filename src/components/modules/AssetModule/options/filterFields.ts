@@ -1,5 +1,27 @@
 import { Option } from '@fewangsit/wangsvue/dropdown';
 import { FilterField } from '@fewangsit/wangsvue/filtercontainer';
+import { GetOptionsParams } from '@/components/dto/asset.dto';
+import AssetServices from '@/components/services/asset.service';
+import { FilterOptions } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+
+const getAllOptions = async (
+  params: GetOptionsParams,
+): Promise<FilterOptions<GetOptionsParams>> => {
+  try {
+    const response = await AssetServices.getOptions(params);
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+
+    return {
+      categoryOptions: [],
+      nameOptions: [],
+      groupOptions: [],
+      brandOptions: [],
+      modelOptions: [],
+    };
+  }
+};
 
 export const filterFields: FilterField[] = [
   {
@@ -9,7 +31,8 @@ export const filterFields: FilterField[] = [
     placeholder: 'Select asset name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        const { nameOptions } = await getAllOptions({});
+        return nameOptions as Option[];
       } catch (error) {
         console.error(error);
         return [];
@@ -23,7 +46,8 @@ export const filterFields: FilterField[] = [
     placeholder: 'Select group',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        const { groupOptions } = await getAllOptions({});
+        return groupOptions as Option[];
       } catch (error) {
         console.error(error);
         return [];
@@ -37,7 +61,8 @@ export const filterFields: FilterField[] = [
     placeholder: 'Select brand',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        const { brandOptions } = await getAllOptions({});
+        return brandOptions as Option[];
       } catch (error) {
         console.error(error);
         return [];
@@ -51,7 +76,8 @@ export const filterFields: FilterField[] = [
     placeholder: 'Select model/type',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        const { modelOptions } = await getAllOptions({});
+        return modelOptions as Option[];
       } catch (error) {
         console.error(error);
         return [];

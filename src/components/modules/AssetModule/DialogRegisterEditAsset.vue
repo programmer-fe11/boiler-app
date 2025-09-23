@@ -22,11 +22,8 @@ const name = shallowRef<string>();
 
 const toast = useToast();
 
-const dataById = shallowRef<Asset | undefined>(undefined);
-// TODO: Kayak yang aku ajarin kemarin, disini undefined bisa dihapus
-const dataOptions = shallowRef<
-  FetchOptionResponse<GetOptionsParams>['data'] | undefined
->(undefined);
+const dataById = shallowRef<Asset>();
+const dataOptions = shallowRef<FetchOptionResponse<GetOptionsParams>['data']>();
 
 const isBrandModelDisabled = computed<boolean>(() => {
   return !group.value || !category.value || !name.value;
@@ -82,13 +79,12 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
       });
     }
 
-    /*
-     * TODO: Kalau stay after submit, harusnya dropdown brand sama model
-     * disabled lagi, dan kayak yang dikasitau di Figma bagian kiri atas,
-     * `semua input akan reset kecuali group`
-     */
     if (!body.stayAfterSubmit) {
       visible.value = false;
+    } else {
+      group.value = body.formValues.Group as string;
+      category.value = undefined;
+      name.value = undefined;
     }
   } catch (error) {
     toast.add({
@@ -116,16 +112,11 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
   >
     <template #fields>
       <div class="grid grid-cols-2 gap-3">
-        <!--
-          TODO: Harusnya untuk tiap dropdown pas show ada getOptions,
-          dan get optionsnya juga spesifik untuk tiap dropdown, jadi perlu
-          dikasih param
-        -->
         <Dropdown
           v-model="group"
-          :initial-value="dataById?.group"
+          :initial-value="dataById?.group || group"
           :options="dataOptions?.groupOptions"
-          @show="getAllOptions({})"
+          @show="getAllOptions({ groupOptions: true })"
           field-name="Group"
           label="Group"
           mandatory
@@ -138,6 +129,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           v-model="category"
           :initial-value="dataById?.category"
           :options="dataOptions?.categoryOptions"
+          @show="getAllOptions({ categoryOptions: true })"
           field-name="category"
           label="Category"
           mandatory
@@ -150,6 +142,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           v-model="name"
           :initial-value="dataById?.name"
           :options="dataOptions?.nameOptions"
+          @show="getAllOptions({ nameOptions: true })"
           field-name="name"
           label="Name"
           mandatory
@@ -158,12 +151,11 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           placeholder="Select asset name"
           use-validator
         />
-        <!--
-          TODO: Kalau Dayen liat di Figma, ada icon info sama ada tooltip
-          Alias name info, itu pake prop `fieldInfo` dari InputText
-        -->
+
         <InputText
           :value="dataById?.aliasName"
+          field-info="You can input an alias name for convenience in searching for
+           assets and to differentiate them from others."
           field-name="aliasName"
           label="Alias Name"
           placeholder="Enter alias name"
@@ -172,6 +164,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           :disabled="isBrandModelDisabled"
           :initial-value="dataById?.brand"
           :options="dataOptions?.brandOptions"
+          @show="getAllOptions({ brandOptions: true })"
           field-name="brand"
           label="Brand"
           mandatory
@@ -184,6 +177,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
           :disabled="isBrandModelDisabled"
           :initial-value="dataById?.model"
           :options="dataOptions?.modelOptions"
+          @show="getAllOptions({ modelOptions: true })"
           field-name="model"
           label="Model / Type"
           mandatory

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AssetServices from '@/components/services/asset.service';
 import { Asset } from '@/types/asset.type';
-import { Image } from '@fewangsit/wangsvue';
+import { formatDate, Image } from '@fewangsit/wangsvue';
 import { computed, onMounted, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -38,22 +38,29 @@ const getDataById = async (): Promise<Asset | undefined> => {
     console.error(error);
   }
 };
+
+const date = computed<string>(() => {
+  return dataById.value?.createdAt
+    ? formatDate(new Date(dataById.value.createdAt), {
+        dateFormat: 'dd/mm/yy',
+        timeFormat: 'HH:mm:ss',
+        showTime: true,
+      })
+    : '-';
+});
 </script>
 
 <template>
-  <!--
-    TODO: Disini banyak yang belum sesuai Figma, coba diliat lagi apa aja yang salah
-    TODO: Sebisa mungkin class tailwind jangan pake aribtrary value (yang dalam kurung kotak itu
-    arbitrary value), jadi misalnya gap-[10px] diganti jadi gap-2.5
-  -->
   <div class="px-6">
-    <div class="rounded-[7px] bg-white flex flex-col gap-[10px]">
+    <div class="rounded-[7px] bg-white flex flex-col gap-2.5">
       <div class="flex justify-between">
-        <h2>{{ dataById?.name }}</h2>
-        <div class="text-[10px]">
-          <p class="text-general-400 leading-4">Last modified</p>
-          <!-- TODO: Ini harusnya pake function `formatDate`, import dari wangsvue -->
-          <p class="leading-[14px]">{{ dataById?.createdAt }}</p>
+        <h2 class="!text-xl font-semibold text-grayscale-900 !leading-[100%]">
+          {{ dataById?.name }}
+        </h2>
+        <div class="text-[10px] flex flex-col">
+          <!-- ... -->
+          <span class="text-general-400 leading-4">Last modified</span>
+          <span class="leading-[14px] font-medium">{{ date }} by ....</span>
         </div>
       </div>
       <div class="flex gap-6">
@@ -64,14 +71,14 @@ const getDataById = async (): Promise<Asset | undefined> => {
             <div
               :key="index"
               v-for="(detail, index) in detailList"
-              class="min-w-80 flex flex-col gap-1"
+              class="w-[324px] flex flex-col gap-1"
             >
-              <p class="text-[10px] leading-4 text-general-500">
+              <span class="text-[10px] leading-4 text-general-500">
                 {{ detail.title }}
-              </p>
-              <p class="text-xs leading-4 text-grayscale-900 font-medium">
+              </span>
+              <span class="text-xs leading-4 text-grayscale-900 font-medium">
                 {{ detail.desc }}
-              </p>
+              </span>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ describe('/home', () => {
 
   it('should have correct breadcrumb', () => {
     cy.getByName('breadcrumb').within(() => {
-      cy.contains('Home');
+      cy.contains('Asset');
     });
   });
 

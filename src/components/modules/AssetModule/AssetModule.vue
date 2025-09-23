@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
-import { DataTable } from '@fewangsit/wangsvue';
+import { Badge, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
   QueryParams,
+  TableCellComponent,
   TableColumn,
 } from '@fewangsit/wangsvue/datatable';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
@@ -13,20 +14,21 @@ import AssetServices from '@/components/services/asset.service';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 import { useRouter } from 'vue-router';
+import { BadgeProps } from '@fewangsit/wangsvue/badge';
 
 const router = useRouter();
-// TODO: Label sama icon untuk single action sesuaiin sama di Figma
+
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
-    icon: 'checkbox-blank-circle',
+    icon: 'file-copy-2-line',
     command: (): void => {
       router.push(`/detail/${selectedAsset.value?._id}`);
     },
   },
   {
     label: 'Edit',
-    icon: 'checkbox-blank-circle',
+    icon: 'pencil',
     command: (): void => {
       showEditUserDialog.value = true;
     },
@@ -49,28 +51,64 @@ const tableColumns = computed<TableColumn[]>(() => {
       header: 'Group',
       sortable: true,
       fixed: true,
+      bodyComponent: (data): TableCellComponent => {
+        return {
+          component: Badge,
+          props: {
+            label: data.group,
+            severity: 'primary',
+          } as BadgeProps,
+        };
+      },
     },
     {
       field: 'category',
       header: 'Category',
       sortable: true,
       fixed: true,
+      bodyComponent: (data): TableCellComponent => {
+        return {
+          component: Badge,
+          props: {
+            label: data.category,
+            severity: 'primary',
+          } as BadgeProps,
+        };
+      },
     },
     {
       field: 'brand',
       header: 'Brand',
       sortable: true,
       fixed: true,
+      bodyComponent: (data): TableCellComponent => {
+        return {
+          component: Badge,
+          props: {
+            label: data.brand,
+            severity: 'dark',
+          } as BadgeProps,
+        };
+      },
     },
     {
       field: 'model',
       header: 'Model/Type',
       sortable: true,
       fixed: true,
+      bodyComponent: (data): TableCellComponent => {
+        return {
+          component: Badge,
+          props: {
+            label: data.model,
+            severity: 'dark',
+          } as BadgeProps,
+        };
+      },
     },
-    // TODO: Alias name masih belum keliatan di tabel
+
     {
-      field: 'AliasName',
+      field: 'aliasName',
       header: 'Alias Name',
       sortable: true,
       fixed: true,
@@ -93,15 +131,16 @@ const getTableData = async (
 <template>
   <AssetModuleHeader />
   <AssetModuleTableFilter />
-  <!-- TODO: Atur prop `selectionType` untuk datatable biar sesuai sama di figma -->
   <DataTable
     :columns="tableColumns"
     :fetch-function="getTableData"
     :options="singleAction"
     @toggle-option="selectedAsset = $event"
     data-key="_id"
+    empty-table-message="empty"
     lazy
-    table-name="user-list"
+    selection-type="none"
+    table-name="asset-list"
     use-option
     use-paginator
   />
