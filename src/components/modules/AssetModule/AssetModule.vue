@@ -18,10 +18,9 @@ import { BadgeProps } from '@fewangsit/wangsvue/badge';
 
 const router = useRouter();
 
-// TODO: Label untuk single action sesuaiin sama di Figma
 const singleAction: MenuItem[] = [
   {
-    label: 'Detail',
+    label: 'Detail Asset',
     icon: 'file-copy-2-line',
     command: (): void => {
       router.push(`/detail/${selectedAsset.value?._id}`);
@@ -29,7 +28,7 @@ const singleAction: MenuItem[] = [
   },
   {
     label: 'Edit',
-    icon: 'pencil',
+    icon: 'edit',
     command: (): void => {
       showEditUserDialog.value = true;
     },

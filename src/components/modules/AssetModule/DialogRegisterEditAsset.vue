@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { GetOptionsParams } from '@/components/dto/asset.dto';
+import {
+  GetOptionsParams,
+  RegisterEditAssetBody,
+} from '@/components/dto/asset.dto';
 import AssetServices from '@/components/services/asset.service';
 import { Asset } from '@/types/asset.type';
 import {
@@ -11,11 +14,12 @@ import {
 } from '@fewangsit/wangsvue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
-import { computed, shallowRef } from 'vue';
+import { computed, shallowRef, useTemplateRef } from 'vue';
 
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
 
+const dialogFormRef = useTemplateRef<DialogForm>('dialogFormRef');
 const group = shallowRef<string>();
 const category = shallowRef<string>();
 const name = shallowRef<string>();
@@ -63,7 +67,9 @@ const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
   }
 };
 
-const submitForm = async (body: DialogFormPayload): Promise<void> => {
+const submitForm = async (
+  body: DialogFormPayload<RegisterEditAssetBody>,
+): Promise<void> => {
   try {
     if (!props.idEdit) {
       await AssetServices.postAsset(body.formValues);
@@ -82,9 +88,19 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
     if (!body.stayAfterSubmit) {
       visible.value = false;
     } else {
-      group.value = body.formValues.Group as string;
+      dialogFormRef.value?.setFieldValue(
+        'group',
+        body.formValues.group as string,
+        true,
+      );
       category.value = undefined;
       name.value = undefined;
+      setTimeout(() => {
+        dialogFormRef.value?.setErrors({
+          category: undefined,
+          name: undefined,
+        });
+      }, 0);
     }
   } catch (error) {
     toast.add({
@@ -99,6 +115,7 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
 
 <template>
   <DialogForm
+    ref="dialogFormRef"
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
     :close-on-submit="false"
@@ -114,10 +131,10 @@ const submitForm = async (body: DialogFormPayload): Promise<void> => {
       <div class="grid grid-cols-2 gap-3">
         <Dropdown
           v-model="group"
-          :initial-value="dataById?.group || group"
+          :initial-value="dataById?.group"
           :options="dataOptions?.groupOptions"
           @show="getAllOptions({ groupOptions: true })"
-          field-name="Group"
+          field-name="group"
           label="Group"
           mandatory
           option-label="label"

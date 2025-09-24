@@ -1,4 +1,3 @@
-import { Option } from '@fewangsit/wangsvue/dropdown';
 import { AxiosResponse } from 'axios';
 import {
   FetchOptionResponse,
@@ -14,13 +13,6 @@ const getAllOptions = async (
 };
 
 export const filterFields: FilterField[] = [
-  /*
-   * TODO: Untuk fungsi getAllOptions, udah aku singkatin, filter name juga udah aku sesuaiin,
-   * filter yang lainnya juga disesuaiin ya.
-   *
-   * `optionField` itu untuk query API, jadi untuk filter name, bakal request dengan
-   * query `nameOptions: true`, dan return options yang `nameOptions`.
-   */
   {
     label: 'Asset',
     field: 'name',
@@ -32,46 +24,25 @@ export const filterFields: FilterField[] = [
   {
     label: 'Group',
     field: 'group',
+    optionField: 'groupOptions',
     type: 'multiselect',
     placeholder: 'Select group',
-    fetchOptionFn: async (): Promise<Option[]> => {
-      try {
-        const { groupOptions } = await getAllOptions({});
-        return groupOptions as Option[];
-      } catch (error) {
-        console.error(error);
-        return [];
-      }
-    },
+    fetchOptionFn: getAllOptions,
   },
   {
     label: 'Brand',
     field: 'brand',
+    optionField: 'brandOptions',
     type: 'multiselect',
     placeholder: 'Select brand',
-    fetchOptionFn: async (): Promise<Option[]> => {
-      try {
-        const { brandOptions } = await getAllOptions({});
-        return brandOptions as Option[];
-      } catch (error) {
-        console.error(error);
-        return [];
-      }
-    },
+    fetchOptionFn: getAllOptions,
   },
   {
     label: 'Model/type',
     field: 'model',
+    optionField: 'modelOptions',
     type: 'multiselect',
     placeholder: 'Select model/type',
-    fetchOptionFn: async (): Promise<Option[]> => {
-      try {
-        const { modelOptions } = await getAllOptions({});
-        return modelOptions as Option[];
-      } catch (error) {
-        console.error(error);
-        return [];
-      }
-    },
+    fetchOptionFn: getAllOptions,
   },
 ];

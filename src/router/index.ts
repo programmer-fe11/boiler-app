@@ -5,10 +5,10 @@ const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
     component: (): Promise<Component> => import('@/layout/AssetLayout.vue'),
-    redirect: '/home',
+    redirect: '/asset',
     children: [
       {
-        path: 'home',
+        path: 'asset',
         name: 'AssetView',
         component: (): Promise<Component> => import('@/views/AssetView.vue'),
       },
