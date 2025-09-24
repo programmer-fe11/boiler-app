@@ -16,6 +16,7 @@ interface DetailList {
   desc?: string;
 }
 
+// TODO: Ingat lagi computed harusnya ada dimana, liat coding guide
 const detailList = computed<DetailList[]>(() => {
   return [
     { title: 'Brand', desc: dataById.value?.brand },
@@ -51,6 +52,7 @@ const date = computed<string>(() => {
 </script>
 
 <template>
+  <!-- TODO: Masih ada yang enggak sesuai, misalnya padding, text align, font weight, tinggi elemen -->
   <div class="px-6">
     <div class="rounded-[7px] bg-white flex flex-col gap-2.5">
       <div class="flex justify-between">
@@ -58,7 +60,7 @@ const date = computed<string>(() => {
           {{ dataById?.name }}
         </h2>
         <div class="text-[10px] flex flex-col">
-          <!-- ... -->
+          <!-- TODO: Untuk `by ...` diganti jadi `by {{ dataById?.userFirstName }}` -->
           <span class="text-general-400 leading-4">Last modified</span>
           <span class="leading-[14px] font-medium">{{ date }} by ....</span>
         </div>

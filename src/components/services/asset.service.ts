@@ -1,9 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
-import {
-  FetchDetailResponse,
-  FetchOptionResponse,
-} from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+import { FetchDetailResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
 import {
   GetOptionsParams,
   GetAssetParams,
@@ -11,6 +8,7 @@ import {
 } from '../dto/asset.dto';
 import { Asset } from '@/types/asset.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
+import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 
 type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
 

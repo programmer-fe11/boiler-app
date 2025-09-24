@@ -10,7 +10,7 @@ import {
   useToast,
 } from '@fewangsit/wangsvue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
-import { FetchOptionResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 import { computed, shallowRef } from 'vue';
 
 const props = defineProps<{ idEdit?: string }>();

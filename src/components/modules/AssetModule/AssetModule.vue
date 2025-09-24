@@ -18,6 +18,7 @@ import { BadgeProps } from '@fewangsit/wangsvue/badge';
 
 const router = useRouter();
 
+// TODO: Label untuk single action sesuaiin sama di Figma
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
