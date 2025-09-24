@@ -73,34 +73,36 @@ const submitForm = async (
   try {
     if (!props.idEdit) {
       await AssetServices.postAsset(body.formValues);
+      if (!body.stayAfterSubmit) {
+        visible.value = false;
+      } else {
+        dialogFormRef.value?.setFieldValue(
+          'group',
+          body.formValues.group as string,
+          true,
+        );
+        category.value = undefined;
+        name.value = undefined;
+        setTimeout(() => {
+          dialogFormRef.value?.setErrors({
+            category: undefined,
+            name: undefined,
+          });
+        }, 0);
+      }
       toast.add({
         message: 'Successfully register asset',
         severity: 'success',
       });
     } else {
       await AssetServices.editAsset(props.idEdit, body.formValues);
+      if (!body.stayAfterSubmit) {
+        visible.value = false;
+      }
       toast.add({
         message: 'Successfully edit asset',
         severity: 'success',
       });
-    }
-
-    if (!body.stayAfterSubmit) {
-      visible.value = false;
-    } else {
-      dialogFormRef.value?.setFieldValue(
-        'group',
-        body.formValues.group as string,
-        true,
-      );
-      category.value = undefined;
-      name.value = undefined;
-      setTimeout(() => {
-        dialogFormRef.value?.setErrors({
-          category: undefined,
-          name: undefined,
-        });
-      }, 0);
     }
   } catch (error) {
     toast.add({
