@@ -57,6 +57,7 @@ describe('/asset', () => {
     cy.get('[aria-label="Select model/type"]').should('exist').click();
     cy.get('li').contains('ThinkPad X1').click();
 
+    // TODO: Kalau mau get data-wv-name, pake getByName
     cy.get('[data-wv-name="image-compressor"]')
       .should('exist')
       .within(() => {
@@ -66,6 +67,7 @@ describe('/asset', () => {
       });
 
     cy.get('img').should('be.visible');
+    // TODO: Jangan ada get dari class, jadi jangan ada get yang pakai titik
     cy.get('.p-dialog-footer').within(() => {
       cy.contains('button', 'Terapkan').click();
     });
@@ -109,6 +111,7 @@ describe('/asset', () => {
 
     fillRegisterEditForm();
 
+    // TODO: Kalau mau get data-wv-section, pake getSection
     cy.get('[data-wv-section="dialog-form-footer"]')
       .contains('label', 'Stay on this form after submitting')
       .click();
