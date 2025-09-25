@@ -4,12 +4,27 @@ describe('/asset', () => {
     cy.intercept('GET', '**/v2/asset*', { fixture: 'data-asset' }).as(
       'getAllAsset',
     );
-    cy.intercept('GET', '**/v2/assets/detail/*', { fixture: 'detail-asset' });
+    cy.intercept('GET', '**/v2/assets/detail/*', {
+      fixture: 'detail-asset',
+    }).as('getDetail');
     cy.intercept('GET', '**/v2/assets/options*', {
       fixture: 'options-asset',
     }).as('getOptions');
     cy.intercept('POST', '**/v2/assets*', { statusCode: 200 });
     cy.intercept('PUT', '**/v2/assets/*', { statusCode: 200 });
+
+    cy.visit('/asset', {
+      onBeforeLoad(win) {
+        cy.spy(win.console, 'error').as('consoleError');
+        cy.stub(win, 'open').callsFake((url) => {
+          return (win.open as sinon.SinonStub).wrappedMethod.call(
+            win,
+            url,
+            '_self',
+          );
+        });
+      },
+    });
   });
 
   it('should have correct breadcrumb', () => {
@@ -81,7 +96,6 @@ describe('/asset', () => {
 
     cy.contains('Select model').click();
     cy.wait('@getOptions');
-
     cy.get('[aria-label="Option List"]').within(() => {
       cy.contains('UltraSharp').click();
     });
@@ -112,14 +126,19 @@ describe('/asset', () => {
     cy.contains('[role="dialog"]', 'Register Asset').within(() => {
       cy.get('[aria-label="Bersihkan Field"]').click();
     });
-
+    cy.get('[data-wv-section="dialog-form-footer"]')
+      .contains('label', 'Stay on this form after submitting')
+      .click();
+    cy.get('[data-wv-section="dialog-form-footer"]')
+      .contains('label', 'Stay on this form after submitting')
+      .click();
     fillRegisterEditForm();
     cy.get('[data-wv-section="dialog-form-footer"]')
       .find('[aria-label="Simpan"]')
       .click();
   });
 
-  it('test header filter and search', () => {
+  it('should open header filter and search', () => {
     cy.get('i.icon.ic-search').click();
     cy.get('[data-wv-section="form"]').first().type('Hello test');
     cy.get('i.icon.ic-close').click();
@@ -146,7 +165,7 @@ describe('/asset', () => {
     );
   });
 
-  it('test Edit', () => {
+  it('should open edit dialog with STAY ON FORM', () => {
     cy.wait('@getAllAsset');
     cy.getSection('tablewrapper').should('be.visible');
 
@@ -161,10 +180,26 @@ describe('/asset', () => {
       .should('exist')
       .click();
 
-    cy.get('[data-wv-section="dialog-form-footer"]')
-      .contains('label', 'Stay on this form after submitting')
+    cy.contains('[role="dialog"]', 'Edit Asset')
       .should('exist')
+      .within(() => {
+        cy.get('[aria-label="Bersihkan Field"]').click();
+      });
+
+    cy.get('[data-wv-section="dialog-form-footer"]')
+      .find('[aria-label="Simpan"]')
       .click();
+  });
+  it('should open edit WITHOUT STAY ON FORM ', () => {
+    cy.wait('@getAllAsset');
+    cy.getSection('tablewrapper').should('be.visible');
+
+    cy.get('.icon.ic-ellipsis-h').first().click();
+    cy.get('.icon.ic-ellipsis-h').first().click();
+
+    cy.get('td i.icon.ic-ellipsis-h').first().click();
+    cy.contains('Edit', { timeout: 10000 }).should('be.visible').click();
+
     cy.contains('[role="dialog"]', 'Edit Asset')
       .should('exist')
       .within(() => {
@@ -176,7 +211,7 @@ describe('/asset', () => {
       .click();
   });
 
-  it('test Detail', () => {
+  it('should open detail', () => {
     cy.wait('@getAllAsset');
     cy.getSection('tablewrapper').should('be.visible');
 
@@ -184,5 +219,59 @@ describe('/asset', () => {
     cy.contains('Detail Asset', { timeout: 10000 })
       .should('be.visible')
       .click();
+
+    cy.wait('@getDetail');
+    cy.contains('XIX Brum');
+  });
+});
+
+describe('/asset error path', () => {
+  beforeEach(() => {
+    cy.visit('/asset', {
+      onBeforeLoad(win) {
+        cy.spy(win.console, 'error').as('consoleError');
+      },
+    });
+
+    cy.intercept('GET', '**/v2/asset*', { fixture: 'data-asset' }).as(
+      'getAllAsset',
+    );
+  });
+
+  it('should handle error on detail asset', () => {
+    cy.intercept('GET', '**/v2/assets/detail/*', {
+      statusCode: 404,
+      body: { message: 'Asset not found' },
+    }).as('getDetailError');
+
+    cy.wait('@getAllAsset');
+    cy.getSection('tablewrapper').should('be.visible');
+
+    cy.get('td i.icon.ic-ellipsis-h').first().click();
+    cy.contains('Detail Asset').click();
+
+    cy.wait('@getDetailError');
+    cy.get('@consoleError').should('have.been.called');
+  });
+});
+
+describe('/asset error path Asset', () => {
+  beforeEach(() => {
+    cy.visit('/asset', {
+      onBeforeLoad(win) {
+        cy.spy(win.console, 'error').as('consoleError');
+      },
+    });
+  });
+
+  it('should handle error on main page (getAllAsset)', () => {
+    cy.intercept('GET', '**/v2/asset*', {
+      statusCode: 500,
+      body: { message: 'Internal Server Error' },
+    }).as('getAllAssetError');
+
+    cy.visit('/asset');
+    cy.wait('@getAllAssetError');
+    cy.get('@consoleError').should('have.been.called');
   });
 });

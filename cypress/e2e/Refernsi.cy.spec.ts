@@ -81,6 +81,7 @@ describe('Karyawan', () => {
 
     cy.visit('/karyawan', {
       onBeforeLoad(win) {
+        // refrensi error console
         cy.spy(win.console, 'error').as('consoleError');
         /*
          * Open new tab in current tab
