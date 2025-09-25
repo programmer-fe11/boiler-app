@@ -91,23 +91,26 @@ const submitForm = async (
         }, 0);
       }
       toast.add({
-        message: 'Successfully register asset',
+        message: 'Success, asset has been registered',
         severity: 'success',
+        customMessage: true,
       });
     } else {
       await AssetServices.editAsset(props.idEdit, body.formValues);
-      if (!body.stayAfterSubmit) {
-        visible.value = false;
-      }
       toast.add({
-        message: 'Successfully edit asset',
+        message: 'Success, asset has been edited',
         severity: 'success',
+        customMessage: true,
       });
+      visible.value = false;
     }
   } catch (error) {
     toast.add({
-      message: props.idEdit ? 'Failed edit asset' : 'Failed register asset',
+      message: props.idEdit
+        ? 'Error, failed to edit asset. Please check your connection and try again.'
+        : 'Error, failed to register asset. Please check your connection and try again.',
       severity: 'error',
+      customMessage: true,
       error,
     });
     console.error(error);
@@ -123,9 +126,9 @@ const submitForm = async (
     :close-on-submit="false"
     :header="props.idEdit ? `Edit Asset` : `Register Asset`"
     :id-edit="props.idEdit"
+    :show-stay-checkbox="props.idEdit ? false : true"
     @show="showForm"
     @submit="submitForm"
-    show-stay-checkbox
     stay-checkbox-label="Stay on this form after submitting"
     width="medium"
   >
