@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "message": "Success get custom fields",
+  "data": {
+    "totalRecords": 11,
+    "data": [
+      {
+        "_id": "677cf01180c7617698c352ca",
+        "name": "Text",
+        "type": "General Information",
+        "dataType": "Text",
+        "isRequired": true,
+        "optionValue": ["test", "test2"],
+        "category": [
+          {
+            "_id": "66909fb666803935c8990279",
+            "name": "Alat Testing",
+            "key": 283
+          },
+          {
+            "_id": "66909fb666803935c8990279",
+            "name": "Alat Testing",
+            "key": 283
+          },
+          {
+            "_id": "66909fb666803935c8990279",
+            "name": "Alat Testing",
+            "key": 283
+          },
+          {
+            "_id": "66ab439e39e199c50ee4d148",
+            "name": "Kebersihan",
+            "key": 304
+          }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T09:12:49.362Z",
+        "isRequiredString": "Yes"
+      }
+    ]
+  }
+}

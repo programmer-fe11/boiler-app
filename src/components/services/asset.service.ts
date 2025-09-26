@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { FetchDetailResponse } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
 import {
-  GetOptionsParams,
+  GetOptionsAssetParams,
   GetAssetParams,
   RegisterEditAssetBody,
 } from '../dto/asset.dto';
@@ -10,7 +10,7 @@ import { Asset } from '@/types/asset.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 
-type GetOptionsResponse = FetchOptionResponse<GetOptionsParams>;
+type GetOptionsResponse = FetchOptionResponse<GetOptionsAssetParams>;
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const user = JSON.parse(localStorage.getItem('user') ?? '{}');
@@ -44,7 +44,7 @@ const AssetServices = {
   },
 
   getOptions: (
-    params: GetOptionsParams,
+    params: GetOptionsAssetParams,
   ): Promise<AxiosResponse<GetOptionsResponse>> => {
     return API({ params }).get('/options');
   },

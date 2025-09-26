@@ -20,6 +20,20 @@ const routes: Readonly<RouteRecordRaw[]> = [
       },
     ],
   },
+  {
+    path: '/',
+    component: (): Promise<Component> =>
+      import('@/layout/CustomFieldLayout.vue'),
+    redirect: '/customfield',
+    children: [
+      {
+        path: 'custom-field',
+        name: 'CustomFieldView',
+        component: (): Promise<Component> =>
+          import('@/views/CustomFieldView.vue'),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

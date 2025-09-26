@@ -13,7 +13,7 @@ export interface GetAssetParams extends QueryParams {
   _id?: string;
 }
 
-export interface GetOptionsParams {
+export interface GetOptionsAssetParams {
   brandOptions?: boolean;
   nameOptions?: boolean;
   categoryOptions?: boolean;

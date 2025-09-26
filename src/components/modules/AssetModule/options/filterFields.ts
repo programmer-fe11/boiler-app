@@ -3,11 +3,11 @@ import {
   FetchOptionResponse,
   FilterField,
 } from '@fewangsit/wangsvue/filtercontainer';
-import { GetOptionsParams } from '@/components/dto/asset.dto';
+import { GetOptionsAssetParams } from '@/components/dto/asset.dto';
 import AssetServices from '@/components/services/asset.service';
 
 const getAllOptions = async (
-  params: GetOptionsParams,
+  params: GetOptionsAssetParams,
 ): Promise<AxiosResponse<FetchOptionResponse>> => {
   return await AssetServices.getOptions(params);
 };

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  GetOptionsParams,
+  GetOptionsAssetParams,
   RegisterEditAssetBody,
 } from '@/components/dto/asset.dto';
 import AssetServices from '@/components/services/asset.service';
@@ -27,7 +27,8 @@ const name = shallowRef<string>();
 const toast = useToast();
 
 const dataById = shallowRef<Asset>();
-const dataOptions = shallowRef<FetchOptionResponse<GetOptionsParams>['data']>();
+const dataOptions =
+  shallowRef<FetchOptionResponse<GetOptionsAssetParams>['data']>();
 
 const isBrandModelDisabled = computed<boolean>(() => {
   return !group.value || !category.value || !name.value;
@@ -58,7 +59,7 @@ const getDataById = async (): Promise<void> => {
   }
 };
 
-const getAllOptions = async (params: GetOptionsParams): Promise<void> => {
+const getAllOptions = async (params: GetOptionsAssetParams): Promise<void> => {
   try {
     const response = await AssetServices.getOptions(params);
     dataOptions.value = response.data.data;
@@ -173,7 +174,7 @@ const submitForm = async (
           placeholder="Select asset name"
           use-validator
         />
-
+        <!-- :validator-message="{ }" -->
         <InputText
           :value="dataById?.aliasName"
           field-info="You can input an alias name for convenience in searching for
