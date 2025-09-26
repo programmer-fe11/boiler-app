@@ -29,6 +29,10 @@ watch(showCreateCustomFieldDialog, (newval) => {
       />
       <Changelog object="" />
     </div>
+    <!--
+      TODO: Di label jangan ada `+`, harusnya pake icon add
+      (Ini aku kelewatan, harusnya di asset juga diperbaikin)
+    -->
     <Button
       @click="showCreateCustomFieldDialog = !showCreateCustomFieldDialog"
       label="+ Custom Field"

@@ -4,6 +4,7 @@ import { ref, useTemplateRef } from 'vue';
 
 const visible = defineModel<boolean>('visible', { required: true });
 const dialogFormRef = useTemplateRef<DialogForm>('DialogForm');
+// TODO: Ini harusnya pake shallowRef
 const dataType = ref<string>();
 </script>
 
