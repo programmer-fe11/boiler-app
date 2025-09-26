@@ -30,13 +30,13 @@ const singleAction: MenuItem[] = [
     label: 'Edit',
     icon: 'edit',
     command: (): void => {
-      showEditUserDialog.value = true;
+      showEditAssetDialog.value = true;
     },
   },
 ];
 
 const selectedAsset = shallowRef<Asset>();
-const showEditUserDialog = shallowRef<boolean>(false);
+const showEditAssetDialog = shallowRef<boolean>(false);
 
 const tableColumns = computed<TableColumn[]>(() => {
   return [
@@ -146,7 +146,7 @@ const getTableData = async (
   />
 
   <DialogRegisterEditAsset
-    v-model:visible="showEditUserDialog"
+    v-model:visible="showEditAssetDialog"
     :id-edit="selectedAsset?._id"
   />
 </template>

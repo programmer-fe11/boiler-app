@@ -10,7 +10,7 @@ import { Asset } from '@/types/asset.type';
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 
-type GetOptionsResponse = FetchOptionResponse<GetOptionsAssetParams>;
+type GetOptionsAssetResponse = FetchOptionResponse<GetOptionsAssetParams>;
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const user = JSON.parse(localStorage.getItem('user') ?? '{}');
@@ -43,9 +43,9 @@ const AssetServices = {
     return API().get(`/detail/${id}`);
   },
 
-  getOptions: (
+  getAssetOptions: (
     params: GetOptionsAssetParams,
-  ): Promise<AxiosResponse<GetOptionsResponse>> => {
+  ): Promise<AxiosResponse<GetOptionsAssetResponse>> => {
     return API({ params }).get('/options');
   },
 

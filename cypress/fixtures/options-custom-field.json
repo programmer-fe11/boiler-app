@@ -1,0 +1,82 @@
+{
+  "status": 200,
+  "message": "Successfully get custom field options",
+  "data": {
+    "nameOptions": [
+      {
+        "label": "Customer Name",
+        "value": "customer_name"
+      },
+      {
+        "label": "Email Address",
+        "value": "email_address"
+      },
+      {
+        "label": "Phone Number",
+        "value": "phone_number"
+      },
+      {
+        "label": "Purchase Date",
+        "value": "purchase_date"
+      },
+      {
+        "label": "Invoice Amount",
+        "value": "invoice_amount"
+      }
+    ],
+    "dataTypeOptions": [
+      {
+        "label": "Text",
+        "value": "Text"
+      },
+      {
+        "label": "Textarea",
+        "value": "Textarea"
+      },
+      {
+        "label": "Dropdown",
+        "value": "Dropdown"
+      },
+      {
+        "label": "Multi dropdown",
+        "value": "Multi dropdown"
+      },
+      {
+        "label": "Date",
+        "value": "Date"
+      },
+      {
+        "label": "Datetime",
+        "value": "Datetime"
+      },
+      {
+        "label": "Currency",
+        "value": "Currency"
+      },
+      {
+        "label": "Numeric",
+        "value": "Numeric"
+      },
+      {
+        "label": "Phone",
+        "value": "Phone"
+      },
+      {
+        "label": "Percentage",
+        "value": "Percentage"
+      },
+      {
+        "label": "Email",
+        "value": "Email"
+      },
+      {
+        "label": "URL",
+        "value": "URL"
+      },
+      {
+        "label": "Document",
+        "value": "Document"
+      }
+    ]
+  }
+}

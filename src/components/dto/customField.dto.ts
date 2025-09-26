@@ -1,29 +1,28 @@
 import { QueryParams } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
 
 export interface GetCustomFieldParams extends QueryParams {
-  search?: string;
-  fieldName?: string[];
-  dataType?: (
-    | 'Text'
-    | 'Textarea'
-    | 'Dropdown'
-    | 'Multi dropdown'
-    | 'Date'
-    | 'Datetime'
-    | 'Currency'
-    | 'Numeric'
-    | 'Phone'
-    | 'Percentage'
-    | 'Email'
-    | 'URL'
-    | 'Document'
-  )[];
-  active?: boolean;
-  required?: boolean;
-  itemName?: string[];
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: number | 1 | -1;
-  _id?: string;
+  page: string;
+  limit: string;
+  sortBy: string;
+  sortOrder: string;
+  search: string;
+  type: string;
+  status: boolean;
+  dataType: string;
+  isRequired: string;
+  category: string;
+}
+
+export interface GetOptionsCustomFieldParams {
+  dataTypeOptions: string;
+  nameOptions: string;
+}
+export interface CreateCustomFieldRequest {
+  isRequired: boolean;
+  type: string;
+  name: string;
+  dataType: string;
+  category: string[];
+  optionValue: string[];
+  isShowOnTable: boolean;
 }

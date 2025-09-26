@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, shallowRef } from 'vue';
 import { BadgeGroup, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
@@ -12,18 +12,31 @@ import CustomFieldService from '@/components/services/customField.service';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
 import CustomFieldHeader from './CustomFieldHeader.vue';
+import { GetCustomFieldParams } from '@/components/dto/customField.dto';
+import CustomFieldModuleDialogForm from './CustomFieldModuleDialogForm.vue';
+import CustomFieldModuleDialogConfirm from './CustomFieldModuleDialogConfirm.vue';
 
 const singleAction: MenuItem[] = [
   {
     label: 'Edit',
     icon: 'edit',
+    command: (): void => {
+      showCustomFieldEditDialog.value = true;
+    },
   },
   {
     label: 'Delete',
     icon: 'delete-bin',
     danger: true,
+    command: (): void => {
+      showCustomFieldConfirmDialog.value = true;
+    },
   },
 ];
+
+const showCustomFieldEditDialog = shallowRef<boolean>(false);
+const showCustomFieldConfirmDialog = shallowRef<boolean>(false);
+const selectedCustomField = shallowRef<CustomField>();
 
 const tableColumns = computed<TableColumn[]>(() => {
   return [
@@ -87,7 +100,9 @@ const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<CustomField> | undefined> => {
   try {
-    const { data } = await CustomFieldService.getAllCustomField(params);
+    const { data } = await CustomFieldService.getAllCustomField(
+      params as GetCustomFieldParams,
+    );
     return data;
   } catch (error) {
     console.error(error);
@@ -101,12 +116,20 @@ const getTableData = async (
     :columns="tableColumns"
     :fetch-function="getTableData"
     :options="singleAction"
-    data-key="id"
+    @toggle-option="selectedCustomField = $event"
+    data-key="_id"
     empty-table-message="empty"
     lazy
     selection-type="checkbox"
     table-name="custom-field-list"
     use-option
     use-paginator
+  />
+  <CustomFieldModuleDialogForm
+    v-model:visible="showCustomFieldEditDialog"
+    :id-edit="selectedCustomField?._id"
+  />
+  <CustomFieldModuleDialogConfirm
+    v-model:visible="showCustomFieldConfirmDialog"
   />
 </template>

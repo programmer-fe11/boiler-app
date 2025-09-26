@@ -20,13 +20,13 @@ const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
 
 const dialogFormRef = useTemplateRef<DialogForm>('dialogFormRef');
+const toast = useToast();
+
 const group = shallowRef<string>();
 const category = shallowRef<string>();
 const name = shallowRef<string>();
-
-const toast = useToast();
-
 const dataById = shallowRef<Asset>();
+
 const dataOptions =
   shallowRef<FetchOptionResponse<GetOptionsAssetParams>['data']>();
 
@@ -59,9 +59,11 @@ const getDataById = async (): Promise<void> => {
   }
 };
 
-const getAllOptions = async (params: GetOptionsAssetParams): Promise<void> => {
+const getAllAssetOptions = async (
+  params: GetOptionsAssetParams,
+): Promise<void> => {
   try {
-    const response = await AssetServices.getOptions(params);
+    const response = await AssetServices.getAssetOptions(params);
     dataOptions.value = response.data.data;
   } catch (error) {
     console.error(error);
@@ -139,7 +141,7 @@ const submitForm = async (
           v-model="group"
           :initial-value="dataById?.group"
           :options="dataOptions?.groupOptions"
-          @show="getAllOptions({ groupOptions: true })"
+          @show="getAllAssetOptions({ groupOptions: true })"
           field-name="group"
           label="Group"
           mandatory
@@ -152,7 +154,7 @@ const submitForm = async (
           v-model="category"
           :initial-value="dataById?.category"
           :options="dataOptions?.categoryOptions"
-          @show="getAllOptions({ categoryOptions: true })"
+          @show="getAllAssetOptions({ categoryOptions: true })"
           field-name="category"
           label="Category"
           mandatory
@@ -165,7 +167,7 @@ const submitForm = async (
           v-model="name"
           :initial-value="dataById?.name"
           :options="dataOptions?.nameOptions"
-          @show="getAllOptions({ nameOptions: true })"
+          @show="getAllAssetOptions({ nameOptions: true })"
           field-name="name"
           label="Name"
           mandatory
@@ -187,7 +189,7 @@ const submitForm = async (
           :disabled="isBrandModelDisabled"
           :initial-value="dataById?.brand"
           :options="dataOptions?.brandOptions"
-          @show="getAllOptions({ brandOptions: true })"
+          @show="getAllAssetOptions({ brandOptions: true })"
           field-name="brand"
           label="Brand"
           mandatory
@@ -200,7 +202,7 @@ const submitForm = async (
           :disabled="isBrandModelDisabled"
           :initial-value="dataById?.model"
           :options="dataOptions?.modelOptions"
-          @show="getAllOptions({ modelOptions: true })"
+          @show="getAllAssetOptions({ modelOptions: true })"
           field-name="model"
           label="Model / Type"
           mandatory

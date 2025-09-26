@@ -1,8 +1,14 @@
 import { getBaseURL } from '@fewangsit/workspace-api-services';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { GetAssetParams } from '../dto/asset.dto';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { CustomField } from '@/types/customField.type';
+import {
+  CreateCustomFieldRequest,
+  GetCustomFieldParams,
+  GetOptionsCustomFieldParams,
+} from '../dto/customField.dto';
+
+type GetOptionsCustomFieldResponse = FetchResponse<GetOptionsCustomFieldParams>;
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const BASE_URL = getBaseURL();
@@ -23,9 +29,32 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 
 const CustomFieldService = {
   getAllCustomField: (
-    params: GetAssetParams,
+    params: GetCustomFieldParams,
   ): Promise<AxiosResponse<FetchResponse<CustomField>>> => {
     return API({ params }).get('');
+  },
+
+  getCustomFieldOptions: (
+    params: GetOptionsCustomFieldParams,
+  ): Promise<AxiosResponse<GetOptionsCustomFieldResponse>> => {
+    return API({ params }).get('/options');
+  },
+
+  getCustomFieldById: (
+    id: string,
+  ): Promise<AxiosResponse<FetchResponse<CustomField>>> => {
+    return API().get(`/edit/${id}`);
+  },
+
+  postCustomField: (body: CreateCustomFieldRequest): Promise<AxiosResponse> => {
+    return API().post('', body);
+  },
+
+  editCustomField: (
+    id: string,
+    body: CreateCustomFieldRequest,
+  ): Promise<AxiosResponse> => {
+    return API().put(`/edit/${id}`, body);
   },
 };
 

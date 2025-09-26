@@ -149,7 +149,7 @@
         "type": "Supplier",
         "dataType": "Text",
         "isRequired": true,
-        "optionValue": ["Vendor A", "Vendor B", "Vendor C"],
+        "optionValue": ["Vendor AAAAAAAAAAAAAAAAAA", "Vendor B", "Vendor C"],
         "category": [
           { "_id": "66ab439e39e199c50ee4d157", "name": "Pemasok", "key": 900 }
         ],

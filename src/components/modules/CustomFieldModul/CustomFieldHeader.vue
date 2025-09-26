@@ -5,17 +5,12 @@ import {
   ButtonFilter,
   ButtonSearch,
   Changelog,
-  FilterContainer,
 } from '@fewangsit/wangsvue';
 
-import { shallowRef, watch } from 'vue';
+import { shallowRef } from 'vue';
 import CustomFieldModuleDialogForm from './CustomFieldModuleDialogForm.vue';
 
 const showCreateCustomFieldDialog = shallowRef<boolean>(false);
-
-watch(showCreateCustomFieldDialog, (newval) => {
-  console.log(newval);
-});
 </script>
 
 <template>
@@ -29,13 +24,10 @@ watch(showCreateCustomFieldDialog, (newval) => {
       />
       <Changelog object="" />
     </div>
-    <!--
-      TODO: Di label jangan ada `+`, harusnya pake icon add
-      (Ini aku kelewatan, harusnya di asset juga diperbaikin)
-    -->
     <Button
       @click="showCreateCustomFieldDialog = !showCreateCustomFieldDialog"
-      label="+ Custom Field"
+      icon="add"
+      label="Custom Field"
       severity="secondary"
     />
   </div>

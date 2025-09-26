@@ -9,7 +9,7 @@ import AssetServices from '@/components/services/asset.service';
 const getAllOptions = async (
   params: GetOptionsAssetParams,
 ): Promise<AxiosResponse<FetchOptionResponse>> => {
-  return await AssetServices.getOptions(params);
+  return await AssetServices.getAssetOptions(params);
 };
 
 export const filterFields: FilterField[] = [

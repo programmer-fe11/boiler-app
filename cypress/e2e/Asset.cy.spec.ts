@@ -57,7 +57,7 @@ describe('/asset', () => {
       body: { message: 'Bad Request / asset not found' },
     }).as('postAssetError');
 
-    cy.get('[aria-label="+ Register"]').click();
+    cy.get('[aria-label="Register"]').click();
 
     fillRegisterEditForm();
 
@@ -74,7 +74,7 @@ describe('/asset', () => {
       body: { message: 'Bad Request' },
     }).as('getOptionsError');
 
-    cy.get('[aria-label="+ Register"]').click();
+    cy.get('[aria-label="Register"]').click();
 
     cy.contains('[role="dialog"]', 'Register Asset').within(() => {
       cy.get('[fieldname="group"]').click();
@@ -192,7 +192,7 @@ describe('/asset', () => {
   };
 
   it('should open register dialog when clicking register button & STAY FORM ', () => {
-    cy.get('[aria-label="+ Register"]').click();
+    cy.get('[aria-label="Register"]').click();
 
     fillRegisterEditForm();
 
@@ -205,7 +205,7 @@ describe('/asset', () => {
   });
 
   it('should open register dialog when clicking register button, clear field, and submit WITHOUT STAY FORM', () => {
-    cy.get('[aria-label="+ Register"]').click();
+    cy.get('[aria-label="Register"]').click();
     fillRegisterEditForm();
 
     cy.contains('[role="dialog"]', 'Register Asset').within(() => {

@@ -23,7 +23,8 @@ const showRegisterDialog = shallowRef<boolean>(false);
     <Button
       @click="showRegisterDialog = !showRegisterDialog"
       class="bg-grayscale-900"
-      label="+ Register"
+      icon="add"
+      label="Register"
       severity="secondary"
     />
   </div>
