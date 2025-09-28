@@ -12,7 +12,7 @@ const { setBreadcrumbs } = useBreadcrumbStore();
 
 const menus: BreadcrumbMenu[] = [
   {
-    name: 'CustomField',
+    name: 'Custom Field',
   },
 ];
 </script>
