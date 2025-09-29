@@ -84,13 +84,11 @@ watch(dataSelected, (newVal) => {
     </div>
   </div>
 
-  <!-- Bulk action dialog -->
   <CustomFieldModuleDialogBulk
     v-model:option-bulk="showBulkAction"
     v-model:visible="showBulkActionCustomFieldDialog"
     :list-bulk="listDataSelectedInBluk"
   />
 
-  <!-- Create field dialog -->
   <CustomFieldModuleDialogForm v-model:visible="showCreateCustomFieldDialog" />
 </template>

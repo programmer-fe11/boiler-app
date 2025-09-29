@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { CustomField } from '@/types/customField.type';
 import {
-  CreateCustomFieldRequest,
+  CreateCustomFieldRequestBody,
   GetCustomFieldParams,
   GetOptionsCustomFieldParams,
 } from '../dto/customField.dto';
@@ -46,13 +46,15 @@ const CustomFieldService = {
     return API().get(`/edit/${id}`);
   },
 
-  postCustomField: (body: CreateCustomFieldRequest): Promise<AxiosResponse> => {
+  postCustomField: (
+    body: CreateCustomFieldRequestBody,
+  ): Promise<AxiosResponse> => {
     return API().post('', body);
   },
 
   editCustomField: (
     id: string,
-    body: CreateCustomFieldRequest,
+    body: CreateCustomFieldRequestBody,
   ): Promise<AxiosResponse> => {
     return API().put(`/edit/${id}`, body);
   },

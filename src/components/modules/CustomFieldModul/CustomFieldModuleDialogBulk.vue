@@ -5,7 +5,7 @@ import { DialogConfirm } from '@fewangsit/wangsvue/';
 
 const props = defineProps<{ listBulk?: string[] }>();
 
-const typeOptionBulk = defineModel<ShowOptionBulk>('optionBulk', {
+const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {
   required: true,
 });
 const visible = defineModel<boolean>('visible', { required: true });

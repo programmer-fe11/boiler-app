@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { GetOptionsCustomFieldParams } from '@/components/dto/customField.dto';
+import {
+  CreateCustomFieldRequestBody,
+  GetOptionsCustomFieldParams,
+} from '@/components/dto/customField.dto';
 import CustomFieldService from '@/components/services/customField.service';
 import { CustomField } from '@/types/customField.type';
 import {
@@ -10,7 +13,9 @@ import {
   InputText,
   MultiSelect,
 } from '@fewangsit/wangsvue';
+import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
+import { AxiosResponse } from 'axios';
 import { shallowRef, useTemplateRef, watch } from 'vue';
 
 type CustomFieldOptions =
@@ -25,9 +30,6 @@ const radioButton = shallowRef<string>('no');
 const dataCustomFieldById = shallowRef<CustomField>();
 const allOptionsCustomField = shallowRef<CustomFieldOptions>();
 const dataType = shallowRef<string>();
-const fieldName = shallowRef<string>();
-const itemName = shallowRef<string>();
-const valueInput = shallowRef<string[]>();
 
 const getAllCustomFieldOptions = async (
   params: GetOptionsCustomFieldParams,
@@ -54,12 +56,19 @@ const getDataEditCustomField = async (): Promise<void> => {
     console.error(error);
   }
 };
+const submitForm = async (
+  body: DialogFormPayload<CreateCustomFieldRequestBody>,
+): Promise<void> => {
+  try {
+    console.log(body.formValues);
+  } catch (error) {
+    console.error(error);
+  }
+};
 watch(visible, () => {
   if (visible.value === false && !props.idEdit) {
     radioButton.value = 'no';
     dataType.value = undefined;
-    fieldName.value = undefined;
-    valueInput.value = undefined;
   }
 });
 </script>
@@ -67,7 +76,6 @@ watch(visible, () => {
 <template>
   <DialogForm
     ref="dialogFormRef"
-    v-model="fieldName"
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
     :header="
@@ -83,7 +91,6 @@ watch(visible, () => {
     <template #fields>
       <div class="flex flex-col gap-4 pb-4">
         <InputText
-          v-model="fieldName"
           :max-length="30"
           :validator-message="{
             empty: 'Field name must not be empty',
@@ -127,7 +134,6 @@ watch(visible, () => {
         </div>
         <MultiSelect
           :options="allOptionsCustomField?.nameOptions"
-          :v-model="itemName"
           @show="getAllCustomFieldOptions"
           field-info="Custom fields will be applied to each item 
           SKU under the selected item name."
