@@ -12,94 +12,101 @@ import {
   InputBadge,
   InputText,
   MultiSelect,
+  useToast,
 } from '@fewangsit/wangsvue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
-import { AxiosResponse } from 'axios';
-import { shallowRef, useTemplateRef, watch } from 'vue';
+import { shallowRef, watch } from 'vue';
 
 type CustomFieldOptions =
   FetchOptionResponse<GetOptionsCustomFieldParams>['data'];
 
-const props = defineProps<{ idEdit?: string }>();
+const props = defineProps<{ customFieldData?: CustomField }>();
 const visible = defineModel<boolean>('visible', { required: true });
 
-// TODO: Ini kalau enggak dipake, dihapus aja. Ini ditambahin cuma kalau bakal dipake
-const dialogFormRef = useTemplateRef<DialogForm>('DialogForm');
+const toast = useToast();
 
-const radioButton = shallowRef<string>('no');
-// TODO: Rename ini jadi customFieldData
-const dataCustomFieldById = shallowRef<CustomField>();
-const allOptionsCustomField = shallowRef<CustomFieldOptions>();
-const dataType = shallowRef<string>();
+const radioButton = shallowRef<boolean>(false);
+const optionsCustomField = shallowRef<CustomFieldOptions>();
+const dataType = shallowRef<string | undefined>(
+  props.customFieldData?.dataType,
+);
 
-/*
- * TODO: Rename jadi getCustomFieldOptions, kan ini enggak ambil semua option,
- * tergantung paramnya ngambil options yang mana
- */
-const getAllCustomFieldOptions = async (
+const getCustomFieldOptions = async (
   params: GetOptionsCustomFieldParams,
 ): Promise<void> => {
   try {
     const response = await CustomFieldService.getCustomFieldOptions(params);
-    allOptionsCustomField.value = response.data
+    optionsCustomField.value = response.data
       .data as unknown as CustomFieldOptions;
   } catch (error) {
     console.error(error);
   }
 };
 
-// TODO: Hapus function ini, data custom field diambil dari table
-const getDataEditCustomField = async (): Promise<void> => {
-  try {
-    const response = await CustomFieldService.getCustomFieldById(
-      props.idEdit as string,
-    );
-    const { data } = response.data.data;
-    dataCustomFieldById.value = data.find(
-      (customField) => customField._id === props.idEdit,
-    );
-  } catch (error) {
-    console.error(error);
-  }
-};
 const submitForm = async (
   body: DialogFormPayload<CreateCustomFieldRequestBody>,
 ): Promise<void> => {
   try {
-    console.log(body.formValues);
+    if (!props.customFieldData) {
+      await CustomFieldService.postCustomField(body.formValues);
+      if (body.stayAfterSubmit) {
+        visible.value = true;
+        dataType.value = undefined;
+        radioButton.value = false;
+      }
+      toast.add({
+        message: 'Success, custom field has been created.',
+        severity: 'success',
+        customMessage: true,
+      });
+    } else {
+      await CustomFieldService.editCustomField(
+        props.customFieldData._id,
+        body.formValues,
+      );
+      toast.add({
+        message: 'Success, custom field has been edited.',
+        severity: 'success',
+        customMessage: true,
+      });
+    }
   } catch (error) {
+    toast.add({
+      message: !props.customFieldData
+        ? 'Error, failed to create custom field. Please check your connection and try again.'
+        : 'Error, failed to edit custom field. Please check your connection and try again.',
+      severity: 'error',
+      customMessage: true,
+      error,
+    });
     console.error(error);
   }
 };
+
+const showDialog = (): void => {
+  getCustomFieldOptions({ nameOptions: true });
+  getCustomFieldOptions({ dataTypeOptions: true });
+};
+
 watch(visible, () => {
-  if (visible.value === false && !props.idEdit) {
-    radioButton.value = 'no';
+  if (visible.value === false && !props.customFieldData) {
+    radioButton.value = false;
     dataType.value = undefined;
   }
 });
 </script>
 
+<!-- eslint-disable vue/prefer-true-attribute-shorthand -->
 <template>
-  <!--
-    TODO: Kayak yang pernah aku bilang, kalau mau taruh suatu kode untuk debugging
-   (misalnya yang di header ini), jangan lupa kasih komen TODO, biar Dayen enggak
-   lupa hapus kodenya. Misalnya:
-   TODO: The header should be deleted
-   (komentar dalam kode harus dalam bahasa Inggris, ini aku pake B Indo biar Dayen
-   gampang ngerti, tapi komentar lain bukan cuma satu orang yang bakal baca)
-  -->
   <DialogForm
-    ref="dialogFormRef"
     v-model:visible="visible"
     :buttons-template="['cancel', 'clear', 'submit']"
     :header="
-      props.idEdit
-        ? `Edit Custom Field ${props.idEdit}`
-        : `Create Custom Field ${props.idEdit}`
+      props.customFieldData ? `Edit Custom Field` : `Create Custom Field `
     "
-    :id-edit="props.idEdit"
-    @show="getDataEditCustomField"
+    @show="showDialog"
+    @submit="submitForm"
     show-stay-checkbox
     stay-checkbox-label="Stay on this form after submitting"
   >
@@ -111,19 +118,18 @@ watch(visible, () => {
             empty: 'Field name must not be empty',
             exist: 'This name is already exist',
           }"
-          :value="dataCustomFieldById?.name"
+          :value="customFieldData?.name"
           label="Field Name"
           mandatory
           placeholder="Enter field name"
           use-validator
         />
 
-        <!-- TODO: Untuk dropdown sama multiselect, harusnya getAllCustomFieldOptions ada paramnya -->
         <Dropdown
           v-model="dataType"
-          :initial-value="dataCustomFieldById?.dataType"
-          :options="allOptionsCustomField?.dataTypeOptions"
-          @show="getAllCustomFieldOptions"
+          :initial-value="customFieldData?.dataType"
+          :options="optionsCustomField?.dataTypeOptions"
+          @show="getCustomFieldOptions({ dataTypeOptions: true })"
           field-info="Press enter to add new value"
           field-name="datatype"
           label="Data Type"
@@ -132,7 +138,8 @@ watch(visible, () => {
           option-value="value"
         />
         <InputBadge
-          v-if="dataType"
+          v-if="dataType || customFieldData?.dataType"
+          :initial-value="customFieldData?.optionValue"
           field-info="Press enter to add new value"
           field-name="models"
           label="Value"
@@ -144,13 +151,14 @@ watch(visible, () => {
         <div class="flex justify-between">
           <span class="font-semibold leading-4 text-xs">Required?</span>
           <div class="flex gap-3">
-            <ButtonRadio v-model="radioButton" label="Yes" value="yes" />
-            <ButtonRadio v-model="radioButton" label="No" value="no" />
+            <ButtonRadio v-model="radioButton" :value="true" label="Yes" />
+            <ButtonRadio v-model="radioButton" :value="false" label="No" />
           </div>
         </div>
         <MultiSelect
-          :options="allOptionsCustomField?.nameOptions"
-          @show="getAllCustomFieldOptions"
+          :initial-value="customFieldData?.itemName.map((item) => item._id)"
+          :options="optionsCustomField?.nameOptions"
+          @show="getCustomFieldOptions({ nameOptions: true })"
           field-info="Custom fields will be applied to each item 
           SKU under the selected item name."
           label="Item Name"

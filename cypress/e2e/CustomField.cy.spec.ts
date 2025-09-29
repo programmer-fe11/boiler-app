@@ -4,7 +4,7 @@ describe('/customfield', () => {
       'getAllCustomField',
     );
 
-    cy.intercept('GET', '**/v2/custom-field/options', {
+    cy.intercept('GET', '**/v2/custom-field/options*', {
       fixture: 'options-custom-field',
     }).as('getOptions');
     cy.intercept('GET', '**/v2/custom-field/edit/*', {

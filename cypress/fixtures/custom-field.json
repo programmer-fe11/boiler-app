@@ -11,7 +11,7 @@
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["test", "test2"],
-        "category": [
+        "itemName": [
           {
             "_id": "66909fb666803935c8990279",
             "name": "Alat Testing",
@@ -34,7 +34,7 @@
         "dataType": "Dropdown",
         "isRequired": false,
         "optionValue": ["Laptop", "Monitor", "Keyboard"],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d149", "name": "Perangkat", "key": 305 }
         ],
         "status": true,
@@ -48,7 +48,7 @@
         "dataType": "Date",
         "isRequired": true,
         "optionValue": [],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d150", "name": "Keuangan", "key": 400 }
         ],
         "status": true,
@@ -62,7 +62,7 @@
         "dataType": "Number",
         "isRequired": false,
         "optionValue": [],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d151", "name": "Transaksi", "key": 401 }
         ],
         "status": true,
@@ -76,7 +76,7 @@
         "dataType": "Boolean",
         "isRequired": true,
         "optionValue": ["true", "false"],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d152", "name": "Sistem", "key": 500 }
         ],
         "status": false,
@@ -90,7 +90,7 @@
         "dataType": "Textarea",
         "isRequired": false,
         "optionValue": [],
-        "category": [
+        "itemName": [
           {
             "_id": "66ab439e39e199c50ee4d153",
             "name": "Dokumentasi",
@@ -108,7 +108,7 @@
         "dataType": "File",
         "isRequired": false,
         "optionValue": [],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d154", "name": "Dokumen", "key": 601 }
         ],
         "status": true,
@@ -122,7 +122,7 @@
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["Jakarta", "Bandung", "Surabaya"],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d155", "name": "Lokasi", "key": 700 }
         ],
         "status": true,
@@ -136,7 +136,7 @@
         "dataType": "Number",
         "isRequired": false,
         "optionValue": ["1", "2", "3", "4", "5"],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d156", "name": "QC", "key": 800 }
         ],
         "status": true,
@@ -150,7 +150,7 @@
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["Vendor A", "Vendor B", "Vendor C"],
-        "category": [
+        "itemName": [
           { "_id": "66ab439e39e199c50ee4d157", "name": "Pemasok", "key": 900 }
         ],
         "status": true,

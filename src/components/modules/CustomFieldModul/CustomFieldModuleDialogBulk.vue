@@ -3,6 +3,13 @@ import { computed } from 'vue';
 import { ShowOptionBulk } from './CustomFieldHeader.vue';
 import { DialogConfirm } from '@fewangsit/wangsvue/';
 
+type OptionBulkType = {
+  header: string;
+  message: string;
+  severity: 'success' | 'danger' | 'primary';
+  confirmLabel: string;
+};
+
 const props = defineProps<{ listBulk?: string[] }>();
 
 const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {
@@ -10,7 +17,7 @@ const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {
 });
 const visible = defineModel<boolean>('visible', { required: true });
 
-const optionBulk = computed(() => {
+const optionBulk = computed<OptionBulkType>(() => {
   if (typeOptionBulk.value === 'activeBulk') {
     return {
       header: 'Activate Custom Field',

@@ -10,19 +10,19 @@ export interface GetCustomFieldParams extends QueryParams {
   status: boolean;
   dataType: string;
   isRequired: string;
-  category: string;
+  itemName: string;
 }
 
 export interface GetOptionsCustomFieldParams {
-  dataTypeOptions: string;
-  nameOptions: string;
+  dataTypeOptions?: boolean;
+  nameOptions?: boolean;
 }
-export interface CreateCustomFieldRequest {
+export interface CreateCustomFieldRequestBody {
   isRequired: boolean;
   type: string;
   name: string;
   dataType: string;
-  category: string[];
+  itemName: string[];
   optionValue: string[];
   isShowOnTable: boolean;
 }

@@ -7,7 +7,7 @@ import {
   TableCellComponent,
   TableColumn,
 } from '@fewangsit/wangsvue/datatable';
-import { CustomField, CustomFieldCategory } from '@/types/customField.type';
+import { CustomField, CustomFieldItemName } from '@/types/customField.type';
 import CustomFieldService from '@/components/services/customField.service';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
@@ -79,7 +79,7 @@ const tableColumns = computed<TableColumn[]>(() => {
       },
     },
     {
-      field: 'category',
+      field: 'itemName',
       header: 'Item Name',
       sortable: true,
       fixed: true,
@@ -87,7 +87,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         return {
           component: BadgeGroup,
           props: {
-            labels: data.category.map((c: CustomFieldCategory) => c.name),
+            labels: data.itemName.map((c: CustomFieldItemName) => c.name),
             limit: 2,
           } as BadgeGroupProps,
         };
@@ -127,7 +127,7 @@ const getTableData = async (
   />
   <CustomFieldModuleDialogForm
     v-model:visible="showCustomFieldEditDialog"
-    :id-edit="selectedCustomField?._id"
+    :custom-field-data="selectedCustomField"
   />
   <CustomFieldModuleDialogConfirm
     v-model:visible="showCustomFieldConfirmDialog"

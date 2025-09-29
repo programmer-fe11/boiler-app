@@ -1,4 +1,4 @@
-export interface CustomFieldCategory {
+export interface CustomFieldItemName {
   _id: string;
   name: string;
   key: number;
@@ -11,5 +11,5 @@ export interface CustomField {
   dataType: string;
   isRequired: boolean;
   optionValue: string[];
-  category: CustomFieldCategory[];
+  itemName: CustomFieldItemName[];
 }
