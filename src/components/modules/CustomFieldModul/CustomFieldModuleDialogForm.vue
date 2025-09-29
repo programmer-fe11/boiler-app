@@ -24,13 +24,19 @@ type CustomFieldOptions =
 const props = defineProps<{ idEdit?: string }>();
 const visible = defineModel<boolean>('visible', { required: true });
 
+// TODO: Ini kalau enggak dipake, dihapus aja. Ini ditambahin cuma kalau bakal dipake
 const dialogFormRef = useTemplateRef<DialogForm>('DialogForm');
 
 const radioButton = shallowRef<string>('no');
+// TODO: Rename ini jadi customFieldData
 const dataCustomFieldById = shallowRef<CustomField>();
 const allOptionsCustomField = shallowRef<CustomFieldOptions>();
 const dataType = shallowRef<string>();
 
+/*
+ * TODO: Rename jadi getCustomFieldOptions, kan ini enggak ambil semua option,
+ * tergantung paramnya ngambil options yang mana
+ */
 const getAllCustomFieldOptions = async (
   params: GetOptionsCustomFieldParams,
 ): Promise<void> => {
@@ -43,6 +49,7 @@ const getAllCustomFieldOptions = async (
   }
 };
 
+// TODO: Hapus function ini, data custom field diambil dari table
 const getDataEditCustomField = async (): Promise<void> => {
   try {
     const response = await CustomFieldService.getCustomFieldById(
@@ -74,6 +81,14 @@ watch(visible, () => {
 </script>
 
 <template>
+  <!--
+    TODO: Kayak yang pernah aku bilang, kalau mau taruh suatu kode untuk debugging
+   (misalnya yang di header ini), jangan lupa kasih komen TODO, biar Dayen enggak
+   lupa hapus kodenya. Misalnya:
+   TODO: The header should be deleted
+   (komentar dalam kode harus dalam bahasa Inggris, ini aku pake B Indo biar Dayen
+   gampang ngerti, tapi komentar lain bukan cuma satu orang yang bakal baca)
+  -->
   <DialogForm
     ref="dialogFormRef"
     v-model:visible="visible"
@@ -103,6 +118,7 @@ watch(visible, () => {
           use-validator
         />
 
+        <!-- TODO: Untuk dropdown sama multiselect, harusnya getAllCustomFieldOptions ada paramnya -->
         <Dropdown
           v-model="dataType"
           :initial-value="dataCustomFieldById?.dataType"

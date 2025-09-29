@@ -12,6 +12,7 @@ import CustomFieldModuleDialogForm from './CustomFieldModuleDialogForm.vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { CustomField } from '@/types/customField.type';
 import CustomFieldModuleDialogBulk from './CustomFieldModuleDialogBulk.vue';
+// TODO: Semua komentar harus dalam bahasa Inggris (liat komentarku di CustomFieldModuleDialogForm.vue, line 84)
 
 // Tipe untuk bulk action
 export type ShowOptionBulk = 'deleteBulk' | 'activeBulk' | 'inactiveBulk';
