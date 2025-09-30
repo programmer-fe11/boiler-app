@@ -7,7 +7,7 @@ export interface CustomFieldItemName {
 export interface CustomField {
   _id: string;
   name: string;
-  type: string; //this type should change be "global" | "spesific"
+  type: string; //this type should change to be "global" | "specific"
   dataType: string;
   isRequired: boolean;
   optionValue: string[];
