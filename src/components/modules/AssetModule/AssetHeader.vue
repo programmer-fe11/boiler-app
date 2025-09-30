@@ -10,7 +10,7 @@ import {
 } from '@fewangsit/wangsvue';
 
 import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
-import { filterFields } from './options/filterFields';
+import { filterFieldsAsset } from './options/filterFields';
 
 const showRegisterDialog = shallowRef<boolean>(false);
 </script>
@@ -29,7 +29,7 @@ const showRegisterDialog = shallowRef<boolean>(false);
     />
   </div>
   <FilterContainer
-    :fields="filterFields"
+    :fields="filterFieldsAsset"
     apply-text="Apply"
     table-name="asset-list"
   />

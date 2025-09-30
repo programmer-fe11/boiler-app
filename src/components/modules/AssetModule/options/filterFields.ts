@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AxiosResponse } from 'axios';
 import {
   FetchOptionResponse,
@@ -5,21 +6,30 @@ import {
 } from '@fewangsit/wangsvue/filtercontainer';
 import { GetOptionsAssetParams } from '@/components/dto/asset.dto';
 import AssetServices from '@/components/services/asset.service';
+import { Option } from '@fewangsit/wangsvue/dropdown';
+import CustomFieldService from '@/components/services/customField.service';
+import { GetOptionsCustomFieldParams } from '@/components/dto/customField.dto';
 
-const getAllOptions = async (
+const getAllOptionsAsset = async (
   params: GetOptionsAssetParams,
 ): Promise<AxiosResponse<FetchOptionResponse>> => {
   return await AssetServices.getAssetOptions(params);
 };
 
-export const filterFields: FilterField[] = [
+const getAllOptionsCustomField = async (
+  params: GetOptionsCustomFieldParams,
+): Promise<AxiosResponse<FetchOptionResponse>> => {
+  return await CustomFieldService.getCustomFieldOptions(params);
+};
+
+export const filterFieldsAsset: FilterField[] = [
   {
     label: 'Asset',
     field: 'name',
     optionField: 'nameOptions',
     type: 'multiselect',
     placeholder: 'Select asset name',
-    fetchOptionFn: getAllOptions,
+    fetchOptionFn: getAllOptionsAsset,
   },
   {
     label: 'Group',
@@ -27,7 +37,7 @@ export const filterFields: FilterField[] = [
     optionField: 'groupOptions',
     type: 'multiselect',
     placeholder: 'Select group',
-    fetchOptionFn: getAllOptions,
+    fetchOptionFn: getAllOptionsAsset,
   },
   {
     label: 'Brand',
@@ -35,7 +45,7 @@ export const filterFields: FilterField[] = [
     optionField: 'brandOptions',
     type: 'multiselect',
     placeholder: 'Select brand',
-    fetchOptionFn: getAllOptions,
+    fetchOptionFn: getAllOptionsAsset,
   },
   {
     label: 'Model/type',
@@ -43,6 +53,53 @@ export const filterFields: FilterField[] = [
     optionField: 'modelOptions',
     type: 'multiselect',
     placeholder: 'Select model/type',
-    fetchOptionFn: getAllOptions,
+    fetchOptionFn: getAllOptionsAsset,
+  },
+];
+
+export const filterFieldsCustomField: FilterField[] = [
+  {
+    label: 'Active',
+    field: 'status',
+    type: 'multiselect',
+    placeholder: 'Select status',
+    fetchOptionFn(): Option[] {
+      return [
+        {
+          label: 'Active',
+          value: true,
+        },
+        {
+          label: 'Inactive',
+          value: false,
+        },
+      ];
+    },
+  },
+  {
+    label: 'Data Type',
+    field: 'dataType',
+    type: 'multiselect',
+    placeholder: 'Select data type',
+    optionField: 'dataTypeOptions',
+    fetchOptionFn: getAllOptionsCustomField,
+  },
+  {
+    label: 'Required',
+    field: 'isRequired',
+    type: 'multiselect',
+    placeholder: 'Select requirement',
+    fetchOptionFn(): Option[] {
+      return [
+        {
+          label: 'Yes',
+          value: true,
+        },
+        {
+          label: 'No',
+          value: false,
+        },
+      ];
+    },
   },
 ];

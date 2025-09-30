@@ -9,8 +9,10 @@ import {
   GetCustomFieldParams,
   GetOptionsCustomFieldParams,
 } from '../dto/customField.dto';
+import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 
-type GetOptionsCustomFieldResponse = FetchResponse<GetOptionsCustomFieldParams>;
+type GetOptionsCustomFieldResponse =
+  FetchOptionResponse<GetOptionsCustomFieldParams>;
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
   const BASE_URL = getBaseURL();

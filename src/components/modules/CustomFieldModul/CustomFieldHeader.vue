@@ -6,12 +6,14 @@ import {
   ButtonFilter,
   ButtonSearch,
   Changelog,
+  FilterContainer,
 } from '@fewangsit/wangsvue';
 import { shallowRef, watch } from 'vue';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { CustomField } from '@/types/customField.type';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
+import { filterFieldsCustomField } from '../AssetModule/options/filterFields';
 
 export type ShowOptionBulk = 'deleteBulk' | 'activeBulk' | 'inactiveBulk';
 export type Item = { id: string; name: string };
@@ -73,7 +75,10 @@ watch(dataSelected, (newVal) => {
           file-name="Download custom-field-table"
           table-name="custom-field-list"
         />
-        <Changelog object="" />
+        <Changelog
+          header="Changelog: Custom Field > Global"
+          object="Repositori"
+        />
       </div>
       <Button
         @click="showCreateCustomFieldDialog = !showCreateCustomFieldDialog"
@@ -83,6 +88,12 @@ watch(dataSelected, (newVal) => {
       />
     </div>
   </div>
+  <FilterContainer
+    :fields="filterFieldsCustomField"
+    apply-text="Apply"
+    clear-field-text="Clear Field"
+    table-name="custom-field-list"
+  />
 
   <CustomFieldDialogBulkConfirm
     v-model:option-bulk="showBulkAction"

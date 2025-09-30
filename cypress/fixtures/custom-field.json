@@ -7,7 +7,7 @@
       {
         "_id": "677cf01180c7617698c352ca",
         "name": "Text",
-        "type": "General Information",
+        "type": "global",
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["test", "test2"],
@@ -30,7 +30,7 @@
       {
         "_id": "677cf02290c7617698c352cb",
         "name": "Dropdown Kategori",
-        "type": "Asset Information",
+        "type": "spesific",
         "dataType": "Dropdown",
         "isRequired": false,
         "optionValue": ["Laptop", "Monitor", "Keyboard"],
@@ -44,7 +44,7 @@
       {
         "_id": "677cf033a1c7617698c352cc",
         "name": "Tanggal Pembelian",
-        "type": "General Information",
+        "type": "global",
         "dataType": "Date",
         "isRequired": true,
         "optionValue": [],
@@ -58,7 +58,7 @@
       {
         "_id": "677cf044b2c7617698c352cd",
         "name": "Harga Barang",
-        "type": "Finance",
+        "type": "spesific",
         "dataType": "Number",
         "isRequired": false,
         "optionValue": [],
@@ -72,7 +72,7 @@
       {
         "_id": "677cf055c3c7617698c352ce",
         "name": "Status Aktif",
-        "type": "System Information",
+        "type": "global",
         "dataType": "Boolean",
         "isRequired": true,
         "optionValue": ["true", "false"],
@@ -86,7 +86,7 @@
       {
         "_id": "677cf066d4c7617698c352cf",
         "name": "Deskripsi",
-        "type": "General Information",
+        "type": "global",
         "dataType": "Textarea",
         "isRequired": false,
         "optionValue": [],
@@ -104,7 +104,7 @@
       {
         "_id": "677cf077e5c7617698c352d0",
         "name": "File Lampiran",
-        "type": "Document",
+        "type": "global",
         "dataType": "File",
         "isRequired": false,
         "optionValue": [],
@@ -118,7 +118,7 @@
       {
         "_id": "677cf088f6c7617698c352d1",
         "name": "Lokasi Gudang",
-        "type": "Logistic",
+        "type": "global",
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["Jakarta", "Bandung", "Surabaya"],
@@ -132,7 +132,7 @@
       {
         "_id": "677cf09907c7617698c352d2",
         "name": "Rating Kualitas",
-        "type": "Quality Check",
+        "type": "spesific",
         "dataType": "Number",
         "isRequired": false,
         "optionValue": ["1", "2", "3", "4", "5"],
@@ -146,7 +146,7 @@
       {
         "_id": "677cf0aa18c7617698c352d3",
         "name": "Nama Vendor",
-        "type": "Supplier",
+        "type": "spesific",
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["Vendor A", "Vendor B", "Vendor C"],

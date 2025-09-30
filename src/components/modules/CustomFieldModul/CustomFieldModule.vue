@@ -53,12 +53,12 @@ const tableColumns = computed<TableColumn[]>(() => {
       },
     },
     { field: 'name', header: 'Field Name', sortable: true, fixed: true },
-    { field: 'dataType', header: 'Data Type', sortable: true, fixed: true },
+    { field: 'dataType', header: 'Data Type', sortable: true, fixed: false },
     {
       field: 'optionValue',
       header: 'Value',
       sortable: true,
-      fixed: true,
+      fixed: false,
       bodyComponent: (data): TableCellComponent => {
         return {
           component: BadgeGroup,
@@ -73,7 +73,7 @@ const tableColumns = computed<TableColumn[]>(() => {
       field: 'isRequired',
       header: 'Required',
       sortable: true,
-      fixed: true,
+      fixed: false,
       bodyTemplate: (data): string => {
         return data.isRequired ? 'Yes' : 'No';
       },
@@ -82,7 +82,7 @@ const tableColumns = computed<TableColumn[]>(() => {
       field: 'itemName',
       header: 'Item Name',
       sortable: true,
-      fixed: true,
+      fixed: false,
       bodyComponent: (data): TableCellComponent => {
         return {
           component: BadgeGroup,
