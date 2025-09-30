@@ -9,6 +9,7 @@ import {
   ButtonRadio,
   DialogForm,
   Dropdown,
+  eventBus,
   InputBadge,
   InputText,
   MultiSelect,
@@ -71,6 +72,7 @@ const submitForm = async (
         customMessage: true,
       });
     }
+    eventBus.emit('data-table:update', { tableName: 'custom-field-list' });
   } catch (error) {
     toast.add({
       message: !props.customFieldData

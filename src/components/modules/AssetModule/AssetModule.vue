@@ -9,9 +9,9 @@ import {
 } from '@fewangsit/wangsvue/datatable';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { Asset } from '@/types/asset.type';
-import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
+import AssetTableFilter from './AssetTableFilter.vue';
 import AssetServices from '@/components/services/asset.service';
-import AssetModuleHeader from './AssetModuleHeader.vue';
+import AssetHeader from './AssetHeader.vue';
 import DialogRegisterEditAsset from './DialogRegisterEditAsset.vue';
 import { useRouter } from 'vue-router';
 import { BadgeProps } from '@fewangsit/wangsvue/badge';
@@ -129,8 +129,8 @@ const getTableData = async (
 </script>
 
 <template>
-  <AssetModuleHeader />
-  <AssetModuleTableFilter />
+  <AssetHeader />
+  <AssetTableFilter />
   <DataTable
     :columns="tableColumns"
     :fetch-function="getTableData"

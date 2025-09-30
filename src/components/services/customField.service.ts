@@ -5,6 +5,7 @@ import { CustomField } from '@/types/customField.type';
 import {
   ActivateInactivateCustomFieldBody,
   CreateCustomFieldRequestBody,
+  DeleteCustomFieldBody,
   GetCustomFieldParams,
   GetOptionsCustomFieldParams,
 } from '../dto/customField.dto';
@@ -64,6 +65,10 @@ const CustomFieldService = {
     body: ActivateInactivateCustomFieldBody,
   ): Promise<AxiosResponse> => {
     return API().put('/bulk', body);
+  },
+
+  deleteCustomField: (body: DeleteCustomFieldBody): Promise<AxiosResponse> => {
+    return API().delete('/bulk', { data: body });
   },
 };
 

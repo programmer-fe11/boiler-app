@@ -8,12 +8,13 @@ import {
   Changelog,
 } from '@fewangsit/wangsvue';
 import { shallowRef, watch } from 'vue';
-import CustomFieldModuleDialogForm from './CustomFieldModuleDialogForm.vue';
+import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { CustomField } from '@/types/customField.type';
-import CustomFieldModuleDialogBulk from './CustomFieldModuleDialogBulk.vue';
+import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 
 export type ShowOptionBulk = 'deleteBulk' | 'activeBulk' | 'inactiveBulk';
+export type Item = { id: string; name: string };
 
 const bulkAction: MenuItem[] = [
   {
@@ -44,14 +45,14 @@ const bulkAction: MenuItem[] = [
 ];
 
 const dataSelected = shallowRef<CustomField[]>([]);
-const listDataSelectedInBluk = shallowRef<string[]>([]);
+const listDataSelectedInBluk = shallowRef<Item[]>([]);
 const showBulkAction = shallowRef<ShowOptionBulk>();
 const showCreateCustomFieldDialog = shallowRef<boolean>(false);
 const showBulkActionCustomFieldDialog = shallowRef<boolean>(false);
 
 watch(dataSelected, (newVal) => {
   listDataSelectedInBluk.value = newVal.map((item) => {
-    return item.name;
+    return { id: item._id, name: item.name };
   });
 });
 </script>
@@ -83,11 +84,11 @@ watch(dataSelected, (newVal) => {
     </div>
   </div>
 
-  <CustomFieldModuleDialogBulk
+  <CustomFieldDialogBulkConfirm
     v-model:option-bulk="showBulkAction"
     v-model:visible="showBulkActionCustomFieldDialog"
     :list-bulk="listDataSelectedInBluk"
   />
 
-  <CustomFieldModuleDialogForm v-model:visible="showCreateCustomFieldDialog" />
+  <CustomFieldDialogForm v-model:visible="showCreateCustomFieldDialog" />
 </template>

@@ -28,6 +28,10 @@ export interface CreateCustomFieldRequestBody {
 }
 
 export interface ActivateInactivateCustomFieldBody {
-  customFieldIds: string[];
+  customFieldIds?: string[];
   status: boolean;
+}
+
+export interface DeleteCustomFieldBody {
+  customFieldIds?: string[];
 }

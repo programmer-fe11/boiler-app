@@ -13,8 +13,8 @@ import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
 import CustomFieldHeader from './CustomFieldHeader.vue';
 import { GetCustomFieldParams } from '@/components/dto/customField.dto';
-import CustomFieldModuleDialogForm from './CustomFieldModuleDialogForm.vue';
-import CustomFieldModuleDialogConfirm from './CustomFieldModuleDialogConfirm.vue';
+import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
+import CustomFieldDialogConfirm from './CustomFieldDialogConfirm.vue';
 
 const singleAction: MenuItem[] = [
   {
@@ -125,11 +125,12 @@ const getTableData = async (
     use-option
     use-paginator
   />
-  <CustomFieldModuleDialogForm
+  <CustomFieldDialogForm
     v-model:visible="showCustomFieldEditDialog"
     :custom-field-data="selectedCustomField"
   />
-  <CustomFieldModuleDialogConfirm
+  <CustomFieldDialogConfirm
     v-model:visible="showCustomFieldConfirmDialog"
+    :custom-field-data="selectedCustomField"
   />
 </template>
