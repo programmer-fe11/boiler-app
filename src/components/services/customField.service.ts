@@ -3,6 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { CustomField } from '@/types/customField.type';
 import {
+  ActivateInactivateCustomFieldBody,
   CreateCustomFieldRequestBody,
   GetCustomFieldParams,
   GetOptionsCustomFieldParams,
@@ -57,6 +58,12 @@ const CustomFieldService = {
     body: CreateCustomFieldRequestBody,
   ): Promise<AxiosResponse> => {
     return API().put(`/edit/${id}`, body);
+  },
+
+  editStatusByBulk: (
+    body: ActivateInactivateCustomFieldBody,
+  ): Promise<AxiosResponse> => {
+    return API().put('/bulk', body);
   },
 };
 

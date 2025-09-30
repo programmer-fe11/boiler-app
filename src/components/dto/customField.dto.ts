@@ -26,3 +26,8 @@ export interface CreateCustomFieldRequestBody {
   optionValue: string[];
   isShowOnTable: boolean;
 }
+
+export interface ActivateInactivateCustomFieldBody {
+  customFieldIds: string[];
+  status: boolean;
+}

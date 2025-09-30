@@ -13,6 +13,7 @@ describe('/customfield', () => {
 
     cy.intercept('POST', '**/v2/custom-field*', { statusCode: 200 });
     cy.intercept('PUT', '**/v2/custom-field/edit/*', { statusCode: 200 });
+    cy.intercept('PUT', '**/v2/custom-field/bulk', { statusCode: 200 });
   });
 
   it('test', () => {
