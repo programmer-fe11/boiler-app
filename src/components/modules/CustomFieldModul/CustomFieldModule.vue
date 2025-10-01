@@ -16,6 +16,12 @@ import { GetCustomFieldParams } from '@/components/dto/customField.dto';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import CustomFieldDialogConfirm from './CustomFieldDialogConfirm.vue';
 
+const props = defineModel<{ type: 'specific' | 'global' }>();
+
+const typeShowData = defineModel<'specific' | 'global'>('typeShowData', {
+  required: true,
+});
+
 const singleAction: MenuItem[] = [
   {
     label: 'Edit',

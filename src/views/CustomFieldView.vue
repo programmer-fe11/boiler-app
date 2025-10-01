@@ -15,11 +15,11 @@ const { setBreadcrumbs } = useBreadcrumbStore();
 const tabMenus = ref<MenuItem[]>([
   {
     label: 'Global',
-    route: 'custom-field',
+    route: '/custom-field/global',
   },
   {
     label: 'Spesific',
-    route: 'custom-field-specific',
+    route: '/custom-field/specific',
   },
 ]);
 

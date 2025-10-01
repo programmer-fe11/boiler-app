@@ -30,7 +30,7 @@
       {
         "_id": "677cf02290c7617698c352cb",
         "name": "Dropdown Kategori",
-        "type": "spesific",
+        "type": "specific",
         "dataType": "Dropdown",
         "isRequired": false,
         "optionValue": ["Laptop", "Monitor", "Keyboard"],
@@ -58,7 +58,7 @@
       {
         "_id": "677cf044b2c7617698c352cd",
         "name": "Harga Barang",
-        "type": "spesific",
+        "type": "specific",
         "dataType": "Number",
         "isRequired": false,
         "optionValue": [],
@@ -132,7 +132,7 @@
       {
         "_id": "677cf09907c7617698c352d2",
         "name": "Rating Kualitas",
-        "type": "spesific",
+        "type": "specific",
         "dataType": "Number",
         "isRequired": false,
         "optionValue": ["1", "2", "3", "4", "5"],
@@ -146,7 +146,7 @@
       {
         "_id": "677cf0aa18c7617698c352d3",
         "name": "Nama Vendor",
-        "type": "spesific",
+        "type": "specific",
         "dataType": "Text",
         "isRequired": true,
         "optionValue": ["Vendor A", "Vendor B", "Vendor C"],

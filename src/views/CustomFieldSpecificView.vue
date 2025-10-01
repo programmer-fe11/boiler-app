@@ -4,6 +4,7 @@ import { BreadcrumbMenu } from '@fewangsit/wangsvue/breadcrumb';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { TabMenu } from '@fewangsit/wangsvue';
 import { onMounted, ref } from 'vue';
+import CustomFieldModule from '@/components/modules/CustomFieldModul/CustomFieldModule.vue';
 
 onMounted(() => {
   setBreadcrumbs(menus);
@@ -14,11 +15,11 @@ const { setBreadcrumbs } = useBreadcrumbStore();
 const tabMenus = ref<MenuItem[]>([
   {
     label: 'Global',
-    route: 'custom-field',
+    route: '/custom-field/global',
   },
   {
-    label: 'Spesicic',
-    route: 'custom-field-specific',
+    label: 'Spesific',
+    route: '/custom-field/specific',
   },
 ]);
 
@@ -37,4 +38,5 @@ const menus: BreadcrumbMenu[] = [
 
 <template>
   <TabMenu :menu="tabMenus" />
+  <CustomFieldModule />
 </template>

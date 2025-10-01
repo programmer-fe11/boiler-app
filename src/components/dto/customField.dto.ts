@@ -19,7 +19,7 @@ export interface GetOptionsCustomFieldParams {
 }
 export interface CreateCustomFieldRequestBody {
   isRequired: boolean;
-  type: string;
+  type: 'global' | 'specific';
   name: string;
   dataType: string;
   itemName: string[];
