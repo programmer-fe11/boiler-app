@@ -15,7 +15,12 @@ import { CustomField } from '@/types/customField.type';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 import { filterFieldsCustomField } from '../AssetModule/options/filterFields';
 
+/*
+ * TODO: Type dalam file vue enggak boleh ada yang diexport,
+ * kalau mau diexport, pindahin dulu ke file *.type.ts
+ */
 export type ShowOptionBulk = 'deleteBulk' | 'activeBulk' | 'inactiveBulk';
+// TODO: Type ini dihapus, pakai type CustomField aja
 export type Item = { id: string; name: string };
 
 const bulkAction: MenuItem[] = [

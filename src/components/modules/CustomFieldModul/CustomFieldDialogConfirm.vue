@@ -1,3 +1,8 @@
+<!--
+  TODO: File ini dihapus, pakai CustomFieldDialogBulkConfirm aja untuk single action.
+  Nama file itu diubah jadi CustomFieldDialogConfirm.
+  Ini untuk ngurangin duplikasi kode.
+-->
 <script setup lang="ts">
 import CustomFieldService from '@/components/services/customField.service';
 import { CustomField } from '@/types/customField.type';
@@ -40,6 +45,10 @@ const confirmDeleteCustomField = async (): Promise<void> => {
 </script>
 
 <template>
+  <!--
+    TODO: Untuk 'list' harusnya antara ada array atau undefined.
+    Kalau sekarang, jadi seakan2 masih ada objek yang perlu diprint di list.
+-->
   <DialogConfirm
     v-model:visible="visible"
     :list="[props.customFieldData?.name ? props.customFieldData?.name : {}]"

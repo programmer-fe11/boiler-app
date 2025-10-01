@@ -21,6 +21,10 @@ const visible = defineModel<boolean>('visible', { required: true });
 const toast = useToast();
 
 const optionBulk = computed<OptionBulkType>(() => {
+  /*
+   * TODO: Ganti 'if' jadi 'switch'
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
+   */
   if (typeOptionBulk.value === 'activeBulk') {
     return {
       header: 'Activate Custom Field',
@@ -47,6 +51,10 @@ const optionBulk = computed<OptionBulkType>(() => {
 const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
   try {
     const ids = props.listBulk?.map((item) => item.id);
+    /*
+     * TODO: Untuk active sama inactive kan sama2 pake editStatusByBulk,
+     * bisa digabung jadi pake satu editStatusByBulk aja
+     */
     if (typeOptionBulk.value === 'activeBulk') {
       await CustomFieldService.editStatusByBulk({
         customFieldIds: ids,
@@ -80,6 +88,7 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
       tableName: 'custom-field-list',
     });
   } catch (error) {
+    // TODO: Ini kan beda toastnya cuma di message, harusnya ini digabung jadi satu toast.add
     if (typeOptionBulk.value === 'activeBulk') {
       toast.add({
         message:
