@@ -27,7 +27,7 @@ const routes: Readonly<RouteRecordRaw[]> = [
             path: 'global',
             name: 'CustomFieldGlobalView',
             component: (): Promise<Component> =>
-              import('@/views/CustomFieldView.vue'),
+              import('@/views/CustomFieldGlobalView.vue'),
           },
           {
             path: 'specific',

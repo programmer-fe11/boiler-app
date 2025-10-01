@@ -8,20 +8,12 @@ import {
   Changelog,
   FilterContainer,
 } from '@fewangsit/wangsvue';
-import { shallowRef, watch } from 'vue';
+import { shallowRef, computed } from 'vue';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
-import { CustomField } from '@/types/customField.type';
+import { CustomField, ShowOptionBulk } from '@/types/customField.type';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
-import { filterFieldsCustomField } from '../AssetModule/options/filterFields';
-
-/*
- * TODO: Type dalam file vue enggak boleh ada yang diexport,
- * kalau mau diexport, pindahin dulu ke file *.type.ts
- */
-export type ShowOptionBulk = 'deleteBulk' | 'activeBulk' | 'inactiveBulk';
-// TODO: Type ini dihapus, pakai type CustomField aja
-export type Item = { id: string; name: string };
+import { filterFieldsCustomField } from './options/filterFields';
 
 const bulkAction: MenuItem[] = [
   {
@@ -52,16 +44,18 @@ const bulkAction: MenuItem[] = [
 ];
 
 const dataSelected = shallowRef<CustomField[]>([]);
-const listDataSelectedInBluk = shallowRef<Item[]>([]);
 const showBulkAction = shallowRef<ShowOptionBulk>();
 const showCreateCustomFieldDialog = shallowRef<boolean>(false);
 const showBulkActionCustomFieldDialog = shallowRef<boolean>(false);
 
-watch(dataSelected, (newVal) => {
-  listDataSelectedInBluk.value = newVal.map((item) => {
-    return { id: item._id, name: item.name };
-  });
-});
+// ✅ Gunakan computed untuk transformasi data, bukan watch
+const minimalDataSelected = computed(
+  () =>
+    dataSelected.value.map((item) => ({
+      _id: item._id,
+      name: item.name,
+    })) as CustomField[],
+);
 </script>
 
 <template>
@@ -93,6 +87,7 @@ watch(dataSelected, (newVal) => {
       />
     </div>
   </div>
+
   <FilterContainer
     :fields="filterFieldsCustomField"
     apply-text="Apply"
@@ -100,10 +95,11 @@ watch(dataSelected, (newVal) => {
     table-name="custom-field-list"
   />
 
+  <!-- ✅ gunakan minimalDataSelected hasil computed -->
   <CustomFieldDialogBulkConfirm
     v-model:option-bulk="showBulkAction"
     v-model:visible="showBulkActionCustomFieldDialog"
-    :list-bulk="listDataSelectedInBluk"
+    :list-bulk="minimalDataSelected"
   />
 
   <CustomFieldDialogForm v-model:visible="showCreateCustomFieldDialog" />

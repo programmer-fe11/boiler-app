@@ -14,13 +14,7 @@ import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
 import CustomFieldHeader from './CustomFieldHeader.vue';
 import { GetCustomFieldParams } from '@/components/dto/customField.dto';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
-import CustomFieldDialogConfirm from './CustomFieldDialogConfirm.vue';
-
-const props = defineModel<{ type: 'specific' | 'global' }>();
-
-const typeShowData = defineModel<'specific' | 'global'>('typeShowData', {
-  required: true,
-});
+import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 
 const singleAction: MenuItem[] = [
   {
@@ -135,8 +129,15 @@ const getTableData = async (
     v-model:visible="showCustomFieldEditDialog"
     :custom-field-data="selectedCustomField"
   />
-  <CustomFieldDialogConfirm
+  <!--
+ <CustomFieldDialogConfirm
     v-model:visible="showCustomFieldConfirmDialog"
     :custom-field-data="selectedCustomField"
+  /> 
+-->
+  <CustomFieldDialogBulkConfirm
+    v-model:visible="showCustomFieldConfirmDialog"
+    :list-bulk="selectedCustomField ? [selectedCustomField] : undefined"
+    option-bulk="deleteBulk"
   />
 </template>

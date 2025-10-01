@@ -1,7 +1,3 @@
-<!--
-  TODO: Nama file ini diubah jadi CustomFieldGlobalView,
-  kan file ini nampilin breadcrumb yang global
--->
 <script setup lang="ts">
 import { useBreadcrumbStore } from '@/store';
 import { BreadcrumbMenu } from '@fewangsit/wangsvue/breadcrumb';
