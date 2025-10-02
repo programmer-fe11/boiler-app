@@ -18,7 +18,7 @@ const tabMenus = ref<MenuItem[]>([
     route: '/custom-field/global',
   },
   {
-    label: 'Spesific',
+    label: 'Specific',
     route: '/custom-field/specific',
   },
 ]);

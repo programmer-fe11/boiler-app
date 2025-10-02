@@ -19,7 +19,7 @@ type OptionBulkType = {
 const props = defineProps<{ listBulk?: CustomField[] }>();
 
 const emit = defineEmits<{
-  (e: 'cancelForm'): void;
+  cancelForm: [];
 }>();
 
 const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {

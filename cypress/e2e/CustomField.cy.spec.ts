@@ -18,13 +18,30 @@ describe('/customfield', () => {
     cy.intercept('PUT', '**/v2/custom-field/edit/*', { statusCode: 200 });
     cy.intercept('PUT', '**/v2/custom-field/bulk', { statusCode: 200 });
     cy.intercept('DELETE', '**/v2/custom-field/bulk', { statusCode: 200 });
+
+    cy.visit('/custom-field', {
+      onBeforeLoad(win) {
+        cy.spy(win.console, 'error').as('consoleError');
+      },
+    });
   });
 
-  it('test', () => {
-    cy.visit('/custom-field');
-  });
   it('should have breadcrumb', () => {
-    cy.visit('/custom-field/global');
-    cy.visit('/custom-field/specific');
+    cy.getByName('breadcrumb').within(() => {
+      cy.contains('Global');
+    });
+  });
+
+  it.only('testing all router', () => {
+    cy.get('[role="menubar"]')
+      .should('exist')
+      .within(() => {
+        cy.contains('a', 'Specific').click();
+      });
+    cy.get('[role="menubar"]')
+      .should('exist')
+      .within(() => {
+        cy.contains('a', 'Global').click();
+      });
   });
 });
