@@ -23,4 +23,8 @@ describe('/customfield', () => {
   it('test', () => {
     cy.visit('/custom-field');
   });
+  it('should have breadcrumb', () => {
+    cy.visit('/custom-field/global');
+    cy.visit('/custom-field/specific');
+  });
 });

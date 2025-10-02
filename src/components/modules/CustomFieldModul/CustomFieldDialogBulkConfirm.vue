@@ -18,6 +18,10 @@ type OptionBulkType = {
 
 const props = defineProps<{ listBulk?: CustomField[] }>();
 
+const emit = defineEmits<{
+  (e: 'cancelForm'): void;
+}>();
+
 const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {
   required: true,
 });
@@ -114,6 +118,7 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
       props.listBulk ? props.listBulk?.map((item) => item.name) : undefined
     "
     :severity="optionBulk.severity"
+    @close="emit('cancelForm')"
     @confirm="confirmEditStatusCustomFieldByBulk"
     close-label="Cancel"
   >

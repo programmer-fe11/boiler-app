@@ -7,7 +7,11 @@ import {
   TableCellComponent,
   TableColumn,
 } from '@fewangsit/wangsvue/datatable';
-import { CustomField, CustomFieldItemName } from '@/types/customField.type';
+import {
+  CustomField,
+  CustomFieldItemName,
+  ShowOptionBulk,
+} from '@/types/customField.type';
 import CustomFieldService from '@/components/services/customField.service';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
@@ -21,6 +25,9 @@ import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 import { InjectKeyForm } from './injections';
 
 const props = defineProps<{ typeModule: TypeParamsBody }>();
+
+const optionAct = shallowRef<ShowOptionBulk>();
+const revertAct = shallowRef<(() => void) | undefined>();
 
 const singleAction: MenuItem[] = [
   {
@@ -36,6 +43,7 @@ const singleAction: MenuItem[] = [
     danger: true,
     command: (): void => {
       showCustomFieldConfirmDialog.value = true;
+      optionAct.value = 'deleteBulk';
     },
   },
 ];
@@ -55,8 +63,15 @@ const tableColumns = computed<TableColumn[]>(() => {
       fixed: true,
       preset: {
         type: 'toggle',
-        onToggle: (e: boolean, data): void => {
+        onToggle: (e: boolean, data, revert): void => {
           data.status = e;
+          showCustomFieldConfirmDialog.value = true;
+          revertAct.value = revert;
+          if (data.status) {
+            optionAct.value = 'activeBulk';
+          } else {
+            optionAct.value = 'inactiveBulk';
+          }
         },
       },
     },
@@ -104,6 +119,13 @@ const tableColumns = computed<TableColumn[]>(() => {
   ];
 });
 
+const handleCancel = (): void => {
+  if (revertAct.value) {
+    revertAct.value();
+    revertAct.value = undefined;
+  }
+};
+
 const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<CustomField> | undefined> => {
@@ -143,6 +165,7 @@ const getTableData = async (
   <CustomFieldDialogBulkConfirm
     v-model:visible="showCustomFieldConfirmDialog"
     :list-bulk="selectedCustomField ? [selectedCustomField] : undefined"
-    option-bulk="deleteBulk"
+    :option-bulk="optionAct"
+    @cancel-form="handleCancel"
   />
 </template>

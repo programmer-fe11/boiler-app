@@ -6,6 +6,7 @@ const { breadcrumbs } = useBreadcrumbStore();
 </script>
 
 <template>
+  Test
   <Breadcrumb :menus="breadcrumbs" />
   <Card>
     <template #content>
