@@ -104,7 +104,6 @@ watch(visible, () => {
 });
 </script>
 
-<!-- eslint-disable vue/prefer-true-attribute-shorthand -->
 <template>
   <DialogForm
     v-model:visible="visible"
@@ -158,8 +157,8 @@ watch(visible, () => {
         <div class="flex justify-between">
           <span class="font-semibold leading-4 text-xs">Required?</span>
           <div class="flex gap-3">
-            <ButtonRadio v-model="radioButton" :value="true" label="Yes" />
-            <ButtonRadio v-model="radioButton" :value="false" label="No" />
+            <ButtonRadio v-model="radioButton" :value="1" binary label="Yes" />
+            <ButtonRadio v-model="radioButton" :value="0" binary label="No" />
           </div>
         </div>
         <MultiSelect
