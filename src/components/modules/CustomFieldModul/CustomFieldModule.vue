@@ -66,6 +66,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         onToggle: (e: boolean, data, revert): void => {
           data.status = e;
           showCustomFieldConfirmDialog.value = true;
+          selectedCustomField.value = data;
           revertAct.value = revert;
           if (data.status) {
             optionAct.value = 'activeBulk';
