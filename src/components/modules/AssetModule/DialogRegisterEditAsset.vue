@@ -176,7 +176,6 @@ const submitForm = async (
           placeholder="Select asset name"
           use-validator
         />
-        <!-- :validator-message="{ }" -->
         <InputText
           :value="dataById?.aliasName"
           field-info="You can input an alias name for convenience in searching for

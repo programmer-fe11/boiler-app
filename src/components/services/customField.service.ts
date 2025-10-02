@@ -4,10 +4,11 @@ import { FetchResponse } from '@fewangsit/wangsvue/datatable';
 import { CustomField } from '@/types/customField.type';
 import {
   ActivateInactivateCustomFieldBody,
-  CreateCustomFieldRequestBody,
+  PostPutCustomFieldRequestBody,
   DeleteCustomFieldBody,
   GetCustomFieldParams,
   GetOptionsCustomFieldParams,
+  TypeParamsBody,
 } from '../dto/customField.dto';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
 
@@ -34,8 +35,9 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 const CustomFieldService = {
   getAllCustomField: (
     params: GetCustomFieldParams,
+    type: TypeParamsBody,
   ): Promise<AxiosResponse<FetchResponse<CustomField>>> => {
-    return API({ params }).get('');
+    return API({ params: { ...params, type } }).get('');
   },
 
   getCustomFieldOptions: (
@@ -51,16 +53,18 @@ const CustomFieldService = {
   },
 
   postCustomField: (
-    body: CreateCustomFieldRequestBody,
+    body: PostPutCustomFieldRequestBody,
+    type: TypeParamsBody,
   ): Promise<AxiosResponse> => {
-    return API().post('', body);
+    return API().post('', { ...body, type });
   },
 
   editCustomField: (
     id: string,
-    body: CreateCustomFieldRequestBody,
+    body: PostPutCustomFieldRequestBody,
+    type: TypeParamsBody,
   ): Promise<AxiosResponse> => {
-    return API().put(`/edit/${id}`, body);
+    return API().put(`/edit/${id}`, { ...body, type });
   },
 
   editStatusByBulk: (

@@ -38,5 +38,5 @@ const menus: BreadcrumbMenu[] = [
 
 <template>
   <TabMenu :menu="tabMenus" />
-  <CustomFieldModule />
+  <CustomFieldModule type-module="specific" />
 </template>

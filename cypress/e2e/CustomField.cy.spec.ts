@@ -1,8 +1,11 @@
 describe('/customfield', () => {
   beforeEach(() => {
-    cy.intercept('GET', '**/v2/custom-field*', { fixture: 'custom-field' }).as(
-      'getAllCustomField',
-    );
+    cy.intercept('GET', '**/v2/custom-field**type=specific', {
+      fixture: 'custom-field-specific',
+    }).as('getAllCustomFieldSpecific');
+    cy.intercept('GET', '**/v2/custom-field**type=global', {
+      fixture: 'custom-field-global',
+    }).as('getAllCustomFieldGlobal');
 
     cy.intercept('GET', '**/v2/custom-field/options*', {
       fixture: 'options-custom-field',

@@ -66,7 +66,6 @@ const getDataById = async (): Promise<Asset | undefined> => {
     <div class="flex gap-6">
       <Image :src="dataById?.assetImage" />
       <div class="flex flex-col gap-2">
-        <!-- priority font-semibold -->
         <h3 class="!font-semibold text-sm leading-[22px]">
           General Information
         </h3>

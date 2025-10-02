@@ -12,9 +12,14 @@ import CustomFieldService from '@/components/services/customField.service';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { BadgeGroupProps } from '@fewangsit/wangsvue/badgegroup';
 import CustomFieldHeader from './CustomFieldHeader.vue';
-import { GetCustomFieldParams } from '@/components/dto/customField.dto';
+import {
+  GetCustomFieldParams,
+  TypeParamsBody,
+} from '@/components/dto/customField.dto';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
+
+const props = defineProps<{ typeModule: TypeParamsBody }>();
 
 const singleAction: MenuItem[] = [
   {
@@ -102,6 +107,7 @@ const getTableData = async (
   try {
     const { data } = await CustomFieldService.getAllCustomField(
       params as GetCustomFieldParams,
+      props.typeModule,
     );
     return data;
   } catch (error) {
@@ -111,7 +117,7 @@ const getTableData = async (
 </script>
 
 <template>
-  <CustomFieldHeader />
+  <CustomFieldHeader :type-header="props.typeModule" />
   <DataTable
     :columns="tableColumns"
     :fetch-function="getTableData"
@@ -128,13 +134,9 @@ const getTableData = async (
   <CustomFieldDialogForm
     v-model:visible="showCustomFieldEditDialog"
     :custom-field-data="selectedCustomField"
+    :type-form="props.typeModule"
   />
-  <!--
- <CustomFieldDialogConfirm
-    v-model:visible="showCustomFieldConfirmDialog"
-    :custom-field-data="selectedCustomField"
-  /> 
--->
+
   <CustomFieldDialogBulkConfirm
     v-model:visible="showCustomFieldConfirmDialog"
     :list-bulk="selectedCustomField ? [selectedCustomField] : undefined"

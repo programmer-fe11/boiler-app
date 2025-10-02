@@ -1,0 +1,65 @@
+{
+  "status": 200,
+  "message": "Success get specific custom fields",
+  "data": {
+    "totalRecords": 4,
+    "data": [
+      {
+        "_id": "677cf02290c7617698c352cb",
+        "name": "Dropdown Kategori",
+        "type": "specific",
+        "dataType": "Dropdown",
+        "isRequired": false,
+        "optionValue": ["Laptop", "Monitor", "Keyboard"],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d149", "name": "Perangkat", "key": 305 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T10:15:22.111Z",
+        "isRequiredString": "No"
+      },
+      {
+        "_id": "677cf044b2c7617698c352cd",
+        "name": "Harga Barang",
+        "type": "specific",
+        "dataType": "Number",
+        "isRequired": false,
+        "optionValue": [],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d151", "name": "Transaksi", "key": 401 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T12:25:44.700Z",
+        "isRequiredString": "No"
+      },
+      {
+        "_id": "677cf09907c7617698c352d2",
+        "name": "Rating Kualitas",
+        "type": "specific",
+        "dataType": "Number",
+        "isRequired": false,
+        "optionValue": ["1", "2", "3", "4", "5"],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d156", "name": "QC", "key": 800 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T16:10:55.300Z",
+        "isRequiredString": "No"
+      },
+      {
+        "_id": "677cf0aa18c7617698c352d3",
+        "name": "Nama Vendor",
+        "type": "specific",
+        "dataType": "Text",
+        "isRequired": true,
+        "optionValue": ["Vendor A", "Vendor B", "Vendor C"],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d157", "name": "Pemasok", "key": 900 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T16:55:20.000Z",
+        "isRequiredString": "Yes"
+      }
+    ]
+  }
+}

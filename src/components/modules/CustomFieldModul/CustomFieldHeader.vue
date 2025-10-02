@@ -8,12 +8,15 @@ import {
   Changelog,
   FilterContainer,
 } from '@fewangsit/wangsvue';
-import { shallowRef, computed } from 'vue';
+import { shallowRef } from 'vue';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { CustomField, ShowOptionBulk } from '@/types/customField.type';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 import { filterFieldsCustomField } from './options/filterFields';
+import { TypeParamsBody } from '@/components/dto/customField.dto';
+
+const props = defineProps<{ typeHeader: TypeParamsBody }>();
 
 const bulkAction: MenuItem[] = [
   {
@@ -47,15 +50,6 @@ const dataSelected = shallowRef<CustomField[]>([]);
 const showBulkAction = shallowRef<ShowOptionBulk>();
 const showCreateCustomFieldDialog = shallowRef<boolean>(false);
 const showBulkActionCustomFieldDialog = shallowRef<boolean>(false);
-
-// ✅ Gunakan computed untuk transformasi data, bukan watch
-const minimalDataSelected = computed(
-  () =>
-    dataSelected.value.map((item) => ({
-      _id: item._id,
-      name: item.name,
-    })) as CustomField[],
-);
 </script>
 
 <template>
@@ -95,12 +89,14 @@ const minimalDataSelected = computed(
     table-name="custom-field-list"
   />
 
-  <!-- ✅ gunakan minimalDataSelected hasil computed -->
   <CustomFieldDialogBulkConfirm
     v-model:option-bulk="showBulkAction"
     v-model:visible="showBulkActionCustomFieldDialog"
-    :list-bulk="minimalDataSelected"
+    :list-bulk="dataSelected"
   />
 
-  <CustomFieldDialogForm v-model:visible="showCreateCustomFieldDialog" />
+  <CustomFieldDialogForm
+    v-model:visible="showCreateCustomFieldDialog"
+    :type-form="props.typeHeader"
+  />
 </template>

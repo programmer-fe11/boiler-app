@@ -1,0 +1,106 @@
+{
+  "status": 200,
+  "message": "Success get global custom fields",
+  "data": {
+    "totalRecords": 6,
+    "data": [
+      {
+        "_id": "677cf01180c7617698c352ca",
+        "name": "Text",
+        "type": "global",
+        "dataType": "Text",
+        "isRequired": true,
+        "optionValue": ["test", "test2"],
+        "itemName": [
+          {
+            "_id": "66909fb666803935c8990279",
+            "name": "Alat Testing",
+            "key": 283
+          },
+          {
+            "_id": "66ab439e39e199c50ee4d148",
+            "name": "Kebersihan",
+            "key": 304
+          }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T09:12:49.362Z",
+        "isRequiredString": "Yes"
+      },
+      {
+        "_id": "677cf033a1c7617698c352cc",
+        "name": "Tanggal Pembelian",
+        "type": "global",
+        "dataType": "Date",
+        "isRequired": true,
+        "optionValue": [],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d150", "name": "Keuangan", "key": 400 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T11:20:10.500Z",
+        "isRequiredString": "Yes"
+      },
+      {
+        "_id": "677cf055c3c7617698c352ce",
+        "name": "Status Aktif",
+        "type": "global",
+        "dataType": "Boolean",
+        "isRequired": true,
+        "optionValue": ["true", "false"],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d152", "name": "Sistem", "key": 500 }
+        ],
+        "status": false,
+        "createdAt": "2025-01-07T13:30:30.900Z",
+        "isRequiredString": "Yes"
+      },
+      {
+        "_id": "677cf066d4c7617698c352cf",
+        "name": "Deskripsi",
+        "type": "global",
+        "dataType": "Textarea",
+        "isRequired": false,
+        "optionValue": [],
+        "itemName": [
+          {
+            "_id": "66ab439e39e199c50ee4d153",
+            "name": "Dokumentasi",
+            "key": 600
+          }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T14:40:01.200Z",
+        "isRequiredString": "No"
+      },
+      {
+        "_id": "677cf077e5c7617698c352d0",
+        "name": "File Lampiran",
+        "type": "global",
+        "dataType": "File",
+        "isRequired": false,
+        "optionValue": [],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d154", "name": "Dokumen", "key": 601 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T15:00:45.800Z",
+        "isRequiredString": "No"
+      },
+      {
+        "_id": "677cf088f6c7617698c352d1",
+        "name": "Lokasi Gudang",
+        "type": "global",
+        "dataType": "Text",
+        "isRequired": true,
+        "optionValue": ["Jakarta", "Bandung", "Surabaya"],
+        "itemName": [
+          { "_id": "66ab439e39e199c50ee4d155", "name": "Lokasi", "key": 700 }
+        ],
+        "status": true,
+        "createdAt": "2025-01-07T15:35:12.400Z",
+        "isRequiredString": "Yes"
+      }
+    ]
+  }
+}

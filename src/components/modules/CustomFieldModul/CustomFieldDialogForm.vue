@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {
-  CreateCustomFieldRequestBody,
+  PostPutCustomFieldRequestBody,
   GetOptionsCustomFieldParams,
+  TypeParamsBody,
 } from '@/components/dto/customField.dto';
 import CustomFieldService from '@/components/services/customField.service';
 import { CustomField } from '@/types/customField.type';
@@ -22,7 +23,10 @@ import { shallowRef, watch } from 'vue';
 type CustomFieldOptions =
   FetchOptionResponse<GetOptionsCustomFieldParams>['data'];
 
-const props = defineProps<{ customFieldData?: CustomField }>();
+const props = defineProps<{
+  customFieldData?: CustomField;
+  typeForm: TypeParamsBody;
+}>();
 const visible = defineModel<boolean>('visible', { required: true });
 
 const toast = useToast();
@@ -46,11 +50,11 @@ const getCustomFieldOptions = async (
 };
 
 const submitForm = async (
-  body: DialogFormPayload<CreateCustomFieldRequestBody>,
+  body: DialogFormPayload<PostPutCustomFieldRequestBody>,
 ): Promise<void> => {
   try {
     if (!props.customFieldData) {
-      await CustomFieldService.postCustomField(body.formValues);
+      await CustomFieldService.postCustomField(body.formValues, props.typeForm);
       if (body.stayAfterSubmit) {
         visible.value = true;
         dataType.value = undefined;
@@ -65,6 +69,7 @@ const submitForm = async (
       await CustomFieldService.editCustomField(
         props.customFieldData._id,
         body.formValues,
+        props.typeForm,
       );
       toast.add({
         message: 'Success, custom field has been edited.',
