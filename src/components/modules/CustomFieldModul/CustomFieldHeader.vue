@@ -33,7 +33,7 @@ const bulkAction: MenuItem[] = [
     },
   },
   {
-    label: 'Delete User',
+    label: 'Delete',
     icon: 'delete-bin',
     danger: true,
     command: (): void => {

@@ -117,9 +117,9 @@ watch(visible, () => {
     :header="
       props.customFieldData ? `Edit Custom Field` : `Create Custom Field `
     "
+    :show-stay-checkbox="props.customFieldData ? false : true"
     @show="showDialog"
     @submit="submitForm"
-    show-stay-checkbox
     stay-checkbox-label="Stay on this form after submitting"
   >
     <template #fields>
@@ -148,12 +148,12 @@ watch(visible, () => {
           mandatory
           option-label="label"
           option-value="value"
+          placeholder="Select data type"
         />
         <InputBadge
           v-if="dataType || customFieldData?.dataType"
           :initial-value="customFieldData?.optionValue"
           field-info="Press enter to add new value"
-          field-name="models"
           label="Value"
           mandatory
           remove-button-variant="disabled"
@@ -173,9 +173,11 @@ watch(visible, () => {
           @show="getCustomFieldOptions({ nameOptions: true })"
           field-info="Custom fields will be applied to each item 
           SKU under the selected item name."
+          field-name="itemName"
           label="Item Name"
           option-label="label"
           option-value="value"
+          placeholder="Select item name"
         />
       </div>
     </template>
