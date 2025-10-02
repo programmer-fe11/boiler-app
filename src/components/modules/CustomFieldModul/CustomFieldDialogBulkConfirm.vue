@@ -113,29 +113,33 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
     :list="
       props.listBulk ? props.listBulk?.map((item) => item.name) : undefined
     "
-    :message="optionBulk.message"
     :severity="optionBulk.severity"
     @confirm="confirmEditStatusCustomFieldByBulk"
     close-label="Cancel"
   >
     <template #body>
-      <Checkbox
-        v-if="typeOptionBulk !== 'activeBulk'"
-        :label="
-          typeOptionBulk === 'deleteBulk'
-            ? 'Remove data has already been entered'
-            : 'Hide data that has already been entered'
-        "
-        :tooltip="
-          typeOptionBulk === 'deleteBulk'
-            ? `If you uncheck, data that you have been entered 
+      <div class="flex flex-col gap-3">
+        <Checkbox
+          v-if="typeOptionBulk !== 'activeBulk'"
+          :label="
+            typeOptionBulk === 'deleteBulk'
+              ? 'Remove data has already been entered'
+              : 'Hide data that has already been entered'
+          "
+          :tooltip="
+            typeOptionBulk === 'deleteBulk'
+              ? `If you uncheck, data that you have been entered 
         will not be removed in the item and 
         stock detail.`
-            : `If you uncheck, data that you have been 
+              : `If you uncheck, data that you have been 
             entered will not be hidden in the item and stock 
             detail.`
-        "
-      />
+          "
+        />
+        <span class="font-normal leading-[18px] text-xs">
+          {{ optionBulk.message }}
+        </span>
+      </div>
     </template>
   </DialogConfirm>
 </template>

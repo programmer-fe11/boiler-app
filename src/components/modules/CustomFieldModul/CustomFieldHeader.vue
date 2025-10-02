@@ -14,9 +14,6 @@ import { MenuItem } from '@fewangsit/wangsvue/menuitem';
 import { CustomField, ShowOptionBulk } from '@/types/customField.type';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
 import { filterFieldsCustomField } from './options/filterFields';
-import { TypeParamsBody } from '@/components/dto/customField.dto';
-
-const props = defineProps<{ typeHeader: TypeParamsBody }>();
 
 const bulkAction: MenuItem[] = [
   {
@@ -95,8 +92,5 @@ const showBulkActionCustomFieldDialog = shallowRef<boolean>(false);
     :list-bulk="dataSelected"
   />
 
-  <CustomFieldDialogForm
-    v-model:visible="showCreateCustomFieldDialog"
-    :type-form="props.typeHeader"
-  />
+  <CustomFieldDialogForm v-model:visible="showCreateCustomFieldDialog" />
 </template>

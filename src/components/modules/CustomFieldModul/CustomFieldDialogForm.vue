@@ -18,18 +18,21 @@ import {
 } from '@fewangsit/wangsvue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/dialogform';
 import { FetchOptionResponse } from '@fewangsit/wangsvue/filtercontainer';
-import { shallowRef, watch } from 'vue';
+import { inject, shallowRef, watch } from 'vue';
+import { InjectKeyForm } from './injections';
 
 type CustomFieldOptions =
   FetchOptionResponse<GetOptionsCustomFieldParams>['data'];
 
 const props = defineProps<{
   customFieldData?: CustomField;
-  typeForm: TypeParamsBody;
 }>();
+
 const visible = defineModel<boolean>('visible', { required: true });
 
 const toast = useToast();
+
+const typeForm = inject(InjectKeyForm, 'global');
 
 const radioButton = shallowRef<boolean>(false);
 const optionsCustomField = shallowRef<CustomFieldOptions>();
@@ -54,7 +57,10 @@ const submitForm = async (
 ): Promise<void> => {
   try {
     if (!props.customFieldData) {
-      await CustomFieldService.postCustomField(body.formValues, props.typeForm);
+      await CustomFieldService.postCustomField(
+        body.formValues,
+        typeForm as TypeParamsBody,
+      );
       if (body.stayAfterSubmit) {
         visible.value = true;
         dataType.value = undefined;
@@ -69,7 +75,7 @@ const submitForm = async (
       await CustomFieldService.editCustomField(
         props.customFieldData._id,
         body.formValues,
-        props.typeForm,
+        typeForm as TypeParamsBody,
       );
       toast.add({
         message: 'Success, custom field has been edited.',

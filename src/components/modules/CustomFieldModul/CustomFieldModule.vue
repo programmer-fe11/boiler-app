@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
+import { computed, provide, shallowRef } from 'vue';
 import { BadgeGroup, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
@@ -18,6 +18,7 @@ import {
 } from '@/components/dto/customField.dto';
 import CustomFieldDialogForm from './CustomFieldDialogForm.vue';
 import CustomFieldDialogBulkConfirm from './CustomFieldDialogBulkConfirm.vue';
+import { InjectKeyForm } from './injections';
 
 const props = defineProps<{ typeModule: TypeParamsBody }>();
 
@@ -38,6 +39,8 @@ const singleAction: MenuItem[] = [
     },
   },
 ];
+
+provide(InjectKeyForm, props.typeModule);
 
 const showCustomFieldEditDialog = shallowRef<boolean>(false);
 const showCustomFieldConfirmDialog = shallowRef<boolean>(false);
