@@ -28,7 +28,6 @@ describe('/asset', () => {
   it('should handle error on main page (getAllAsset)', () => {
     cy.intercept('GET', '**/v2/asset*', {
       statusCode: 400,
-      body: { message: 'Bad request' },
     }).as('getAllAssetError');
 
     cy.wait('@getAllAssetError');
@@ -38,7 +37,6 @@ describe('/asset', () => {
   it('should handle error on detail asset', () => {
     cy.intercept('GET', '**/v2/assets/detail/*', {
       statusCode: 400,
-      body: { message: 'Asset not found' },
     }).as('getDetailError');
 
     cy.wait('@getAllAsset');
@@ -54,7 +52,6 @@ describe('/asset', () => {
   it('should handle error on register asset when submit form', () => {
     cy.intercept('POST', '**/v2/assets*', {
       statusCode: 400,
-      body: { message: 'Bad Request / asset not found' },
     }).as('postAssetError');
 
     cy.get('[aria-label="Register"]').click();
@@ -71,7 +68,6 @@ describe('/asset', () => {
   it('should handle error on form dialog when open get option dropdown (getAllOptions)', () => {
     cy.intercept('GET', '**/v2/assets/options*', {
       statusCode: 400,
-      body: { message: 'Bad Request' },
     }).as('getOptionsError');
 
     cy.get('[aria-label="Register"]').click();
@@ -87,7 +83,6 @@ describe('/asset', () => {
   it('should handle error on edit form when open dialog edit (getDataById)', () => {
     cy.intercept('GET', '**/v2/assets/detail/*', {
       statusCode: 400,
-      body: { message: 'Bad Request' },
     }).as('getDetailError');
 
     cy.wait('@getAllAsset');
@@ -103,7 +98,6 @@ describe('/asset', () => {
   it('should handle error on edit asset when submit form', () => {
     cy.intercept('PUT', '**/v2/assets/*', {
       statusCode: 400,
-      body: { message: 'Bad Request' },
     }).as('editAssetError');
 
     cy.wait('@getAllAsset');

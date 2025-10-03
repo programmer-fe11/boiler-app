@@ -46,12 +46,6 @@ const CustomFieldService = {
     return API({ params }).get('/options');
   },
 
-  getCustomFieldById: (
-    id: string,
-  ): Promise<AxiosResponse<FetchResponse<CustomField>>> => {
-    return API().get(`/edit/${id}`);
-  },
-
   postCustomField: (
     body: PostPutCustomFieldRequestBody,
     type: TypeParamsBody,

@@ -16,21 +16,21 @@ type OptionBulkType = {
   confirmLabel: string;
 };
 
-const props = defineProps<{ listBulk?: CustomField[] }>();
+const props = defineProps<{
+  listBulk?: CustomField[];
+  optionBulk?: ShowOptionBulk;
+}>();
 
 const emit = defineEmits<{
   cancelForm: [];
 }>();
 
-const typeOptionBulk = defineModel<ShowOptionBulk | undefined>('optionBulk', {
-  required: true,
-});
 const visible = defineModel<boolean>('visible', { required: true });
 
 const toast = useToast();
 
 const optionBulk = computed<OptionBulkType>(() => {
-  switch (typeOptionBulk.value) {
+  switch (props.optionBulk) {
     case 'activeBulk': {
       return {
         header: 'Activate Custom Field',
@@ -62,7 +62,7 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
   try {
     const ids = props.listBulk?.map((item) => item._id);
 
-    if (typeOptionBulk.value === 'deleteBulk') {
+    if (props.optionBulk === 'deleteBulk') {
       await CustomFieldService.deleteCustomField({ customFieldIds: ids });
       toast.add({
         message: 'Success, custom field has been deleted.',
@@ -70,7 +70,7 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
         severity: 'success',
       });
     } else {
-      const isActive = typeOptionBulk.value === 'activeBulk';
+      const isActive = props.optionBulk === 'activeBulk';
       await CustomFieldService.editStatusByBulk({
         status: isActive,
         customFieldIds: ids,
@@ -90,7 +90,7 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
     });
   } catch (error) {
     let message = 'delete';
-    switch (typeOptionBulk.value) {
+    switch (props.optionBulk) {
       case 'activeBulk':
         message = 'activate';
         break;
@@ -125,14 +125,14 @@ const confirmEditStatusCustomFieldByBulk = async (): Promise<void> => {
     <template #body>
       <div class="flex flex-col gap-3">
         <Checkbox
-          v-if="typeOptionBulk !== 'activeBulk'"
+          v-if="props.optionBulk !== 'activeBulk'"
           :label="
-            typeOptionBulk === 'deleteBulk'
+            props.optionBulk === 'deleteBulk'
               ? 'Remove data has already been entered'
               : 'Hide data that has already been entered'
           "
           :tooltip="
-            typeOptionBulk === 'deleteBulk'
+            props.optionBulk === 'deleteBulk'
               ? `If you uncheck, data that you have been entered 
         will not be removed in the item and 
         stock detail.`

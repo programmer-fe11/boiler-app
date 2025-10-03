@@ -87,9 +87,9 @@ const showBulkActionCustomFieldDialog = shallowRef<boolean>(false);
   />
 
   <CustomFieldDialogBulkConfirm
-    v-model:option-bulk="showBulkAction"
     v-model:visible="showBulkActionCustomFieldDialog"
     :list-bulk="dataSelected"
+    :option-bulk="showBulkAction"
   />
 
   <CustomFieldDialogForm v-model:visible="showCreateCustomFieldDialog" />
