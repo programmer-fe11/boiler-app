@@ -1,0 +1,14 @@
+{
+  "status": 200,
+  "message": "Login success",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "_id": "67890abcdef1234567890",
+      "name": "John Doe",
+      "email": "user@example.com",
+      "role": "admin",
+      "lastLogin": "2025-10-03T09:15:22.000Z"
+    }
+  }
+}

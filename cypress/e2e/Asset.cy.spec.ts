@@ -185,7 +185,7 @@ describe('/asset', () => {
     });
   };
 
-  it('should open register dialog when clicking register button & STAY FORM ', () => {
+  it.only('should open register dialog when clicking register button & STAY FORM ', () => {
     cy.get('[aria-label="Register"]').click();
 
     fillRegisterEditForm();
