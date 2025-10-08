@@ -14,6 +14,7 @@
     "cy:test-all": "microtsm e2e --headless"
   },
   "dependencies": {
+    "@appinternal/karyawan-api-services": "1.0.20-alpha.1",
     "@fewangsit/wangsvue": "1.5.219-alpha.4",
     "@fewangsit/wangsvue-presets": "1.0.99-alpha.1",
     "@fewangsit/workspace-api-services": "1.0.18-alpha.1",
